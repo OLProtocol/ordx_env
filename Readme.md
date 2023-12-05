@@ -1,3 +1,13 @@
+# This will install bitcoind and bitcoin-cli:
+
+```shell
+$ brew install bitcoin
+```
+# This is how you install Bitcoin Core (MacOS app with UI):
+```shell
+$ brew install --cask bitcoin-core
+```
+
 ### 铭刻操作
 
 1 start bitcoin service for regtest
