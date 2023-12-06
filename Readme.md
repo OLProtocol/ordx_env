@@ -58,6 +58,13 @@ curl --user jacky:123456 --data-binary '{"jsonrpc": "1.0", "id": "curltest", "me
 2 生成ord索引
 ord  --wallet test  --data-dir ./ordData --bitcoin-data-dir ./ --bitcoin-rpc-pass 123456 --bitcoin-rpc-user jacky --chain regtest wallet balance
 
+控制台
+validateaddress [address] ## 返回该地址的公钥
+dumpprivkey [address] 取传统地址私钥
+listdescriptors
+getdescriptorinfo
+deriveaddresses
+getindexinfo
 
 3 铸造铭文
 
