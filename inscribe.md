@@ -8,12 +8,9 @@ bitcoind -server -rpcuser=jacky -rpcpassword=123456 -chain=regtest -datadir=./ -
 
 #
 ord --wallet test --bitcoin-data-dir ./ --chain regtest wallet create
-ord --wallet test --bitcoin-rpc-pass 123456 --bitcoin-rpc-user jacky --chain regtest wallet create
 ord --wallet test --bitcoin-data-dir ./ --chain regtest wallet receive
 bitcoin-cli -datadir=./ -chain=regtest generatetoaddress 1 bcrt1paw9uuerpcaz7telg6amcfrz7c408h9hgrf5pgzhutx4ut3pcvkfs28hd38
 ord --wallet test --bitcoin-data-dir ./ --data-dir ./ --chain regtest  wallet balance
-ord --wallet test --bitcoin-data-dir ./ --data-dir ./ --chain regtest --bitcoin-rpc-pass 123456 --bitcoin-rpc-user jacky  wallet balance
-
 ord --wallet test --bitcoin-data-dir ./ --chain regtest --data-dir ./ wallet transactions
 ord --wallet test --bitcoin-data-dir ./ --chain regtest --data-dir ./ wallet inscribe --file ./ord.md --fee-rate 8
 
@@ -22,3 +19,15 @@ ord --wallet test --bitcoin-data-dir ./ --chain regtest --data-dir ./ server
 bitcoin-cli -datadir=./ -chain=regtest generatetoaddress 1 bcrt1prvv9a4ag7hk5836d6nt5sgqu6fxuu9sftsrf7ffyrknm20ms3syq6dnczv
 
 bitcoin-cli -datadir=./ -chain=regtest  getbalance
+
+#
+cd <bitcoin_data>
+rm -rf regtest
+bitcoind -server -rpcuser=jacky -rpcpassword=123456 -chain=regtest -datadir=./ -txindex
+ord --wallet test --bitcoin-rpc-pass 123456 --bitcoin-rpc-user jacky --chain regtest wallet create
+ord --wallet test --bitcoin-rpc-pass 123456 --bitcoin-rpc-user jacky --chain regtest wallet receive
+bitcoin-cli -rpcwallet=test -rpcuser=jacky  -rpcpassword=123456 --chain=regtest generatetoaddress 101 bcrt1pyk0mkqwmx35tr2596nmf8shpa3f0hwyfhj7w8nnnsqu46s0ssdrqvh74ah
+# 
+ord --wallet test --bitcoin-rpc-pass 123456 --bitcoin-rpc-user jacky --chain regtest --data-dir ./ wallet balance
+ord --wallet test --bitcoin-rpc-pass 123456 --bitcoin-rpc-user jacky --chain regtest wallet transactions
+ord --wallet --bitcoin-rpc-pass 123456 --bitcoin-rpc-user jacky --chain regtest  --data-dir ./ inscribe --file ./ord.md --fee-rate 8
