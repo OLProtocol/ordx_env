@@ -26,8 +26,9 @@ rm -rf regtest
 bitcoind -server -rpcuser=jacky -rpcpassword=123456 -chain=regtest -datadir=./ -txindex
 ord --wallet test --bitcoin-rpc-pass 123456 --bitcoin-rpc-user jacky --chain regtest wallet create
 ord --wallet test --bitcoin-rpc-pass 123456 --bitcoin-rpc-user jacky --chain regtest wallet receive
-bitcoin-cli -rpcwallet=test -rpcuser=jacky  -rpcpassword=123456 --chain=regtest generatetoaddress 101 bcrt1pyk0mkqwmx35tr2596nmf8shpa3f0hwyfhj7w8nnnsqu46s0ssdrqvh74ah
-# 
+bitcoin-cli -rpcwallet=test -rpcuser=jacky  -rpcpassword=123456 --chain=regtest generatetoaddress 1 bcrt1p0h5jgf3k9ljtfhu3c4ax5zudrtw3ewwva0hm0085agzn4phuxcusxp2swl
+#
 ord --wallet test --bitcoin-rpc-pass 123456 --bitcoin-rpc-user jacky --chain regtest --data-dir ./ wallet balance
 ord --wallet test --bitcoin-rpc-pass 123456 --bitcoin-rpc-user jacky --chain regtest wallet transactions
-ord --wallet --bitcoin-rpc-pass 123456 --bitcoin-rpc-user jacky --chain regtest  --data-dir ./ inscribe --file ./ord.md --fee-rate 8
+ord --wallet test --bitcoin-rpc-pass 123456 --bitcoin-rpc-user jacky --chain regtest --data-dir ./ wallet inscribe --file ./ord.md --fee-rate 8
+ord --wallet test --bitcoin-rpc-pass 123456 --bitcoin-rpc-user jacky --chain regtest --data-dir ./  server --enable-json-api
