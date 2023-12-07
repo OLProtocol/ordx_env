@@ -23,6 +23,7 @@ bitcoin-cli -datadir=./ -chain=regtest  getbalance
 #
 cd <bitcoin_data>
 rm -rf regtest
+# bitcoind -server -datadir=./ -chain=signet -conf=./bitcoin.conf
 bitcoind -server -rpcuser=jacky -rpcpassword=123456 -chain=regtest -datadir=./ -txindex
 ord --wallet test --bitcoin-rpc-pass 123456 --bitcoin-rpc-user jacky --chain regtest wallet create
 ord --wallet test --bitcoin-rpc-pass 123456 --bitcoin-rpc-user jacky --chain regtest wallet receive
