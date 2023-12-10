@@ -46,3 +46,9 @@ bitcoin-cli -rpcwallet=ord -rpccookiefile=/var/lib/bitcoind/regtest/.cookie -dat
 ord --bitcoin-data-dir /var/lib/bitcoind --cookie-file /var/lib/bitcoind/regtest/.cookie --data-dir /var/lib/ord --chain regtest wallet inscribe --file ./test.md --fee-rate 8
 bitcoin-cli -rpcwallet=ord -rpccookiefile=/var/lib/bitcoind/regtest/.cookie -datadir=/var/lib/bitcoind -chain=regtest generatetoaddress 1 bcrt1p4t4gvt63xhmmkt6c760enyqw0j3wteqpw8uezwrw0d7rf6tw5p2s0n37s9
 ord --bitcoin-data-dir /var/lib/bitcoind --cookie-file /var/lib/bitcoind/regtest/.cookie --data-dir /var/lib/ord --chain regtest server --enable-json-api --http
+
+bitcoind -server -chain=regtest -datadir=./ -txindex
+ord --bitcoin-data-dir ./ --cookie-file ./regtest/.cookie --data-dir ./ --chain regtest wallet create
+ord --bitcoin-data-dir ./ --cookie-file ./regtest/.cookie --data-dir ./ --chain regtest wallet receive
+ord --bitcoin-data-dir ./ --cookie-file ./regtest/.cookie --data-dir ./ --chain regtest wallet balance
+bitcoin-cli -rpcwallet=ord -rpccookiefile=./regtest/.cookie -datadir=./ -chain=regtest getblockchaininfo 
