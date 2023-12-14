@@ -5,7 +5,7 @@
 script_path=$(cd "$(dirname "$0")" && pwd)
 "$script_path"/bitcoin/install.sh
 
-"$script_path"/bitcoin/regtest/service.sh
+"$script_path"/bitcoin/regtest/service.sh node1 node2
 
 pid=$(ps aux | grep mint.sh | awk 'NR==2 {print $2}')
 if [[ $pid =~ ^[0-9]+$ ]]; then
