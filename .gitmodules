@@ -1,0 +1,6 @@
+[submodule "esplora"]
+	path = esplora
+	url = https://github.com/Blockstream/esplora
+[submodule "electors"]
+	path = electors
+	url = https://github.com/blockstream/electrs
