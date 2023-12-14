@@ -1,9 +1,13 @@
 # client
-## install Bitcoin Core (MacOS app with UI), as Bitcoin-Qt
+## install Bitcoin Core (MacOS app with UI): Bitcoin-Qt (option)
 ```shell
 wget https://bitcoin.org/bin/bitcoin-core-25.0/bitcoin-25.0-x86_64-apple-darwin.dmg
 open ./bitcoin-25.0-x86_64-apple-darwin.dmg
 ```
+
+## install Sparrow
+weg https://github.com/sparrowwallet/sparrow/releases/download/1.8.1/Sparrow-1.8.1-x86_64.dmg
+open ./Sparrow-1.8.1-x86_64.dmg
 
 ## bitcoin: bitcoind bitcoin-cli bitcoin-tx bitcoin-util bitcoin-wallet 
 ```shell
@@ -23,23 +27,6 @@ open 7.2.3.tar.gz
 ```shell
 brew install postgrest
 ```
-
-
-# server
-## bitcoind for regtest
-```shell
-wget \
-  -O bitcoin.tar.gz \
-  https://bitcoincore.org/bin/bitcoin-core-$version/bitcoin-$version-x86_64-linux-gnu.tar.gz
-
-tar \
-  -xzvf bitcoin.tar.gz \
-  -C /usr/local/bin \
-  --strip-components 2 \
-  bitcoin-$version/bin/{bitcoin-cli,bitcoind}
-
-bitcoind -conf=/etc/bitcoin/bitcoin.conf  
-
 
 
 ```
