@@ -1,11 +1,17 @@
 #!/bin/bash
 
 echo "stop all"
+script_path=$(cd "$(dirname "$0")" && pwd)
+pids=$(ps aux | grep "$script_path"/bitcoin/regtest/mint.sh | awk '{print $2}')
+echo "mint pids: $pids"
 
-pid=$(ps aux | grep mint.sh | awk 'NR==2 {print $2}')
-if [[ $pid =~ ^[0-9]+$ ]]; then
-    kill -9 $pid
-fi
-pkill dev-server
-pkill electrs
-pkill bitcoind
+for pid in $pids; do
+    kill $pid 2>/dev/null
+    if [ $? -ne 0 ]; then
+        echo "Failed to kill mint.sh process with PID $pid"
+    fi
+done
+
+sudo pkill dev-server
+sudo pkill electrs
+sudo pkill bitcoind

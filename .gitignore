@@ -1,5 +1,4 @@
 # mac
 .DS_Store
-./electors/data
 electorsData
-nohup.out
+log

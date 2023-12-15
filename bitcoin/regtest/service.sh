@@ -1,4 +1,5 @@
 #!/bin/bash
+# set -x
 
 if [ $# -eq 0 ]; then
     echo "Please provide a parameter: node1 or node2"
@@ -7,7 +8,7 @@ fi
 
 if pgrep bitcoind >/dev/null; then
     echo "Terminating existing bitcoind processes..."
-    pkill bitcoind
+    sudo pkill bitcoind
 fi
 
 # node1
@@ -20,9 +21,26 @@ if [ "$1" == "node1" ] || [ "$2" == "node1" ]; then
         mkdir -p "$node1DataPath"
     fi
     bitcoind -conf="$node1Path/bitcoin.conf" -rpccookiefile="$node1CookiePath" -datadir="$node1DataPath"
-    sleep 1
+    wait $!
+    if [ $? -ne 0 ]; then
+        echo "node1 bitconid start failed"
+        exit 1
+    fi
+    
+    
     echo "create node1 wallet test"
     param="-chain=regtest -rpccookiefile=$node1CookiePath -datadir=$node1Path"
+    while true; do
+        output=$(bitcoin-cli $param getbestblockhash)
+        if [ -n "$output" ]; then
+            echo "node1 bitcoind success, output: $output"
+            break
+        else
+            echo "node1 bitcoind failure, retrying in 1 second..."
+            sleep 1
+        fi
+    done
+    
     bitcoin-cli $param createwallet test 2> /dev/null
     if [ $? -ne 0 ]; then
         echo "node1 wallet exists, load wallet"
@@ -47,10 +65,26 @@ if [ "$1" == "node2" ] || [ "$2" == "node2" ]; then
         mkdir -p "$node2DataPath"
     fi
     bitcoind -conf="$node2Path/bitcoin.conf" -datadir="$node2DataPath"
-    sleep 1
+    wait $!
+    if [ $? -ne 0 ]; then
+        echo "node2 bitconid start failed"
+        exit 1
+    fi
     echo "create node2 wallet test"
     param="-chain=regtest -rpcuser=jacky -rpcpassword=123456 -rpcport=28443"
-    bitcoin-cli $param createwallet test # 2> /dev/null
+    
+    while true; do
+        output=$(bitcoin-cli $param getbestblockhash)
+        if [ -n "$output" ]; then
+            echo "node2 bitcoind success, output: $output"
+            break
+        else
+            echo "node2 bitcoind failure, retrying in 1 second..."
+            sleep 1
+        fi
+    done
+    
+    bitcoin-cli $param createwallet test 2> /dev/null
     if [ $? -ne 0 ]; then
         echo "node2 wallet exists, load wallet"
         bitcoin-cli $param loadwallet test
