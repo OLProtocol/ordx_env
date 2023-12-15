@@ -5,6 +5,12 @@ wget https://bitcoin.org/bin/bitcoin-core-25.0/bitcoin-25.0-x86_64-apple-darwin.
 open ./bitcoin-25.0-x86_64-apple-darwin.dmg
 ```
 
+## install python3
+```shell
+brew install python3
+
+```
+
 ## install Sparrow
 weg https://github.com/sparrowwallet/sparrow/releases/download/1.8.1/Sparrow-1.8.1-x86_64.dmg
 open ./Sparrow-1.8.1-x86_64.dmg
@@ -26,9 +32,6 @@ open 7.2.3.tar.gz
 
 ```shell
 brew install postgrest
-```
-
-
 ```
 ## install postgresql
 ```shell
