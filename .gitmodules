@@ -4,3 +4,6 @@
 [submodule "electors"]
 	path = electors
 	url = https://github.com/blockstream/electrs
+[submodule "ord"]
+	path = ord
+	url = https://github.com/ordinals/ord
