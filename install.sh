@@ -22,7 +22,6 @@ else
     python --version
     sudo apt install python3-pip
     python -m pip install pip
-    source ~/.zshrc
     pip3 --version
 fi
 
