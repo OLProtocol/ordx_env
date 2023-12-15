@@ -94,7 +94,7 @@ if [ ! -d "$script_path/log" ]; then
     mkdir -p "$script_path/log"
 fi
 electorLog="$script_path/log/elector.log"
-nohup $script_path/electors/target/release/electrs -vvvv --db-dir $$script_path/electorsData --daemon-dir $script_path/bitcoin/regtest/node1/data --network regtest --cors "*" >> $electorLog 2>&1 &
+nohup $script_path/electors/target/release/electrs -vvvv --db-dir $script_path/electorsData --daemon-dir $script_path/bitcoin/regtest/node1/data --network regtest --cors "*" >> $electorLog 2>&1 &
 
 
 echo "start electrs and test http://localhost:3002/blocks/tip/height:"
@@ -106,6 +106,6 @@ export API_URL=http://localhost:3002/
 esploraLog="$script_path/log/esplora.log"
 nohup npm run dev-server >> $esploraLog 2>&1 &
 
-
-
+# ord
+"$script_path"/ord.sh
 
