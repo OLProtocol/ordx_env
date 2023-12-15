@@ -25,17 +25,6 @@ else
     pip3 --version
 fi
 
-# nodejs
-if command -v nvm &> /dev/null
-then
-    echo "nvm is already installed"
-else
-    curl -o- https://raw.githubusercontent.com/nvm-sh/nvm/v0.39.1/install.sh | bash
-    #nvm list
-    nvm install 16.13.0
-    nvm use 16
-fi
-
 # rust: dependencies: ord, electors
 if command -v rustc &> /dev/null
 then
@@ -59,9 +48,12 @@ else
     cargo install mdbook
 fi
 
-# electors
+# electrs
 if [ ! -f "$script_path/electors/target/release/electrs" ]; then
     cd $script_path/electors && git checkout new-index && cargo build --release
+    cp "$script_path/electors/target/release/electrs" /usr/local/bin/electrs
+else 
+    echo "electrs already copy to bin"
 fi
 
 # ord
@@ -69,4 +61,7 @@ ordBin="$script_path/ord/target/release/ord"
 if [ ! -f "$ordBin" ]; then
     sudo apt-get install libssl-dev
     cd ord && cargo build --release
+    cp "$script_path/ord/target/release/ord" /usr/local/bin/ord
+else 
+    echo "ord already copy to bin"
 fi
