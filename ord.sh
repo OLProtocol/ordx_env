@@ -15,12 +15,6 @@ if pgrep -x $ordBin >/dev/null; then
     sudo pkill -x ord
 fi
 
-if [ ! -f "$ordBin" ]; then
-    sudo apt-get install libssl-dev
-    cd ord && cargo build --release
-    
-fi
-
 if [ ! -d "$ordDataPath" ]; then
     mkdir -p "$ordDataPath"
 fi
@@ -53,7 +47,5 @@ else
 fi
 
 ordLog="$script_path/log/ord.log"
-
 "$ordBin" --wallet ord --chain regtest --bitcoin-data-dir "$bitcoinNode1Path" --data-dir "$ordDataPath" server --enable-json-api --http >> "$ordLog" 2>&1 &
-
 echo "ord service starting..."
