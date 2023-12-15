@@ -48,7 +48,7 @@ then
     echo "nvm is already installed"
 else
     curl -o- https://raw.githubusercontent.com/nvm-sh/nvm/v0.39.1/install.sh | bash
-    nvm list
+    #nvm list
     nvm install 16.13.0
     nvm use 16
 fi
