@@ -44,3 +44,9 @@ sudo -i -u postgres
 
 ## install redis
 sudo apt install redis redis-client
+
+
+## virtual box
+```shell
+sudo apt-get install virtualbox-guest-utils
+```
