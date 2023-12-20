@@ -18,7 +18,7 @@ open ./Sparrow-1.8.1-x86_64.dmg
 # URL: 192.168.1.106 User/Pass: jacky/123456
 open /Applications/Sparrow.app --args -n regtest
 
-## bitcoin: bitcoind bitcoin-cli bitcoin-tx bitcoin-util bitcoin-wallet 
+## install bitcoin: bitcoind bitcoin-cli bitcoin-tx bitcoin-util bitcoin-wallet 
 ```shell
 brew install bitcoin
 brew install redis-cli
@@ -95,3 +95,8 @@ sudo apt install redis redis-client
 ```shell
 sudo apt-get install virtualbox-guest-utils
 ```
+
+
+## log bitcoind
+tail -f /media/sf_bitcoin/testnet3/debug.log
+tail -f /media/sf_bitcoin/main/debug.log
