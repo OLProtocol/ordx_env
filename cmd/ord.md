@@ -26,7 +26,7 @@ bitcoin-cli -rpcwallet=ord -chain=regtest -rpcuser=jacky -rpcpassword=123456 -rp
 #12
 ord --wallet ord --chain regtest --bitcoin-rpc-user jacky --bitcoin-rpc-pass 123456 --rpc-url 192.168.1.106:28443 --data-dir ./ wallet inscribe --file ./test.txt --fee-rate 25
 
-ord --chain testnet --cookie-file /media/sf_bitcoin/testnet3/.cookie --bitcoin-data-dir /media/sf_bitcoin/testnet3 --rpc-url 192.168.1.106:38443 --data-dir /media/sf_ordindex/testnet/ index update
+ord --chain testnet --cookie-file /media/sf_bitcoin/testnet3/.cookie --bitcoin-data-dir /media/sf_bitcoin/testnet3 --rpc-url 192.168.1.106:38443 --data-dir /media/sf_ordindex/ index update
 
 
 #9
