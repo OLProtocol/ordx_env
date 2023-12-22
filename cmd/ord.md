@@ -29,6 +29,9 @@ ord --wallet ord --chain regtest --bitcoin-rpc-user jacky --bitcoin-rpc-pass 123
 ord --chain mainnet --rpc-url 192.168.1.100:8332 --data-dir /media/sf_ordindex/mainnet --bitcoin-rpc-user jacky --bitcoin-rpc-pass 123456 index update
 
 ord --chain testnet --rpc-url 192.168.1.106:38443 --data-dir /media/sf_ordindex --cookie-file /media/sf_bitcoin/main/.cookie --bitcoin-data-dir /media/sf_bitcoin/main index update
+
+/data/btcnet_env/ord/target/release/ord --chain testnet --rpc-url 192.168.1.100:38443 --data-dir /media/sf_ordindex --bitcoin-rpc-user jacky --bitcoin-rpc-pass 123456 index update
+
 #9
 ord --wallet ord --chain regtest  --cookie-file /root/btcnet_env/bitcoin/regtest/node1/data/regtest/.cookie --data-dir ./ wallet inscribe --file ./ord.md --fee-rate 25
 ```
