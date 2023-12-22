@@ -98,5 +98,16 @@ sudo apt-get install virtualbox-guest-utils
 
 
 ## log bitcoind
+```shell
 tail -f /media/sf_bitcoin/testnet3/debug.log
 tail -f /media/sf_bitcoin/main/debug.log
+```
+
+## remote channel for deml
+## https://medium.com/botfuel/how-to-expose-a-local-development-server-to-the-internet-c31532d741cc
+```shell
+vi /etc/ssh/sshd_config
+AllowTcpForwarding yes
+GatewayPorts yes
+ssh -nN -R 8888:localhost:80 xx@xxx.xxx.xxx.xxx
+```
