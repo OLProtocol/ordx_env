@@ -8,10 +8,26 @@ open ./bitcoin-25.0-x86_64-apple-darwin.dmg
 ## install python3
 ```shell
 brew install python3
+echo '[[ -d $PYENV_ROOT/bin ]] && export PATH="$PYENV_ROOT/bin:$PATH"' >> ~/.zshrc
+echo 'eval "$(pyenv init -)"' >> ~/.zshrc
 ```
 
 ```shell
-brew install python3
+curl https://pyenv.run | bash
+echo 'export PYENV_ROOT="$HOME/.pyenv"' >> ~/.bashrc
+echo 'command -v pyenv >/dev/null || export PATH="$PYENV_ROOT/bin:$PATH"' >> ~/.bashrc
+echo 'eval "$(pyenv init -)"' >> ~/.bashrc
+echo 'export PYENV_ROOT="$HOME/.pyenv"' >> ~/.profile
+echo 'command -v pyenv >/dev/null || export PATH="$PYENV_ROOT/bin:$PATH"' >> ~/.profile
+echo 'eval "$(pyenv init -)"' >> ~/.profile
+echo 'export PYENV_ROOT="$HOME/.pyenv"' >> ~/.zshrc
+
+mv /usr/bin/python2 python2_bak && mv /usr/bin/python3 python3_bak && mv /usr/bin/python python_bak
+pyenv install 3.9.2
+pyenv global 3.9.2
+python3 get-pip.py
+
+
 ```
 
 ## install Sparrow
