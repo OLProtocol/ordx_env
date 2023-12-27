@@ -8,7 +8,10 @@ open ./bitcoin-25.0-x86_64-apple-darwin.dmg
 ## install python3
 ```shell
 brew install python3
+```
 
+```shell
+brew install python3
 ```
 
 ## install Sparrow
