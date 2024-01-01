@@ -125,8 +125,20 @@ tail -f /media/sf_bitcoin/main/debug.log
 ## remote channel for deml
 ## https://medium.com/botfuel/how-to-expose-a-local-development-server-to-the-internet-c31532d741cc
 ```shell
+# server
+ulimit -n 65535
 vi /etc/ssh/sshd_config
 AllowTcpForwarding yes
 GatewayPorts yes
-ssh -nN -R 8888:localhost:80 xx@xxx.xxx.xxx.xxx
+MaxSessions 10000
+MaxStartups 100:30:100
+sudo service ssh restart
+# client
+ssh -nN -R remotePort:localIp:localPort user@remoteIp
+sudo apt install autossh
+apt install autossh
+autossh -M 0 -o "ServerAliveInterval 60" -o "ServerAliveCountMax 3" -nN -R remotePort:localIp:localPort user@remoteIp
+autossh -M 0 -o "ServerAliveInterval 60" -o "ServerAliveCountMax 3" -fN -R remotePort:localIp:localPort user@remoteIp
+# test
+while true;do curl http://x.x.x.x:x/{path/} -H 'Accept: application/json' ;sleep 10;done
 ```
