@@ -8,6 +8,25 @@ open ./bitcoin-25.0-x86_64-apple-darwin.dmg
 ## install python3
 ```shell
 brew install python3
+echo '[[ -d $PYENV_ROOT/bin ]] && export PATH="$PYENV_ROOT/bin:$PATH"' >> ~/.zshrc
+echo 'eval "$(pyenv init -)"' >> ~/.zshrc
+```
+
+```shell
+curl https://pyenv.run | bash
+echo 'export PYENV_ROOT="$HOME/.pyenv"' >> ~/.bashrc
+echo 'command -v pyenv >/dev/null || export PATH="$PYENV_ROOT/bin:$PATH"' >> ~/.bashrc
+echo 'eval "$(pyenv init -)"' >> ~/.bashrc
+echo 'export PYENV_ROOT="$HOME/.pyenv"' >> ~/.profile
+echo 'command -v pyenv >/dev/null || export PATH="$PYENV_ROOT/bin:$PATH"' >> ~/.profile
+echo 'eval "$(pyenv init -)"' >> ~/.profile
+echo 'export PYENV_ROOT="$HOME/.pyenv"' >> ~/.zshrc
+
+mv /usr/bin/python2 python2_bak && mv /usr/bin/python3 python3_bak && mv /usr/bin/python python_bak
+pyenv install 3.9.2
+pyenv global 3.9.2
+python3 get-pip.py
+
 
 ```
 
@@ -98,5 +117,28 @@ sudo apt-get install virtualbox-guest-utils
 
 
 ## log bitcoind
+```shell
 tail -f /media/sf_bitcoin/testnet3/debug.log
 tail -f /media/sf_bitcoin/main/debug.log
+```
+
+## remote channel for deml
+## https://medium.com/botfuel/how-to-expose-a-local-development-server-to-the-internet-c31532d741cc
+```shell
+# server
+ulimit -n 65535
+vi /etc/ssh/sshd_config
+AllowTcpForwarding yes
+GatewayPorts yes
+MaxSessions 10000
+MaxStartups 100:30:100
+sudo service ssh restart
+# client
+ssh -nN -R remotePort:localIp:localPort user@remoteIp
+sudo apt install autossh
+apt install autossh
+autossh -M 0 -o "ServerAliveInterval 60" -o "ServerAliveCountMax 3" -nN -R remotePort:localIp:localPort user@remoteIp
+autossh -M 0 -o "ServerAliveInterval 60" -o "ServerAliveCountMax 3" -fN -R remotePort:localIp:localPort user@remoteIp
+# test
+while true;do curl http://x.x.x.x:x/{path/} -H 'Accept: application/json' ;sleep 10;done
+```

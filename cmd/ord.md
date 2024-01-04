@@ -25,6 +25,13 @@ bitcoin-cli -rpcwallet=ord -chain=regtest -rpcuser=jacky -rpcpassword=123456 -rp
 bitcoin-cli -rpcwallet=ord -chain=regtest -rpcuser=jacky -rpcpassword=123456 -rpcconnect=192.168.1.106 -rpcport=28443 generatetoaddress 100 bcrt1p3nl05t8euazahz53pg06zsk9dgxt3a3rhw00xl4a699a04m7xxwq5k7jpu
 #12
 ord --wallet ord --chain regtest --bitcoin-rpc-user jacky --bitcoin-rpc-pass 123456 --rpc-url 192.168.1.106:28443 --data-dir ./ wallet inscribe --file ./test.txt --fee-rate 25
+
+ord --chain mainnet --rpc-url 192.168.1.100:8332 --data-dir /media/sf_ordindex/mainnet --bitcoin-rpc-user jacky --bitcoin-rpc-pass 123456 index update
+
+ord --chain testnet --rpc-url 192.168.1.106:38443 --data-dir /media/sf_ordindex --cookie-file /media/sf_bitcoin/main/.cookie --bitcoin-data-dir /media/sf_bitcoin/main index update
+
+/data/btcnet_env/ord/target/release/ord --chain testnet --rpc-url 192.168.1.100:38443 --data-dir /media/sf_ordindex --bitcoin-rpc-user jacky --bitcoin-rpc-pass 123456 index update
+
 #9
 ord --wallet ord --chain regtest  --cookie-file /root/btcnet_env/bitcoin/regtest/node1/data/regtest/.cookie --data-dir ./ wallet inscribe --file ./ord.md --fee-rate 25
 ```
