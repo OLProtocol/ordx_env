@@ -168,3 +168,22 @@ while true;do curl http://x.x.x.x:x/{path/} -H 'Accept: application/json' ;sleep
 
 /data/btcnet_env/electors/target/release/electrs -vvvv --cookie jacky:123456 --db-dir /data/electorsData --daemon-dir /media/sf_bitcoin/ --daemon-rpc-addr "192.168.1.100:38443" --network testnet --cors "*" --utxos-limit 5000 --electrum-txs-limit 5000 --electrum-rpc-addr "0.0.0.0:60001" --http-addr "0.0.0.0:3002" --log-filters = "INFO"
 ```
+
+# tmux
+```shell
+apt remove tmux
+sudo apt update && sudo apt install libncurses5-dev libevent-dev build-essential
+git clone git@github.com:tmux/tmux.git
+cd tmux && git checkout 3.3
+./configure && make && sudo make install
+```
+
+# rvm && ruby3.0 && gem && tmuxinator
+```shell
+curl -sSL https://get.rvm.io | bash -s stable --ruby
+rvm -v
+rvm list
+rvm use default --default 
+gem -v
+gem install tmuxinator
+```
