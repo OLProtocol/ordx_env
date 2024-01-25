@@ -83,6 +83,23 @@ ALTER USER postgres with password 'tinyverse';
 \q
 sudo systemctl restart postgresql.service
 psql -h 192.168.1.106 -U postgres -W
+# query db size
+SELECT pg_database.datname AS database_name, pg_size_pretty(pg_database_size(pg_database.datname)) AS database_size FROM pg_database;
+# backup and restore
+pg_dump -U postgres -d ord2_mainnet -f ./sql/ord2_mainnet.sql --create
+pg_dump -U postgres -d ord2_testnet -f ./sql/ord2_testnet.sql --create
+pg_dump -U postgres -d postgres_metaprotocol_main -f ./sql/postgres_metaprotocol_main.sql --create
+pg_dump -U postgres -d postgres_metaprotocol_testnet -f ./sql/postgres_metaprotocol_testnet.sql --create
+rsync -avvv --checksum --update root@192.168.1.106:/root/sql ./
+psql -U postgres -c "CREATE DATABASE ord2_mainnet WITH TEMPLATE = template0 ENCODING = 'UTF8' LC_COLLATE = 'en_US.UTF-8' LC_CTYPE = 'en_US.UTF-8'"
+psql -U postgres -d ord2_mainnet -f ./sql/ord2_mainnet.sql -W
+psql -U postgres -c "CREATE DATABASE ord2_testnet WITH TEMPLATE = template0 ENCODING = 'UTF8' LC_COLLATE = 'en_US.UTF-8' LC_CTYPE = 'en_US.UTF-8'"
+psql -U postgres -d ord2_testnet -f ./sql/ord2_testnet.sql -W
+psql -U postgres -c "CREATE DATABASE postgres_metaprotocol_main WITH TEMPLATE = template0 ENCODING = 'UTF8' LC_COLLATE = 'en_US.UTF-8' LC_CTYPE = 'en_US.UTF-8'"
+psql -U postgres -d postgres_metaprotocol_main -f ./sql/postgres_metaprotocol_main.sql
+psql -U postgres -c "CREATE DATABASE postgres_metaprotocol_testnet WITH TEMPLATE = template0 ENCODING = 'UTF8' LC_COLLATE = 'en_US.UTF-8' LC_CTYPE = 'en_US.UTF-8'"
+psql -U postgres -d postgres_metaprotocol_testnet -f ./sql/postgres_metaprotocol_testnet.sql
+
 # mount 200g to /data
 mkdir -p /data/postgresql/postgresql1/10/main
 cp -r /var/lib/postgresql/10/main to /data/postgresql/postgresql1/10/main
