@@ -13,3 +13,6 @@ bitcoin-cli -rpcwallet=ord -chain=regtest -rpcuser=jacky -rpcpassword=123456 -rp
 ```
 
 bitcoin-cli -rpcwallet=ord -chain=regtest -rpcuser=jacky -rpcpassword=123456 -rpcconnect=192.168.1.106 -rpcport=28443 getbestblockhash
+
+bitcoin-cli -chain=test -rpcconnect=127.0.0.1 -rpcuser=jacky -rpcpassword=123456 stop
+tail -f /data/bitcoinData/testnet3/debug.log
