@@ -48,11 +48,20 @@ else
     cargo install mdbook
 fi
 
+# nvm and node
+curl -o- https://raw.githubusercontent.com/nvm-sh/nvm/v0.39.7/install.sh | bash
+
+export NVM_DIR="$HOME/.nvm"
+[ -s "$NVM_DIR/nvm.sh" ] && \. "$NVM_DIR/nvm.sh"  # This loads nvm
+[ -s "$NVM_DIR/bash_completion" ] && \. "$NVM_DIR/bash_completion"  # This loads nvm bash_completion
+
+nvm install 16.13.0
+
 # electrs
 if [ ! -f "$script_path/electors/target/release/electrs" ]; then
     cd $script_path/electors && git checkout new-index && cargo build --release
     cp "$script_path/electors/target/release/electrs" /usr/local/bin/electrs
-else 
+else
     echo "electrs already copy to bin"
 fi
 
@@ -62,6 +71,6 @@ if [ ! -f "$ordBin" ]; then
     sudo apt-get install libssl-dev
     cd ord && cargo build --release
     cp "$script_path/ord/target/release/ord" /usr/local/bin/ord
-else 
+else
     echo "ord already copy to bin"
 fi
