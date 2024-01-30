@@ -161,6 +161,9 @@ sudo apt install autossh
 apt install autossh
 autossh -M 0 -o "ServerAliveInterval 60" -o "ServerAliveCountMax 3" -nN -R remotePort:localIp:localPort user@remoteIp
 autossh -M 0 -o "ServerAliveInterval 60" -o "ServerAliveCountMax 3" -fN -R remotePort:localIp:localPort user@remoteIp
+# forward remote ssh login
+autossh -M 20010 -o "ServerAliveInterval 10" -o "ServerAliveCountMax 3" -CN -R 8020:root@192.168.1.102:22 root@103.103.245.177
+ssh -J root@103.103.245.177:8020 root@192.168.1.102
 # test
 while true;do curl http://x.x.x.x:x/{path/} -H 'Accept: application/json' ;sleep 10;done
 ```
