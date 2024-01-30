@@ -122,7 +122,7 @@ sudo fdisk -l
 fdisk /dev/sdb #n,p,1
 sudo mkfs.ext4 /dev/sdb1
 sudo mkdir /data
-sudo mount -t ext4 /data/sdb1 /data
+sudo mount -t ext4 /dev/sdb1 /data
 df -h
 vim /etc/fstab # add: /dev/sdb1 /data ext4 errors=remount-ro 0 1
 reboot
