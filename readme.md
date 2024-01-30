@@ -120,11 +120,11 @@ sudo systemctl restart postgresql.service
 ```shell
 sudo fdisk -l
 fdisk /dev/sdb #n,p,1
-sudo mkfs.ext4 /dev/sdb1
+sudo mkfs.ext4 /dev/sdb
 sudo mkdir /data
-sudo mount -t ext4 /dev/sdb1 /data
+sudo mount -t ext4 /dev/sdb /data
 df -h
-vim /etc/fstab # add: /dev/sdb1 /data ext4 errors=remount-ro 0 1
+vim /etc/fstab # add: /dev/sdb /data ext4 errors=remount-ro 0 1
 reboot
 ```
 
