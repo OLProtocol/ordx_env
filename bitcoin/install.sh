@@ -1,5 +1,5 @@
 #!/bin/bash
-version=25
+version=25.0
 if command -v bitcoind &> /dev/null
 then
     echo "bitcoind is already installed"
