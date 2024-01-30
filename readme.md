@@ -41,6 +41,9 @@ open /Applications/Sparrow.app --args -n regtest
 ```shell
 brew install bitcoin
 brew install redis-cli
+# linux
+wget -O bitcoin.tar.gz https://bitcoin.org/bin/bitcoin-core-25.0/bitcoin-25.0-x86_64-linux-gnu.tar.gz
+tar -xzvf bitcoin.tar.gz -C /usr/local/bin --strip-components 2  bitcoin-25.0/bin/{bitcoin-cli,bitcoind}
 ```
 
 ## redis-cli
@@ -74,15 +77,17 @@ sudo apt update
 sudo apt install postgresql postgresql-contrib
 sudo systemctl start postgresql.service
 sudo systemctl status "postgresql*"
-vi /etc/postgresql/10/main/postgresql.conf
+vi /etc/postgresql/12/main/postgresql.conf
 listen_addresses = '*'
-vi /etc/postgresql/10/main/pg_hba.conf
+vi /etc/postgresql/12/main/pg_hba.conf
 host    all             all             0.0.0.0/0            md5
 sudo -u postgres psql #sudo -i -u postgres
 ALTER USER postgres with password 'tinyverse';
 \q
+vi /etc/postgresql/12/main/pg_hba.conf
+local   all             postgres                             password
 sudo systemctl restart postgresql.service
-psql -h 192.168.1.106 -U postgres -W
+psql -h 192.168.1.102 -U postgres -W
 # query db size
 SELECT pg_database.datname AS database_name, pg_size_pretty(pg_database_size(pg_database.datname)) AS database_size FROM pg_database;
 # backup and restore
