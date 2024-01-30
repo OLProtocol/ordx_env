@@ -1,0 +1,64 @@
+# /root/.config/tmuxinator/olp.yml
+
+name: olp
+root: ~/
+
+# Optional tmux socket
+# socket_name: foo
+
+# Note that the pre and post options have been deprecated and will be replaced by
+# project hooks.
+
+# Project hooks
+
+# Runs on project start, always
+# on_project_start: command
+
+# Run on project start, the first time
+# on_project_first_start: command
+
+# Run on project start, after the first time
+# on_project_restart: command
+
+# Run on project exit ( detaching from tmux session )
+# on_project_exit: command
+
+# Run on project stop
+# on_project_stop: command
+
+# Runs in each window and pane before window/pane specific commands. Useful for setting up interpreter versions.
+# pre_window: rbenv shell 2.0.0-p247
+
+# Pass command line options to tmux. Useful for specifying a different tmux.conf.
+# tmux_options: -f ~/.tmux.mac.conf
+
+# Change the command to call tmux.  This can be used by derivatives/wrappers like byobu.
+# tmux_command: byobu
+
+# Specifies (by name or index) which window will be selected on project startup. If not set, the first window is used.
+# startup_window: editor
+
+# Specifies (by index) which pane of the specified window will be selected on project startup. If not set, the first pane is used.
+# startup_pane: 1
+
+# Controls whether the tmux session should be attached to automatically. Defaults to true.
+# attach: false
+
+# molee must use https://github.com/OLProtocol/mole
+# mole-ordx-api:
+# mole start remote --verbose --source 103.103.245.177:8001 --destination 127.0.0.1:8001 --server root@103.103.245.177 --key /root/.ssh/id_ed25519 -R 0
+
+# autossh-olp-api:
+# autossh -M 20000 -o "ServerAliveInterval 10" -o "ServerAliveCountMax 3" -nN -R 8001:192.168.1.101:8001 root@103.103.245.177
+
+# mole start local --verbose --source 192.168.1.101:8001 --destination 103.103.245.177:8001 --server root@103.103.245.17
+windows:
+  - olp-main-index:testnet3: cd /btcdata/test/olp/olpindex/modules/main_index && node index.js
+  - olp-ordx-index:testnet3: cd /btcdata/test/olp/olpindex/modules/ord2_index && python3 ord2_index.py
+  - olp-ordx-api:testnet3: cd /btcdata/test/olp/olpindex/modules/ord2_api && node index.js
+  - mole-ordx-api:testnet3: mole start remote --verbose --source 103.103.245.177:8001 --destination 127.0.0.1:8001 --server root@103.103.245.177 --key /root/.ssh/id_ed25519 -R 0
+  - olp-main-index:mainnet: cd /btcdata/mainnet/olpindex/modules/main_index && node index.js
+  - olp-ordx-index:mainnet: cd /btcdata/mainnet/olpindex/modules/ord2_index && python3 ord2_index.py
+  - olp-ordx-api:mainnet: cd /btcdata/mainnet/olpindex/modules/ord2_api && node index.js
+  - mole-ordx-api:mainnet: mole start remote --verbose --source 103.103.245.177:8002 --destination 127.0.0.1:8002 --server root@103.103.245.177 --key /root/.ssh/id_ed25519 -R 0
+  - autossh-remote-login: autossh -M 20010 -o "ServerAliveInterval 10" -o "ServerAliveCountMax 3" -CN -R 8002:127.0.0.1:22 root@103.103.245.177

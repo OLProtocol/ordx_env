@@ -1,9 +1,12 @@
 [submodule "esplora"]
-	path = esplora
-	url = https://github.com/Blockstream/esplora
+path = esplora
+url = https://github.com/Blockstream/esplora
 [submodule "electors"]
-	path = electors
-	url = https://github.com/blockstream/electrs
+path = electors
+url = https://github.com/blockstream/electrs
 [submodule "ord"]
-	path = ord
-	url = https://github.com/ordinals/ord
+path = ord
+url = https://github.com/ordinals/ord
+[submodule "mole"]
+path = mole
+url = https://github.com/OLProtocol/mole

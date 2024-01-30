@@ -195,3 +195,9 @@ rvm use default --default
 gem -v
 gem install tmuxinator
 ```
+
+## autossh 
+apt install autossh
+
+# golang
+curl -sSL https://git.io/g-install | sh -s

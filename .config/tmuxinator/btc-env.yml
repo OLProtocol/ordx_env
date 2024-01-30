@@ -1,0 +1,52 @@
+# /root/.config/tmuxinator/btc-env.yml
+
+name: btc-env
+root: ~/
+
+# Optional tmux socket
+# socket_name: foo
+
+# Note that the pre and post options have been deprecated and will be replaced by
+# project hooks.
+
+# Project hooks
+
+# Runs on project start, always
+# on_project_start: command
+
+# Run on project start, the first time
+# on_project_first_start: command
+
+# Run on project start, after the first time
+# on_project_restart: command
+
+# Run on project exit ( detaching from tmux session )
+# on_project_exit: command
+
+# Run on project stop
+# on_project_stop: command
+
+# Runs in each window and pane before window/pane specific commands. Useful for setting up interpreter versions.
+# pre_window: rbenv shell 2.0.0-p247
+
+# Pass command line options to tmux. Useful for specifying a different tmux.conf.
+# tmux_options: -f ~/.tmux.mac.conf
+
+# Change the command to call tmux.  This can be used by derivatives/wrappers like byobu.
+# tmux_command: byobu
+
+# Specifies (by name or index) which window will be selected on project startup. If not set, the first window is used.
+# startup_window: editor
+
+# Specifies (by index) which pane of the specified window will be selected on project startup. If not set, the first pane is used.
+# startup_pane: 1
+
+# Controls whether the tmux session should be attached to automatically. Defaults to true.
+# attach: false
+
+windows:
+  - ord0.13.1-mainnet: /btcdata/ord/bin/ord0.13.1 --chain mainnet --rpc-url 192.168.1.117:8332 --data-dir /btcdata/ord/data/0.13.1/mainnet --bitcoin-rpc-user jacky --bitcoin-rpc-pass 123456 --index-sats server --enable-json-api --http --http-port 81
+  - ord0.15.0-mainnet: /data/ord/target/release/ord --chain mainnet --rpc-url 192.168.1.117:8332 --data-dir /media/sf_ordindex/0.15.0/mainnet --bitcoin-rpc-user jacky --bitcoin-rpc-pass 123456 --index-sats server --enable-json-api --http --http-port 82
+  #  - bitcind25.0-mainnet: bitcoind -chain=main -conf=/data/bitcoinData/bitcoin.conf -datadir=/data/bitcoinData
+  #  - electrs-testnet: /data/btcnet_env/electors/target/release/electrs -vvvv --cookie jacky:123456 --db-dir /data/electorsData --daemon-dir /media/sf_bitcoin/ --daemon-rpc-addr "192.168.1.100:38443" --network testnet --cors "*" --utxos-limit 5000 --electrum-txs-limit 5000 --electrum-rpc-addr "0.0.0.0:60001" --http-addr "0.0.0.0:3002"
+  #  - esplora-testnet: cd /data/btcnet_env/esplora && export API_URL=http://192.168.1.106:3002/ && npm run dev-server
