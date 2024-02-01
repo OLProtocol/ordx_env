@@ -208,3 +208,19 @@ apt install autossh
 
 # golang
 curl -sSL https://git.io/g-install | sh -s
+
+# monitor ssh
+```shell
+#!/bin/bash
+
+set -x
+while true; do
+    if ! pgrep -f "autossh -M 20010" >/dev/null; then
+        echo "Starting new process..."
+        COMMAND_TO_MONITOR=`autossh -M 20010 -o "ServerAliveInterval 10" -o "ServerAliveCountMax 3" -CN -R 8020:192.168.1.101:22 root@103.103.245.177`
+    else
+        echo "autossh -M 20010 is already running with PID: $(pgrep -f "autossh -M 20010")"
+    fi
+    sleep 1
+done
+```
