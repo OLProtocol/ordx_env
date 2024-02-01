@@ -223,4 +223,9 @@ while true; do
     fi
     sleep 1
 done
+
+# client for family
+ssh -J root@103.103.245.177:8020 root@192.168.1.117
+ssh -J root@103.103.245.177:8020 root@192.168.1.102
+ssh -J root@103.103.245.177:8020 root@192.168.1.101
 ```
