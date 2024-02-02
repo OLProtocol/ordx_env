@@ -2,15 +2,15 @@
 192.168.1.117
 size:984G  used:750G  avail:184G
 633G    /data/bitcoinData/main
-38G     /data/bitcoinData/testnet3
-13G     /data/ordData/0.13.1/testnet3
-63G     /data/electorsData/testnet
+38G     /data/bitcoinData/testnet3      delete
+13G     /data/ordData/0.13.1/testnet3   delete
+63G     /data/electorsData/testnet      delete
 
 192.168.1.101
 size:1.5T  used:799G  avail:627G
-51G     /btcdata/ord/data/0.13.1/mainnet
+51G     /btcdata/ord/data/0.13.1/mainnet  delete
 156G    /btcdata/ord/data/0.15.0/mainnet
-11G     /btcdata/test/olp/olpindex/modules/main_index/orddata/testnet3
+11G     /btcdata/test/olp/olpindex/modules/main_index/orddata/testnet3  delete
 155G    /btcdata/mainnet/olpindex/modules/main_index/orddata/index.redb
 64G     /var/lib/postgresql/12/main
 ord2_mainnet                	8937 kB
@@ -47,7 +47,7 @@ postgres_metaprotocol_testnet  904 MB
 ord2_testnet	               11 MB
 postgresql12-mainnet   64G     /var/lib/postgresql/12/main 
 ord2_mainnet                   8937 kB
-postgres_metaprotocol_main	   61   GB
+postgres_metaprotocol_main	   64   GB
 
 
 633G    /data/bitcoinData/main
