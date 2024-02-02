@@ -13,6 +13,15 @@ echo 'eval "$(pyenv init -)"' >> ~/.zshrc
 ```
 
 ```shell
+# apt install python3.9.2
+sudo apt update
+sudo apt install python3.9
+sudo apt install python3.9-distutils python3.9-venv python3.9-dev python3.9-distutils
+sudo update-alternatives --install /usr/bin/python3 python3 /usr/bin/python3.8 1
+sudo update-alternatives --install /usr/bin/python3 python3 /usr/bin/python3.9 2
+sudo update-alternatives --config python3
+python3 --version
+# pyenv
 curl https://pyenv.run | bash
 echo 'export PYENV_ROOT="$HOME/.pyenv"' >> ~/.bashrc
 echo 'command -v pyenv >/dev/null || export PATH="$PYENV_ROOT/bin:$PATH"' >> ~/.bashrc
