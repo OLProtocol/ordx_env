@@ -17,6 +17,7 @@ echo 'eval "$(pyenv init -)"' >> ~/.zshrc
 sudo apt update
 sudo apt install python3.9
 sudo apt install python3.9-distutils python3.9-venv python3.9-dev python3.9-distutils
+sudo update-alternatives --removeall python3
 sudo update-alternatives --install /usr/bin/python3 python3 /usr/bin/python3.8 1
 sudo update-alternatives --install /usr/bin/python3 python3 /usr/bin/python3.9 2
 sudo update-alternatives --config python3
