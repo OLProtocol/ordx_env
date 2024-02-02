@@ -35,7 +35,6 @@ size:1.5T  used:?G  avail:?G
 155G    /btcdata/mainnet/olpindex/modules/main_index/orddata/index.redb
 
 
-
 192.168.1.102
 size:?G  used:1133?G  avail:?G
 bitcoind25.0-testnet   38G     /data/bitcoinData/testnet3
@@ -43,7 +42,7 @@ ord0.13.1-testnet      13G     /data/ordData/0.13.1/testnet3
 electrs-testnet        63G     /data/electorsData/testnet
 olp-main-index-testnet 11G     /data/testnet/olpindex/modules/main_index/orddata/testnet3
 #sql
-postgresql12-testnet   915M   /var/lib/postgresql/12/main 
+postgresql12-testnet   915M    /var/lib/postgresql/12/main 
 postgres_metaprotocol_testnet  904 MB
 ord2_testnet	               11 MB
 postgresql12-mainnet   64G     /var/lib/postgresql/12/main 
