@@ -123,12 +123,12 @@ psql -U postgres -c "CREATE DATABASE postgres_metaprotocol_testnet WITH TEMPLATE
 psql -U postgres -d postgres_metaprotocol_testnet -f ./sql/postgres_metaprotocol_testnet.sql
 
 # mount 200g to /data
-mkdir -p /data/postgresql/postgresql1/10/main
-cp -r /var/lib/postgresql/10/main to /data/postgresql/postgresql1/10/main
+mkdir -p /data/postgresql/postgresql1/12/main
+cp -r /var/lib/postgresql/12/main to /data/postgresql/postgresql1/12/main
 sudo chown -R postgres /data/postgresql
 sudo chmod -R 0700 /data/postgresql/postgresql1/
-vi /etc/postgresql/10/main/postgresql.conf
-# data_directory = '/data/postgresql/postgresql1/10/main'
+vi /etc/postgresql/12/main/postgresql.conf
+# data_directory = '/data/postgresql/postgresql1/12/main'
 sudo systemctl restart postgresql.service
 ```
 
