@@ -8,7 +8,7 @@ open ./bitcoin-25.0-x86_64-apple-darwin.dmg
 ### system
 cat /proc/sys/fs/file-max
 vi /etc/sysctl.conf
-# file-max = 400000
+# fs.file-max = 400000
 sysctl fs.file-max
 sysctl -p
 
