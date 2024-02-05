@@ -4,6 +4,29 @@
 wget https://bitcoin.org/bin/bitcoin-core-25.0/bitcoin-25.0-x86_64-apple-darwin.dmg
 open ./bitcoin-25.0-x86_64-apple-darwin.dmg
 ```
+## "Open too "too many open files"
+### system
+cat /proc/sys/fs/file-max
+vi /etc/sysctl.conf
+# file-max = 400000
+sysctl fs.file-max
+sysctl -p
+
+# service
+# [Service]
+# Type=forking
+# LimitNOFILE=400000
+
+### user
+vi /etc/security/limits.conf
+root            hard    nofile          4000000
+root            soft    nofile          4000000
+vi /lib/systemd/system/postgresql@.service
+
+### session
+ulimit -n
+ulimit -Hn
+ulimit -Sn 400000
 
 ## install python3
 ```shell
