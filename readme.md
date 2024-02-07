@@ -40,9 +40,11 @@ echo 'eval "$(pyenv init -)"' >> ~/.zshrc
 sudo apt update
 sudo apt install python3.9
 sudo apt install python3.9-distutils python3.9-venv python3.9-dev python3.9-distutils
-sudo update-alternatives --removeall python3
+sudo update-alternatives --remove-all python3
 sudo update-alternatives --install /usr/bin/python3 python3 /usr/bin/python3.8 1
 sudo update-alternatives --install /usr/bin/python3 python3 /usr/bin/python3.9 2
+sudo update-alternatives --list python3
+sudo update-alternatives --display python3
 sudo update-alternatives --config python3
 python3 --version
 # pyenv
@@ -57,7 +59,9 @@ echo 'export PYENV_ROOT="$HOME/.pyenv"' >> ~/.zshrc
 
 mv /usr/bin/python2 python2_bak && mv /usr/bin/python3 python3_bak && mv /usr/bin/python python_bak
 pyenv install 3.9.2
+pyenv local 3.9.2
 pyenv global 3.9.2
+pyenv versions
 python3 get-pip.py
 
 
