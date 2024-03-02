@@ -267,7 +267,7 @@ ssh -J root@103.103.245.177:8020 root@192.168.1.102
 ssh -J root@103.103.245.177:8020 root@192.168.1.101
 ```
 
-# add disk space for linux
+# reduce disk space for linux
 sudo parted /dev/sdb
 print
 resizepart 1 yes 100%
@@ -275,3 +275,10 @@ resizepart 1 yes 100%
 sudo lsblk
 sudo resize2fs /dev/sdb
 df -h
+
+# reduce disk space for linux lvm
+df -lh
+sudo lvreduce -L 100G /dev/ubuntu-vg/ubuntu-lv
+sudo lvdisplay
+es2sck -f /dev/ubuntu-vg/ubuntu-lv
+sudo resize2fs /dev/ubuntu-vg/ubuntu-lv
