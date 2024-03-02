@@ -283,3 +283,5 @@ sudo vgdisplay
 sudo lvdisplay
 es2sck -f /dev/ubuntu-vg/ubuntu-lv
 sudo resize2fs /dev/ubuntu-vg/ubuntu-lv
+sudo ​​lvextend -l +100%FREE /dev/ubuntu-vg/ubuntu-lv
+pvresize /dev/sda3 # after cfdisk
