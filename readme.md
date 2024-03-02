@@ -277,11 +277,14 @@ sudo resize2fs /dev/sdb
 df -h
 
 # reduce disk space for linux lvm
-df -lh
-sudo lvreduce -L 100G /dev/ubuntu-vg/ubuntu-lv
-sudo vgdisplay
 sudo lvdisplay
 es2sck -f /dev/ubuntu-vg/ubuntu-lv
 sudo resize2fs /dev/ubuntu-vg/ubuntu-lv
+sudo lvreduce -L 100G /dev/ubuntu-vg/ubuntu-lv
+sudo mount /dev/ubuntu-vg/ubuntu-lv /mnt
+df -lh
+sudo umount /mnt
+
+sudo vgdisplay
 sudo ​​lvextend -l +100%FREE /dev/ubuntu-vg/ubuntu-lv
 pvresize /dev/sda3 # after cfdisk
