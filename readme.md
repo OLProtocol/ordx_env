@@ -279,6 +279,7 @@ df -h
 # reduce disk space for linux lvm
 df -lh
 sudo lvreduce -L 100G /dev/ubuntu-vg/ubuntu-lv
+sudo vgdisplay
 sudo lvdisplay
 es2sck -f /dev/ubuntu-vg/ubuntu-lv
 sudo resize2fs /dev/ubuntu-vg/ubuntu-lv
