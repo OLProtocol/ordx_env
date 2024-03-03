@@ -306,3 +306,7 @@ vmkfstools -K /vmfs/volumes/datastore2/ubuntu_test/ubuntu_test.vmdk
 
 # 6 unregister vm && register vm
 
+# 7 Safely stop a Copy datastore file task in vmware exsi server
+```shell
+/etc/init.d/hostd restart
+```
