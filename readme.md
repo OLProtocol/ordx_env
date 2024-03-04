@@ -37,7 +37,11 @@ echo 'eval "$(pyenv init -)"' >> ~/.zshrc
 
 ```shell
 # apt install python3.9.2
+# sudo update-alternatives --set python3 /usr/bin/python3.6
+# sudo apt install --reinstall python-dbus
 sudo apt update
+sudo apt upgrade
+sudo apt install software-properties-common
 sudo apt install python3.9
 sudo apt install python3.9-distutils python3.9-venv python3.9-dev python3.9-distutils
 sudo update-alternatives --remove-all python3
@@ -47,6 +51,9 @@ sudo update-alternatives --list python3
 sudo update-alternatives --display python3
 sudo update-alternatives --config python3
 python3 --version
+sudo apt install python3.6
+sudo update-alternatives --set python3 /usr/bin/python3.6
+sudo apt install --reinstall python-dbus
 # pyenv
 curl https://pyenv.run | bash
 echo 'export PYENV_ROOT="$HOME/.pyenv"' >> ~/.bashrc
