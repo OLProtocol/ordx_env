@@ -300,7 +300,13 @@ shutdown now
 
 # 5 To reclaim disk space(need ssh login vmware esxi server)
 ```shell
-vmkfstools -K /vmfs/volumes/datastore2/ubuntu_test/ubuntu_test.vmdk
+vmkfstools -K /vmfs/volumes/datastore2/btc_node_001/ubuntu20-web3-001.vmdk
+ls -alh /vmfs/volumes/datastore2/btc_node_001
+# 50GB
+vi /vmfs/volumes/datastore2/btc_node_001/ubuntu20-web3-001.vmdk
+# Extent description
+RW 104857600 VMFS "buntu20-web3-001-flat.vmdk" 
+ddb.geometry.cylinders = "6527"
 ```
 
 # 6 unregister vm && register vm
