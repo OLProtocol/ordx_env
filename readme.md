@@ -51,9 +51,17 @@ sudo update-alternatives --list python3
 sudo update-alternatives --display python3
 sudo update-alternatives --config python3
 python3 --version
-sudo apt install python3.6
-sudo update-alternatives --set python3 /usr/bin/python3.6
+
+# networkd-dispatcher.service error
+pyenv install python3.8.10
+pyenv global python3.8.10
+sudo apt install python3.8.10
+sudo update-alternatives --set python3 /usr/bin/python3.8
 sudo apt install --reinstall python-dbus
+sudo pip install --upgrade pip
+sudo pip install glib
+sudo pip install PyQt
+systemctl start networkd-dispatcher.service
 # pyenv
 curl https://pyenv.run | bash
 echo 'export PYENV_ROOT="$HOME/.pyenv"' >> ~/.bashrc
