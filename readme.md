@@ -62,6 +62,7 @@ sudo pip install --upgrade pip
 sudo pip install glib
 sudo pip install PyQt
 systemctl start networkd-dispatcher.service
+
 # pyenv
 curl https://pyenv.run | bash
 echo 'export PYENV_ROOT="$HOME/.pyenv"' >> ~/.bashrc
@@ -330,3 +331,5 @@ ddb.geometry.cylinders = "6527"
 ```shell
 /etc/init.d/hostd restart
 ```
+
+# 8 VMware-converter-en-6.6.0-23265344.exe
