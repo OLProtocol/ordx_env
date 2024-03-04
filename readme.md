@@ -290,7 +290,6 @@ sudo lvreduce -L 15G /dev/ubuntu-vg/ubuntu-lv
     3.1 Gparted Resize 15G and apply
     3.2 shutdown 
     3.3 vmware fusion client(10.1.6 for mac) connect vmware esxi server to find specified virtual machine -> setup -> advance -> firmware pattern -> Traditional BIOS
-     
 
 # 4 Zero out all unused space within the virtual linux
 ```shell
