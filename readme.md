@@ -84,8 +84,6 @@ pyenv install 3.9.2
 pyenv local 3.9.2
 pyenv global 3.9.2
 pyenv versions
-python3 get-pip.py
-
 
 ```
 
