@@ -28,6 +28,7 @@ fi
 # rust: dependencies: ord, electors
 sudo apt-get install pkg-config libssl-dev
 sudo apt install build-essential
+rm -rf $HOME/.cargo/registry
 if command -v rustc &> /dev/null
 then
     echo "rustc is already installed"
