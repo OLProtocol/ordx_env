@@ -26,6 +26,8 @@ else
 fi
 
 # rust: dependencies: ord, electors
+sudo apt-get install pkg-config libssl-dev
+sudo apt install build-essential
 if command -v rustc &> /dev/null
 then
     echo "rustc is already installed"
