@@ -1,6 +1,5 @@
 # https://medium.com/@Navmed/setting-up-replication-in-postgresql-with-pglogical-8212e77ebc1b
 # https://www.2ndquadrant.com/en/resources-old/pglogical/pglogical-docs/#nodes-postgresql-database-instances
-# https://www.2ndquadrant.com/en/resources-old/pglogical/pglogical-docs/#nodes-postgresql-database-instances
 
 both:
 sudo apt-get install postgresql-12-pglogical
