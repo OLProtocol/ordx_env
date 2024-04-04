@@ -2,6 +2,7 @@ killall ordx-server
 pgrep ordx-server
 ps -p {pid}
 top -p `pidof ordx-server-checkself`
+ls -l /proc/<PID>/exe
 
 rsync -avv --delete --update --progress --delete root@192.168.1.103:/data2/ordxData-backup/ord-lastest  /Volumes/backup
 scp -r root@192.168.1.103:/data1/github/ordx/ ~/Desktop
@@ -76,3 +77,22 @@ lncli -lnddir=/Users/chenwenjie/.lit/lnddata/ create
 litd --configfile=~/.lit/lit.conf
 lncli -lnddir=/Users/chenwenjie/.lit/lnddata/ unlock
 lncli create
+
+#panic
+vim /etc/rsyslog.d/50-default.conf
+ 33 # Some "catch-all" log files.
+ 34 #
+ 35 #*.=debug;\
+ 36 #       auth,authpriv.none;\
+ 37 #       news.none;mail.none     -/var/log/debug
+ 38 #*.=info;*.=notice;*.=warn;\
+ 39 #       auth,authpriv.none;\
+ 40 #       cron,daemon.none;\
+ 41 #       mail,news.none          -/var/log/messages
+systemctl restart rsyslog.service
+
+grep "memory" /var/log/messages
+egrep -i 'killed process' /var/log/messages
+egrep -i -r "killed process" /var/log
+journalctl -xb | egrep -i 'killed process'
+dmesg | egrep -i -B100 'killed process'
