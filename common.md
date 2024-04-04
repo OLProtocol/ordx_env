@@ -1,6 +1,7 @@
 killall ordx-server
 pgrep ordx-server
 ps -p {pid}
+top -p `pidof ordx-server-checkself`
 
 rsync -avv --delete --update --progress --delete root@192.168.1.103:/data2/ordxData-backup/ord-lastest  /Volumes/backup
 scp -r root@192.168.1.103:/data1/github/ordx/ ~/Desktop
