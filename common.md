@@ -1,6 +1,7 @@
 killall ordx-server
 pgrep ordx-server
 ps -p {pid}
+ps -p {pid} -o lstart
 top -p `pidof ordx-server-checkself`
 top -p {pid,pid}
 ls -l /proc/<PID>/exe
