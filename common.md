@@ -1,4 +1,6 @@
 killall ordx-server
+kill -2 {pid} // SIGINT ctrl-c
+kill {pid} // SIGTERM  == kill -15 pid
 pgrep ordx-server
 ps -p {pid}
 ps -p {pid} -o lstart
