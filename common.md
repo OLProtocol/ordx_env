@@ -101,3 +101,8 @@ egrep -i 'killed process' /var/log/messages
 egrep -i -r "killed process" /var/log
 journalctl -xb | egrep -i 'killed process'
 dmesg | egrep -i -B100 'killed process'
+
+# golang
+export GOOS=linux
+export GOARCH=amd64
+go build 
