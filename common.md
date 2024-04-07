@@ -106,3 +106,10 @@ dmesg | egrep -i -B100 'killed process'
 export GOOS=linux
 export GOARCH=amd64
 go build 
+
+# install linux
+sudo su
+passwd
+sudo nano /etc/ssh/sshd_config
+PermitRootLogin yes
+sudo systemctl reload sshd
