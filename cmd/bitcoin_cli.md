@@ -16,3 +16,12 @@ bitcoin-cli -rpcwallet=ord -chain=regtest -rpcuser=jacky -rpcpassword=123456 -rp
 
 bitcoin-cli -chain=test -rpcconnect=127.0.0.1 -rpcuser=jacky -rpcpassword=123456 stop
 tail -f /data/bitcoinData/testnet3/debug.log
+
+bitcoin-cli -chain=main -rpcuser=jacky -rpcpassword=_RZekaGRgKQJSIOYi6vq0_CkJtjoCootamy81J2cDn0 -rpcconnect=192.168.1.102 -rpcport=8332 getbestblockhash
+
+# 原始交易，包括确认数，内存池交易没有确认数
+bitcoin-cli -chain=main -rpcuser=jacky -rpcpassword=_RZekaGRgKQJSIOYi6vq0_CkJtjoCootamy81J2cDn0 -rpcconnect=192.168.1.102 -rpcport=8332 getrawtransaction e9208be66993442aab67cbebd9eda98a9994c64c630df699c69eadd5e853bbf1 true > test.txt
+# 显示所有交易，包括内存池交易 第2个参数为out的索引号, 会显示确认数量
+bitcoin-cli -chain=main -rpcuser=jacky -rpcpassword=_RZekaGRgKQJSIOYi6vq0_CkJtjoCootamy81J2cDn0 -rpcconnect=192.168.1.102 -rpcport=8332 gettxout e9208be66993442aab67cbebd9eda98a9994c64c630df699c69eadd5e853bbf1 1
+# 只显示内存池交易信息
+bitcoin-cli -chain=main -rpcuser=jacky -rpcpassword=_RZekaGRgKQJSIOYi6vq0_CkJtjoCootamy81J2cDn0 -rpcconnect=192.168.1.102 -rpcport=8332 getmempoolentry 2d2936d5270037324a11e198357189b7fc78863284c8ef195b4fb4454a0d3384
