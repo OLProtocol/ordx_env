@@ -31,6 +31,7 @@ git add . && git commit -m "fix" && git push
 git push -u origin main
 git remote add origin git@github.com:tinyverse-web3/tvsconnect.git
 git remote get-url origin
+git fetch
 git fetch --all
 git remote -v
 git reset --hard 449da4b21ecbd17c991a5523e9235371bc977277^
