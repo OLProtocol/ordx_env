@@ -24,7 +24,7 @@ bitcoin-cli -chain=main -rpcuser=jacky -rpcpassword=_RZekaGRgKQJSIOYi6vq0_CkJtjo
 # 显示交易，包括内存池交易(不一定能显示，内存池中已使用的未花费输出不会出现) 第2个参数为out的索引号, 会显示确认数量
 bitcoin-cli -chain=main -rpcuser=jacky -rpcpassword=_RZekaGRgKQJSIOYi6vq0_CkJtjoCootamy81J2cDn0 -rpcconnect=192.168.1.102 -rpcport=8332 gettxout 87652d8a228df4e54cae06ed39354795a517c9c9ac6cd9159aac359cb5ab909f 0 true
 # 只显示内存池交易信息
-bitcoin-cli -chain=main -rpcuser=jacky -rpcpassword=_RZekaGRgKQJSIOYi6vq0_CkJtjoCootamy81J2cDn0 -rpcconnect=192.168.1.102 -rpcport=8332 getmempoolentry 87652d8a228df4e54cae06ed39354795a517c9c9ac6cd9159aac359cb5ab909fZ
-
+bitcoin-cli -chain=main -rpcuser=jacky -rpcpassword=_RZekaGRgKQJSIOYi6vq0_CkJtjoCootamy81J2cDn0 -rpcconnect=192.168.1.102 -rpcport=8332 getmempoolentry fc36ab299ba69646aed873d737a9df4658faf7bdc94e7e30d60f018e4acad226 > test.txt
+# 得到所有的内存池交易
 bitcoin-cli -chain=main -rpcuser=jacky -rpcpassword=_RZekaGRgKQJSIOYi6vq0_CkJtjoCootamy81J2cDn0 -rpcconnect=192.168.1.102 -rpcport=8332 getrawmempool false true
 
