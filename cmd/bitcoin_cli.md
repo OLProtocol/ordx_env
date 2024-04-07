@@ -25,3 +25,6 @@ bitcoin-cli -chain=main -rpcuser=jacky -rpcpassword=_RZekaGRgKQJSIOYi6vq0_CkJtjo
 bitcoin-cli -chain=main -rpcuser=jacky -rpcpassword=_RZekaGRgKQJSIOYi6vq0_CkJtjoCootamy81J2cDn0 -rpcconnect=192.168.1.102 -rpcport=8332 gettxout e9208be66993442aab67cbebd9eda98a9994c64c630df699c69eadd5e853bbf1 1
 # 只显示内存池交易信息
 bitcoin-cli -chain=main -rpcuser=jacky -rpcpassword=_RZekaGRgKQJSIOYi6vq0_CkJtjoCootamy81J2cDn0 -rpcconnect=192.168.1.102 -rpcport=8332 getmempoolentry 2d2936d5270037324a11e198357189b7fc78863284c8ef195b4fb4454a0d3384
+
+bitcoin-cli -chain=main -rpcuser=jacky -rpcpassword=_RZekaGRgKQJSIOYi6vq0_CkJtjoCootamy81J2cDn0 -rpcconnect=192.168.1.102 -rpcport=8332 getrawmempool false true
+
