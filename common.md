@@ -8,6 +8,7 @@ top -p `pidof ordx-server-checkself`
 top -p {pid,pid}
 ls -l /proc/<PID>/exe
 tail -f /proc/{pid}/fd/1
+crontab -e
 
 rsync -avv --delete --update --progress --delete root@192.168.1.103:/data2/ordxData-backup/ord-lastest  /Volumes/backup
 scp -r root@192.168.1.103:/data1/github/ordx/ ~/Desktop
