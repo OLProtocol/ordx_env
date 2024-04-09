@@ -1,4 +1,10 @@
+systemctl list-timers
+date -R|awk '{printf"%d",$6}'
+ulimit -n
+ulimit -n 65535
+sudo ln -s /snap/bin/certbot /usr/bin/certbot
 killall ordx-server
+pkill -e tvbot
 kill -2 {pid} // SIGINT ctrl-c
 kill {pid} // SIGTERM  == kill -15 pid
 pgrep ordx-server
@@ -8,7 +14,23 @@ top -p `pidof ordx-server-checkself`
 top -p {pid,pid}
 ls -l /proc/<PID>/exe
 tail -f /proc/{pid}/fd/1
+nohup ./server 2>&1 &
 crontab -e
+substr $(uname -s)
+history | grep ipfs
+vmstat 1
+dd if=/dev/urandom of=random-file bs=1k  count=1
+lsb_release -a
+
+
+
+certbot renew > /root/log/cron-certbot.log 2>&1
+certbot renew --dry-run > /root/log/cron-certbot.log 2>&1
+certbot certonly --dns-cloudflare --dns-cloudflare-credentials ~/.secrets/certbot/cloudflare.ini -d ordx.space -d *.ordx.space -i nginx
+certbot certonly --dns-cloudflare --dns-cloudflare-credentials ~/.secrets/certbot/cloudflare.ini -d *.ordx.space -i nginx
+sudo certbot delete --cert-name ordx.space
+sudo certbot certificates
+sudo certbot delete --cert-name api.ordx.space
 
 rsync -avv --delete --update --progress --delete root@192.168.1.103:/data2/ordxData-backup/ord-lastest  /Volumes/backup
 scp -r root@192.168.1.103:/data1/github/ordx/ ~/Desktop
@@ -35,8 +57,12 @@ git remote get-url origin
 git fetch
 git fetch --all
 git remote -v
+git reset --hard HEAD
 git reset --hard 449da4b21ecbd17c991a5523e9235371bc977277^
 git log -n 1 --pretty=format:%H
+git log -n 1 --pretty=format:%H
+git config --global user.email "softwarecheng@126.com"
+git config --global user.name "jackychen"
 
 protoc-gen-go --version
 protoc --go_out=. ./ordinals/indexer/pb/*.proto
@@ -53,6 +79,7 @@ netstat -ano | grep 22
 netstat -ano | grep :22
 telnet 192.168.1.100 38443
 lsof -i :5000
+
 
 # mac
 diskutil list
@@ -115,3 +142,76 @@ passwd
 sudo nano /etc/ssh/sshd_config
 PermitRootLogin yes
 sudo systemctl reload sshd
+
+ip addr show | grep inet | awk '{ print $2; }' \
+ip addr show | grep inet | awk '{ print $2; }' | sed 's/\/.*$//'\
+diff config.json config1.json
+apt-get install jq
+jq config.json
+jq empty your_file.json >/dev/null || jq -n 'inputs | [path(..)|tostring] | unique | .[]' ./config.json
+sysctl -w net.core.rmem_max=2500000
+ps -aux | grep
+ps -ef | grep
+tar -czvf ldb ldb.gz
+tar -czvf  ldb.gz ldb_data
+apt-get install sshpass
+source ~/.zshrc
+chmod +x ./install.sh
+sudo systemctl enable ipfs
+sudo systemctl start ipfs
+service ipfs status
+
+ipfs ipfs pin ls --type recursive QmeiFkJgYhvH2oPe9EpiQ6maUzHJkVMs8R7sDyFjTuLij6
+ipfs pin ls --type recursive QmeiFkJgYhvH2oPe9EpiQ6maUzHJkVMs8R7sDyFjTuLij6
+ipfs cat QmeiFkJgYhvH2oPe9EpiQ6maUzHJkVMs8R7sDyFjTuLij6
+ipfs cat 12D3KooWC49xPG3wryaCvYVo4Nc1vRcMcMv4BskcRxE6arDP77f8  --cid-version 1
+ipfs add --pin=false ./QmXjWqTfzPZtvcq6dY3XFtukzSqt63tQ6wvxbebKr5dzrC
+ipfs object links QmYwUTHmdDzHKFY9o68W7VrPqcCzr72RVdnNpHYw5yBrtU
+ipfs block get QmaxC5QYd6iaugwm6knbvY7BB3uUbiXJ1h1s5XR1XrVMmB
+ipfs add ./random-file
+ipfs routing findprovs QmXBJabTPtXPvviCWpbWj8eJK6V5g5LKui8is8bVCuVx2c
+ipfs dht provide QmXBJabTPtXPvviCWpbWj8eJK6V5g5LKui8is8bVCuVx2c
+ipfs routing findprovs QmXBJabTPtXPvviCWpbWj8eJK6V5g5LKui8is8bVCuVx2c
+ipfs cid format -v 1 -b base32 QmZsRP7e6o1EaQsNYVMsviPEphmDviNU4gT6fk4NwMcT9p
+ipfs pin remote add --service=nftstorage --name=test  QmdGryWJdj2pDYKNJh59cQJjaQ3Eddn8sfCVoCXS4Y639Y
+ipfs pin remote ls --service=nftstorage
+ipfs pin remote service rm ntfstorage4
+ipfs add random-file --cid-version 1
+ipfs pin remote ls --service=nftstorage4
+ipfs get QmXBJabTPtXPvviCWpbWj8eJK6V5g5LKui8is8bVCuVx2c
+ipfs swarm addrs listen
+ipfs swarm peering ls
+ipfs stats repo
+ipfs swarm peers
+ipfs swarm peers --identify
+ipfs pubsub peers
+ipfs p2p stream ls
+ipfs refs local
+ipfs stats bitswap
+ipfs stats dht | grep QmXBJabTPtXPvviCWpbWj8eJK6V5g5LKui8is8bVCuVx2c
+ipfs stats provide
+ipfs repo stat
+ipfs swarm connect QmaCpDMGvV2BGHeYERUEnRQAwe3N8SzbUtfsmvsqQLuvuJ
+ipfs swarm connect /ip4/104.131.131.82/tcp/4001/p2p/QmaCpDMGvV2BGHeYERUEnRQAwe3N8SzbUtfsmvsqQLuvuJ
+ipfs config --json API.HTTPHeaders.Access-Control-Allow-Methods '["PUT", "POST"]'
+ipfs config --json API.HTTPHeaders.Access-Control-Allow-Origin '["http://103.103.245.177:5001", "http://127.0.0.1:5001", "https://webui.ipfs.io"]'
+ipfs repo gc
+
+
+
+sudo add-apt-repository ppa:deadsnakes/ppa
+ssh-keygen -t rsa -b 4096 -C "dev@tinyverse.space"
+git submodule update --init
+sysctl fs.file-max
+sudo vi /etc/sysctl.conf
+ulimit -Hn
+ulimit -Sn 400000
+sudo vi /etc/security/limits.conf
+sudo tar czf /backup.tar.gz --exclude=/backup.tar.gz
+find . -name 'Bitcoin-FullNodeData-March-16th-2024.7z.*' -exec shasum -a 256 {} \;
+find /data/ordxData/testnet/basic /data/ordxData/testnet/ordx -mindepth 1 -delete
+shasum -a 256 ./Bitcoin-FullNodeData-March-16th-2024.7z.002
+du -ah --max-depth=1 /data2
+ip -6 addr show
+lsof -n | awk '{print $1, $2}' | grep -v '^COMMAND PID' | sort | uniq -c | sort -nr | head -n 1
+autossh -M 20000 -o "ServerAliveInterval 10" -o "ServerAliveCountMax 3" -nN -R 8002:127.0.0.1:22 root@103.103.245.177
