@@ -215,3 +215,19 @@ du -ah --max-depth=1 /data2
 ip -6 addr show
 lsof -n | awk '{print $1, $2}' | grep -v '^COMMAND PID' | sort | uniq -c | sort -nr | head -n 1
 autossh -M 20000 -o "ServerAliveInterval 10" -o "ServerAliveCountMax 3" -nN -R 8002:127.0.0.1:22 root@103.103.245.177
+
+根据进程名终止进程:
+终止名为myapp的所有进程: pkill myapp
+终止包含nginx关键字的所有进程: pkill -f nginx
+根据用户名终止进程:
+终止特定用户（例如john）的所有进程: pkill -u john
+根据命令行参数终止进程:
+终止带有特定命令行参数的进程: pkill -f "python script.py"
+根据进程组终止进程:
+终止特定进程组的所有进程: pkill -g 1234
+交互式询问终止进程:
+交互式地询问是否终止进程: pkill -i process_name
+根据信号终止进程:
+使用不同的信号终止进程（默认是SIGTERM）: pkill -9 process_name（使用SIGKILL信号）
+根据进程启动的时间终止进程:
+终止在最近5分钟内启动的所有进程: pkill -U john -n -m 5m
