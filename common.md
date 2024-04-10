@@ -231,3 +231,9 @@ autossh -M 20000 -o "ServerAliveInterval 10" -o "ServerAliveCountMax 3" -nN -R 8
 使用不同的信号终止进程（默认是SIGTERM）: pkill -9 process_name（使用SIGKILL信号）
 根据进程启动的时间终止进程:
 终止在最近5分钟内启动的所有进程: pkill -U john -n -m 5m
+
+scp -P 2222 your_file.txt username@remote_host:/remote/directory
+systemctl list-units --type=service --state=running
+sudo iftop -i eth0 -f "port 443"
+sudo apt install nethogs
+sudo nethogs eth0
