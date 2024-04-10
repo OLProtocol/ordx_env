@@ -1,3 +1,4 @@
+sudo partprobe
 lsblk
 sudo df -h
 sudo pvdisplay
