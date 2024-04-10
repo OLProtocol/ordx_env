@@ -234,6 +234,9 @@ autossh -M 20000 -o "ServerAliveInterval 10" -o "ServerAliveCountMax 3" -nN -R 8
 
 scp -P 2222 your_file.txt username@remote_host:/remote/directory
 systemctl list-units --type=service --state=running
+
 sudo iftop -i eth0 -f "port 443"
-sudo apt install nethogs
 sudo nethogs eth0
+sudo nethogs eth0 -d 5
+sudo nethogs -t | grep sshd
+sudo nethogs -t | grep nginx
