@@ -244,9 +244,12 @@ ab -n 1000 -c 100 https://apiprd.ordx.space/mainnet/health
 ab -n 1000 -c 100 https://apiprd.ordx.space/mainnet/status
 
 
-md126和md127看起来像是Linux软件RAID设备的虚拟分区，而不是单独的物理磁盘分区。如果您想清除这些RAID设备，您可以通过以下步骤来清除它们：
+lsblk
+mdadm --stop /dev/md126
+mdadm --stop /dev/md127
+mdadm --remove /dev/md126和mdadm --remove /dev/md127
+mdadm --zero-superblock /dev/sda
 
-停用RAID设备：您可以使用mdadm --stop /dev/md126和mdadm --stop /dev/md127命令来停用这两个RAID设备。
-删除RAID设备配置：您可以使用mdadm --remove /dev/md126和mdadm --remove /dev/md127命令来删除这两个RAID设备的配置信息。
-清除RAID设备数据：如果您希望彻底清除RAID设备上的数据，可以使用mdadm --zero-superblock /dev/sda命令来清除超级块信息。
-请注意，清除RAID设备可能会导致数据丢失，请在执行任何操作之前务必备份重要数据。同时，清除RAID设备可能需要root权限。
+timedatectl
+timedatectl list-timezones
+timedatectl set-timezone Asia/Hong_Kong
