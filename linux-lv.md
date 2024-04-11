@@ -38,7 +38,7 @@ resize2fs
 
 sudo mkdir /data
 sudo mount /dev/vg_data1/lv_data1 /data
-sudo mount /dev/mapper/vg_data1/lv_data1 /data
+sudo mount /dev/mapper/vg_data1-lv_data1 /data
 
 /etc/fstab
 # /dev/vg_data1/lv_data1 /data ext4 defaults 0 0
