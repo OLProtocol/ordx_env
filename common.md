@@ -253,3 +253,13 @@ mdadm --zero-superblock /dev/sda
 timedatectl
 timedatectl list-timezones
 timedatectl set-timezone Asia/Hong_Kong
+
+# sshd
+X11Forwarding no
+Ciphers aes128-ctr,aes192-ctr,aes256-ctr
+KexAlgorithms curve25519-sha256@libssh.org,diffie-hellman-group-exchange-sha256
+PermitUserEnvironment no
+ClientAliveInterval 300
+ClientAliveCountMax 3
+MaxStartups 20:30:100
+MaxSessions 50
