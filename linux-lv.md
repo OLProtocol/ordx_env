@@ -11,26 +11,37 @@ sudo pvscan
 
 mount | grep /dev/mapper/ubuntu--vg-ubuntu--lv
 fdisk /dev/sdb
- -n ... w
-sudo pvcreate /dev/sdb1 /dev/sdc1
-sudo vgcreate data-vg /dev/sdb1 /dev/sdc1
+-n ... w
+# >2TB
+sudo apt install gdisk
+sudo gdisk /dev/sdc
+o ... w
+sudo gdisk /dev/sdc
+n ... w
+sudo partprobe
+# lvm
+sudo pvcreate /dev/sdc1 /dev/sdb1
+sudo pvremove /dev/sdc1
+
+sudo vgcreate vg_data1 /dev/sdc1 /dev/sdb1 
 sudo vgreduce --removemissing /dev/sdb1
-sudo vgextend data-vg /dev/sdb1
+sudo vgextend vg_data1 /dev/sdb1
+sudo vgremove vg_data1
 
+sudo lvcreate -l 100%FREE -n lv_data1 vg_data1
+sudo lvcreate -n lv_data1 -L 50G vg_data1
+sudo lvremove /dev/vg_data1/lv_data1
 
-sudo lvcreate -l 100%FREE -n data-lv1 data-vg
-sudo lvcreate -n data-lv1 -L 50G data-vg
-
-sudo mkfs.ext4 /dev/data-vg/data-lv1
-sudo lvextend -l +100%FREE /dev/data-vg/data-lv1
+sudo mkfs.ext4 /dev/vg_data1/lv_data1
+sudo lvextend -l +100%FREE /dev/vg_data1/lv_data1
 resize2fs
 
-sudo mkdir /data1
-sudo mount /dev/data-vg/data-lv1 /data1
-sudo mount /dev/mapper/data-vg-data-lv1 /data
+sudo mkdir /data
+sudo mount /dev/vg_data1/lv_data1 /data
+sudo mount /dev/mapper/vg_data1/lv_data1 /data
 
 /etc/fstab
-# /dev/data-vg/data-lv1 /data ext4 defaults 0 0
+# /dev/vg_data1/lv_data1 /data ext4 defaults 0 0
 
 lvremove /dev/data-vg/data-lv1
 vgremove data-vg
