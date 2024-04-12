@@ -50,7 +50,7 @@ root: ~/
 
 # autossh-olp-api:
 # autossh -M 20000 -o "ServerAliveInterval 10" -o "ServerAliveCountMax 3" -nN -R 8001:192.168.1.101:8001 root@103.103.245.177
-
+# autossh -M 20010 -o 'ServerAliveInterval 10' -o 'ServerAliveCountMax 3' -o 'Ciphers aes128-ctr' -o 'KexAlgorithms diffie-hellman-group14-sha1' -CN -R 8020:192.168.1.101:10000 root@103.103.245.177
 # mole start local --verbose --source 192.168.1.101:8001 --destination 103.103.245.177:8001 --server root@103.103.245.17
 windows:
   - olp-main-index:testnet3: cd /btcdata/test/olp/olpindex/modules/main_index && node index.js

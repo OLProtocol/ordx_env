@@ -1,5 +1,22 @@
 apt install openresty
 
+vi /etc/openresty/nginx.conf
+
+#user  nobody;
+worker_processes  2;
+worker_rlimit_nofile 400000;
+
+error_log  logs/error.log;
+error_log  logs/error.log  notice;
+error_log  logs/error.log  info;
+
+#pid        logs/nginx.pid;
+
+
+events {
+    worker_connections  65535;
+}
+
 vi /etc/openresty/sites-enabled/prd.ordx.space
 lua_package_path "/usr/local/openresty/lualib/resty/?.lua;/usr/local/openresty/lualib/resty/upstream/?.lua;;";
 
@@ -57,12 +74,16 @@ init_worker_by_lua_block {
 
 server {
     server_name apiprd.ordx.space; # managed by Certbot
-
+    access_log logs/main.log combined;
     # status page for all the peers:
     location = /status {
-        access_log off;
-        #allow 127.0.0.1;
-        #deny all;
+        access_log on;
+        allow 127.0.0.1;
+        allow 103.103.245.177; # 本机
+        allow 146.56.96.109;   # 公司大楼
+        allow 183.47.45.170;   # 翻墙IP
+        deny all; 
+
 
         default_type text/plain;
         content_by_lua_block {
@@ -74,7 +95,7 @@ server {
 
     # status page for all the peers (prometheus format):
     location = /metrics {
-        access_log off;
+        access_log on;
         default_type text/plain;
         content_by_lua_block {
             local hc = require "resty.upstream.healthcheck"
@@ -110,3 +131,6 @@ server {
     ssl_certificate_key /etc/letsencrypt/live/ordx.space/privkey.pem; # managed by Certbot
     ssl_session_cache    shared:SSL:1m;
     ssl_session_timeout  5m;
+
+
+tail -f /usr/local/openresty/nginx/logs/error.log

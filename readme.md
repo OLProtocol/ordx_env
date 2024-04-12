@@ -227,6 +227,8 @@ autossh -M 0 -o "ServerAliveInterval 60" -o "ServerAliveCountMax 3" -nN -R remot
 autossh -M 0 -o "ServerAliveInterval 60" -o "ServerAliveCountMax 3" -fN -R remotePort:localIp:localPort user@remoteIp
 # forward remote ssh login
 autossh -M 20010 -o "ServerAliveInterval 10" -o "ServerAliveCountMax 3" -CN -R 8020:root@192.168.1.102:22 root@103.103.245.177
+autossh -M 20010 -o 'ServerAliveInterval 10' -o 'ServerAliveCountMax 3' -o 'Ciphers aes128-ctr' -o 'KexAlgorithms diffie-hellman-group14-sha1' -CN -R 8020:192.168.1.101:10000 root@103.103.245.177
+
 ssh -J root@103.103.245.177:8020 root@192.168.1.102
 # test
 while true;do curl http://x.x.x.x:x/{path/} -H 'Accept: application/json' ;sleep 10;done

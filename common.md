@@ -214,7 +214,7 @@ shasum -a 256 ./Bitcoin-FullNodeData-March-16th-2024.7z.002
 du -ah --max-depth=1 /data2
 ip -6 addr show
 lsof -n | awk '{print $1, $2}' | grep -v '^COMMAND PID' | sort | uniq -c | sort -nr | head -n 1
-autossh -M 20000 -o "ServerAliveInterval 10" -o "ServerAliveCountMax 3" -nN -R 8002:127.0.0.1:22 root@103.103.245.177
+autossh -M 20010 -o 'ServerAliveInterval 10' -o 'ServerAliveCountMax 3' -o 'Ciphers aes128-ctr' -o 'KexAlgorithms diffie-hellman-group14-sha1' -CN -R 8020:192.168.1.101:10000 root@103.103.245.177
 
 根据进程名终止进程:
 终止名为myapp的所有进程: pkill myapp
@@ -263,3 +263,5 @@ ClientAliveInterval 300
 ClientAliveCountMax 3
 MaxStartups 20:30:100
 MaxSessions 50
+
+tail -f /var/log/auth.log
