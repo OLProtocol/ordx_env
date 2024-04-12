@@ -265,3 +265,25 @@ MaxStartups 20:30:100
 MaxSessions 50
 
 tail -f /var/log/auth.log
+tail -f /usr/local/openresty/nginx/logs/main.log
+tail -f /usr/local/openresty/nginx/logs/error.log
+
+# 跟踪服务
+service --status-all
+systemctl list-units --type=service
+sudo rm -r /var/lib/systemd
+systemctl disable ipfs
+sudo systemctl restart systemd-journald
+sudo systemctl daemon-reload
+sudo systemctl remove
+
+sudo netstat -tuln
+sudo netstat -tulnp | grep :{port}
+ps -p {pid} -o pid,ppid,cmd
+
+# ufw
+sudo ufw enable
+sudo ufw status verbose
+sudo ufw allow 8001:8012/tcp
+sudo ufw allow 8020,20010/tcp
+sudo ufw delete allow 8001:8020/tcp
