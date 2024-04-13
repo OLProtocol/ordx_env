@@ -88,7 +88,13 @@ sDr: 搜索Sr
 2dzPe : delete z(表示用sneak) Pe: 删除光标位置到第2个Pe开头之前内容
 2yszPe" : 从光标位置到第2个Pe开头之前加双引号
 
-10.5 gd: go to define
+10.5 
+gb: 多光标
+tabn/tabp: switch next tab/switch prev tab
+gd: go to define
+gh: show func define and sig
+gt/gT/4gt/4gT: switch tab
+cmd+0, space
 
 10.6
 3j/3k/3h/3l
@@ -101,3 +107,13 @@ shift + ]:移动到上一个空行的地方
 redo:ctrl - r
 undo:u
 replace: :%s/{source}/{target}/g + enter
+die/cie:删除整个文件内容,yie
+cit: 删除成对tag
+大小写: 
+~ :当前光标字母改变大小写
+3~:当前光标3个位置的字母改变大小写
+g~~:当前行字母改变大小写
+gUU:当前行字母改变大写
+guu:当前行字母改变小写
+gUaw(gUiw):当前光标字母改变大写
+guaw(guiw):当前光标字母改变小写
