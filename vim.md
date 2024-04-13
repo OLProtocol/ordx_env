@@ -100,4 +100,4 @@ shift + ]:移动到上一个空行的地方
 剪切:dd,[number]dd,
 redo:ctrl - r
 undo:u
-
+replace: :%s/{source}/{target}/g + enter
