@@ -71,7 +71,7 @@ init_worker_by_lua_block {
         return
     end
 }
-
+proxy_cache_path /var/cache/openresty levels=1:2 keys_zone=my_cache:500m max_size=5g inactive=60m;
 server {
     server_name apiprd.ordx.space; # managed by Certbot
     access_log logs/main.log combined;
@@ -116,6 +116,17 @@ server {
         proxy_set_header X-Forwarded-Proto $scheme;
     }
 
+    location ~ ^/mainnet/ord/(content/|r/blockhash/|r/blockinfo/|r/inscription/|r/metadata/) {
+        proxy_cache my_cache;
+        proxy_cache_valid 200 1h;
+        proxy_cache_valid 400 401 10m;
+        proxy_cache_valid any 1m;
+        proxy_pass http://mainnet;
+        proxy_set_header Host $host;
+        proxy_set_header X-Real-IP $remote_addr;
+        proxy_set_header X-Forwarded-For $proxy_add_x_forwarded_for;
+        proxy_set_header X-Forwarded-Proto $scheme;
+    }
 
     location /testnet {
         proxy_pass http://testnet1;
@@ -131,6 +142,5 @@ server {
     ssl_certificate_key /etc/letsencrypt/live/ordx.space/privkey.pem; # managed by Certbot
     ssl_session_cache    shared:SSL:1m;
     ssl_session_timeout  5m;
-
 
 tail -f /usr/local/openresty/nginx/logs/error.log
