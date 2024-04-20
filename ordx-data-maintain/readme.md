@@ -8,8 +8,8 @@
 #~/ordx-data-maintain/b2r.sh -m recover -c testnet -i ord -d /data2/ordxData -b /data2/ordxData-backup -o lastest
 
 3 run ordx basic index data
-~/ordx-data-maintain/run.sh -c "~/ordx-data-maintain/run-testnet.env" -d ord -o lastest
-#~/ordx-data-maintain/run.sh -c "~/ordx-data-maintain/run-mainnet.env" -d ord -o lastest
+~/ordx-data-maintain/run.sh -c ~/ordx-data-maintain/run-testnet.env -d ord -o lastest
+#~/ordx-data-maintain/run.sh -c ~/ordx-data-maintain/run-mainnet.env -d ord -o lastest
 
 4 backup ordx basic index data
 ~/ordx-data-maintain/b2r.sh -m backup -c testnet -i basic -d /data2/ordxData -b /data2/ordxData-backup -o lastest
