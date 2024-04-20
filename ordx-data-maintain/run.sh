@@ -34,8 +34,10 @@ while getopts "c:od:h" opt; do
             case $OPTARG in
                 basic)
                     disable_basic=true
+                    disable_ord=false
                     ;;
                 ord)
+                    disable_basic=false
                     disable_ord=true
                     ;;                
                 *)
