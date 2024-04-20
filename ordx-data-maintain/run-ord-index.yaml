@@ -1,0 +1,2 @@
+concurrent_fetch_count: 1000
+when_max_height_action: "ctrlc" # "all option: continue/stop/ctrlc, default continue"
