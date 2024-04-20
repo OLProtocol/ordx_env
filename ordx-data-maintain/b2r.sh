@@ -199,7 +199,7 @@ fi
 
 # ord index data
 if [ "$use_ord" = true ]; then
-    oi_backup_dir="$backupDir/ord-lastest/"
+    oi_backup_dir="$backupDir/ord-lastest"
     oi_data_dir="$dataDir/$chain"
     backup_tar="$oi_backup_dir/$chain-ordx-ordindex.tar"
     ord_data_dir="$oi_data_dir/ord"
