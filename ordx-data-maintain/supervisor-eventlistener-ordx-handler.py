@@ -10,10 +10,20 @@ def write_stderr(s):
     sys.stderr.write(s)
     sys.stderr.flush()
 
-def callBashScript(script):
-    # Assuming you want to call a bash script with subprocess
-    subprocess.call(script, shell=True)
-
+def run_command(command):
+    try:
+        result = subprocess.Popen(
+            command,
+            stdout=subprocess.PIPE,
+            stderr=subprocess.PIPE,
+            # shell=True
+        )
+        stdout, stderr = result.communicate()
+        write_stderr('STDOUT: {}\n'.format(stdout.decode()))
+        write_stderr('STDERR: {}\n'.format(stderr.decode()))
+    except Exception as e:
+        write_stderr('An error occurred: {}\n'.format(e))
+        
 def main():
     while True:
         write_stdout('READY\n')
@@ -21,12 +31,31 @@ def main():
         headers = dict([x.split(':') for x in line.split()])
         data = sys.stdin.read(int(headers['len']))
         payload = dict([x.split(':') for x in data.split()])
-        if payload.get('expected', '0') == '0':  # Changed 0 to '0'
-            processname = payload.get('processname')
+        if payload.get('expected', '0') == '0':
+            processname = payload.get('processname')     
+            write_stderr("processname: " + processname)
             if processname == 'ordx-server-master-testnet':
-                callBashScript("/root/ordx-data-maintain/b2r.sh -m recover -c testnet -i basic -d /data2/ordxData -b /data2/ordxData-backup -o latest")
-            elif processname == 'ordx-server-master-mainnet':  # Fixed 'elseif' to 'elif'
-                callBashScript("/root/ordx-data-maintain/b2r.sh -m recover -c mainnet -i basic -d /data2/ordxData -b /data2/ordxData-backup -o latest")
+                run_command([
+                    "/root/ordx-data-maintain/b2r.sh",
+                    "-m", "recover",
+                    "-c", "testnet",
+                    "-i", "basic",
+                    "-d", "/data2/ordxData",
+                    "-b", "/data2/ordxData-backup",
+                    "-o", "latest"
+                ])
+                run_command(['supervisorctl', 'start', 'ordx-server-master-testnet'])
+            elif processname == 'ordx-server-master-main':
+                run_command([
+                    "/root/ordx-data-maintain/b2r.sh",
+                    "-m", "recover",
+                    "-c", "mainnet",
+                    "-i", "basic",
+                    "-d", "/data2/ordxData",
+                    "-b", "/data2/ordxData-backup",
+                    "-o", "latest"
+                ])
+                run_command(['supervisorctl', 'start', 'ordx-server-master-main'])
         write_stdout('RESULT 2\nOK')
 
 if __name__ == '__main__':
