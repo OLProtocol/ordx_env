@@ -8,7 +8,7 @@ ordxHeight="lastest"
 disable_basic=false
 disable_ord=true
 
-while getopts "c:od:h" opt; do
+while getopts "c:o:d:h" opt; do
     case ${opt} in
         c )
             ordxConfPath=$(eval echo "$OPTARG")
@@ -25,7 +25,7 @@ while getopts "c:od:h" opt; do
                     ordxHeight="lastest"
                     ;;
                 *)
-                    echo "Invalid ordxHeight option: $OPTARG, use default empty"
+                    echo "Invalid ordxHeight option: $OPTARG, use default lastest"
                     ordxHeight="lastest"
                     ;;
             esac
@@ -51,8 +51,8 @@ while getopts "c:od:h" opt; do
             echo "Usage: run-ordxdata.sh -c <ordxConfPath> [-d <indeData>] [-o <ordxHeight>] [-h]"
             echo "Options:"
             echo "  -c <ordxConfPath>: Specify the ordx confuration path"
-            echo "  -d <indeData>: Specify the index data to disable run. Valid options are 'basic', 'ord', or 'all', default ord"
             echo "  -o <ordxHeight>: Specify the max ordx height, default lastest, other options: ordx(mainnet:827306; testnet:2570588, ord(mainnet:767429; testnet:2413342"
+            echo "  -d <indeData>: Specify the index data to disable run. Valid options are 'basic', 'ord', or 'all', default ord"
             echo "  -h: Display this help message"
             exit 0
             ;;
