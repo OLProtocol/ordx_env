@@ -7,7 +7,7 @@ use_basic=true
 use_ord=false
 dataDir=""
 backupDir=""
-ordxHeight="lastest"
+ordxHeight="latest"
 maintain="backup"
 while getopts "c:m:o:i:d:b:h" opt; do
     case ${opt} in
@@ -47,12 +47,12 @@ while getopts "c:m:o:i:d:b:h" opt; do
                 ordx)
                     ordxHeight="ordx"
                     ;;
-                lastest)
-                    ordxHeight="lastest"
+                latest)
+                    ordxHeight="latest"
                     ;;                    
                 *)
                     echo "Invalid ordxHeight option: $OPTARG, use default empty"
-                    ordxHeight="lastest"
+                    ordxHeight="latest"
                     ;;
             esac
             ;;
@@ -88,7 +88,7 @@ while getopts "c:m:o:i:d:b:h" opt; do
             echo "Options:"
             echo "  -c <chain>: Specify the chain. Valid options are 'mainnet' or 'testnet', default testnet"
             echo "  -m <maintain>: Specify the maintain mode. Valid options are 'backup' or 'restore', default backup"
-            echo "  -o <ordxHeight>: Specify the max ordx height, default lastest, other options: ordx(mainnet:827306; testnet:2570588, ord(mainnet:767429; testnet:2413342"
+            echo "  -o <ordxHeight>: Specify the max ordx height, default latest, other options: ordx(mainnet:827306; testnet:2570588, ord(mainnet:767429; testnet:2413342"
             echo "  -i <indexData>: Specify the index data to use. Valid options are 'basic', 'ord', or 'all', default ord"
             echo "  -d <dataDir>: Specify the path to the data"
             echo "  -b <backupDir>: Specify the path to the backup"
@@ -145,8 +145,8 @@ case $ordxHeight in
                 ;;
         esac
         ;;
-    "lastest")
-        lastest_height="height-lastest"
+    "latest")
+        lastest_height="height-latest"
         ;;
 esac
 
@@ -199,7 +199,7 @@ fi
 
 # ord index data
 if [ "$use_ord" = true ]; then
-    oi_backup_dir="$backupDir/ord-lastest"
+    oi_backup_dir="$backupDir/ord-latest"
     oi_data_dir="$dataDir/$chain"
     backup_tar="$oi_backup_dir/$chain-ordx-ordindex.tar"
     ord_data_dir="$oi_data_dir/ord"

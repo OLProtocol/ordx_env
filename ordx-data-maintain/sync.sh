@@ -4,7 +4,7 @@ set -e
 
 chain="testnet"
 use_basic=true
-ordxHeight="lastest"
+ordxHeight="latest"
 use_ord=false
 localBackupDir=""
 remoteBackupDir=""
@@ -37,12 +37,12 @@ while getopts "c:o:i:l:r::p:a:t:b:h" opt; do
                 ordx)
                     ordxHeight="ordx"
                     ;;
-                lastest)
-                    ordxHeight="lastest"
+                latest)
+                    ordxHeight="latest"
                     ;;
                 *)
                     echo "Invalid ordxHeight option: $OPTARG, use default empty"
-                    ordxHeight="lastest"
+                    ordxHeight="latest"
                     ;;
             esac
             ;;
@@ -89,7 +89,7 @@ while getopts "c:o:i:l:r::p:a:t:b:h" opt; do
             echo "Usage: run-ordxdata.sh [-c <chain>] [-o <ordxHeight>] [-i <indexData>] -l <localBackupDir> -r <remoteBackupDir> -p <prdUrl> [-a <prdPort>] -t <testUrl> [-b <testPort>] [-h]"
             echo "Options:"
             echo "  -c <chain>: Specify the chain. valid options are 'mainnet' or 'testnet', default testnet"
-            echo "  -o <ordxHeight>: Specify the max ordx height, default lastest, other options: ordx(mainnet:827306; testnet:2570588, ord(mainnet:767429; testnet:2413342"
+            echo "  -o <ordxHeight>: Specify the max ordx height, default latest, other options: ordx(mainnet:827306; testnet:2570588, ord(mainnet:767429; testnet:2413342"
             echo "  -i <indexData>: Specify the index data to use. valid options are 'basic', 'ord', or 'all', default ord"
             echo "  -l <localBackupDir>: Specify the local backup path"
             echo "  -r <remoteBackupDir>: Specify the remote backup path"
@@ -148,8 +148,8 @@ case $ordxHeight in
                 ;;
         esac
         ;;
-    "lastest")
-        lastest_height="height-lastest"
+    "latest")
+        lastest_height="height-latest"
         ;;
 esac
 
@@ -157,8 +157,8 @@ start_time=$(date +%s)
 local_basic_index_data_backup_tar_path="$localBackupDir/$chain/$lastest_height/$chain-ordx-basicindex.tar"
 remote_basic_index_data_backup_path="$remoteBackupDir/$chain/$lastest_height"
 remote_basic_index_data_tar_path="$remote_basic_index_data_backup_path/$chain-ordx-basicindex.tar"
-local_ord_index_data_tar_path="$localBackupDir/ord-lastest/$chain-ordx-ordindex.tar"
-remote_ord_index_data_backup_path="$remoteBackupDir/ord-lastest"
+local_ord_index_data_tar_path="$localBackupDir/ord-latest/$chain-ordx-ordindex.tar"
+remote_ord_index_data_backup_path="$remoteBackupDir/ord-latest"
 remote_ord_index_data_tar_path="$remote_ord_index_data_backup_path/$chain-ordx-ordindex.tar"
 summary+=" local basic index data: $local_basic_index_data_backup_tar_path "
 summary+=" local ord index data: $local_basic_index_data_backup_tar_path "

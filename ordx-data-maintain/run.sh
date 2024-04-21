@@ -4,7 +4,7 @@ set -e
 
 programName="ordx-server"
 ordxConfPath=""
-ordxHeight="lastest"
+ordxHeight="latest"
 disable_basic=false
 disable_ord=true
 
@@ -21,12 +21,12 @@ while getopts "c:o:d:h" opt; do
                 ordx)
                     ordxHeight="ordx"
                     ;;
-                lastest)
-                    ordxHeight="lastest"
+                latest)
+                    ordxHeight="latest"
                     ;;
                 *)
-                    echo "Invalid ordxHeight option: $OPTARG, use default lastest"
-                    ordxHeight="lastest"
+                    echo "Invalid ordxHeight option: $OPTARG, use default latest"
+                    ordxHeight="latest"
                     ;;
             esac
             ;;
@@ -51,7 +51,7 @@ while getopts "c:o:d:h" opt; do
             echo "Usage: run-ordxdata.sh -c <ordxConfPath> [-d <indeData>] [-o <ordxHeight>] [-h]"
             echo "Options:"
             echo "  -c <ordxConfPath>: Specify the ordx confuration path"
-            echo "  -o <ordxHeight>: Specify the max ordx height, default lastest, other options: ordx(mainnet:827306; testnet:2570588, ord(mainnet:767429; testnet:2413342"
+            echo "  -o <ordxHeight>: Specify the max ordx height, default latest, other options: ordx(mainnet:827306; testnet:2570588, ord(mainnet:767429; testnet:2413342"
             echo "  -d <indeData>: Specify the index data to disable run. Valid options are 'basic', 'ord', or 'all', default ord"
             echo "  -h: Display this help message"
             exit 0
@@ -111,7 +111,7 @@ case $ordxHeight in
                 ;;
         esac
         ;;
-    "lastest")
+    "latest")
         ordRpc=$(grep -w ORD_RPC_URL "$ordxConfPath" | awk -F= '{print $2}')
         if [ -z "$ordRpc" ]; then
             echo "The configuration file $ordxConfPath require ORD_RPC_URL, please check and try again"
