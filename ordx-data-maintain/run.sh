@@ -83,7 +83,6 @@ case $ordxHeight in
         case $chain in
             "mainnet")
                 latest_height="767430"
-                # latest_height="100000"
             ;;
             "testnet")
                 latest_height="2413343"
