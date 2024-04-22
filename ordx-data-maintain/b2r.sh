@@ -123,35 +123,35 @@ dataContent=""
 summary=""
 # basic index data
 
-lastest_height=""
+latest_height=""
 case $ordxHeight in
     "ord")
         case $chain in
             "mainnet")
-                lastest_height="height-767430"
+                latest_height="height-767430"
                 ;;
             "testnet")
-                lastest_height="height-2413343"
+                latest_height="height-2413343"
                 ;;
         esac    
         ;;
     "ordx")
         case $chain in
             "mainnet")
-                lastest_height="height-827306"
+                latest_height="height-827306"
                 ;;
             "testnet")
-                lastest_height="height-2570588"
+                latest_height="height-2570588"
                 ;;
         esac
         ;;
     "latest")
-        lastest_height="height-latest"
+        latest_height="height-latest"
         ;;
 esac
 
 if [ "$use_basic" = true ]; then
-    bi_backup_dir="$backupDir/$chain/$lastest_height"
+    bi_backup_dir="$backupDir/$chain/$latest_height"
     bi_data_dir="$dataDir/$chain"
     backup_tar="$bi_backup_dir/$chain-ordx-basicindex.tar"
 
@@ -160,8 +160,7 @@ if [ "$use_basic" = true ]; then
             if [ ! -d "$bi_data_dir" ]; then
                 mkdir -p "$bi_data_dir"
             fi
-            tar --checkpoint=1 --checkpoint-action=echo="%T packing... (%u)" -cf "$backup_tar"  -C "$dataDir" "$chain/basic" "$chain/ordx"
-            if [ $? -ne 0 ]; then
+            if ! tar --checkpoint=1 --checkpoint-action=echo="%T packing... (%u)" -cf "$backup_tar" -C "$dataDir" "$chain/basic" "$chain/ordx"; then
                 echo "Error: tar command failed." >&2
                 exit 1
             fi
@@ -180,8 +179,7 @@ if [ "$use_basic" = true ]; then
             if [ ! -d "$bi_data_dir" ]; then
                 mkdir -p "$bi_data_dir"
             fi  
-            tar --checkpoint=1 --checkpoint-action=echo="%T unpacking... (%u)" -xf "$backup_tar" -C "$bi_data_dir" --strip-components=1
-            if [ $? -ne 0 ]; then
+            if ! tar --checkpoint=1 --checkpoint-action=echo="%T unpacking... (%u)" -xf "$backup_tar" -C "$bi_data_dir" --strip-components=1; then
                 echo "Error: tar command failed." >&2
                 exit 1
             fi           
@@ -208,11 +206,10 @@ if [ "$use_ord" = true ]; then
             if [ ! -d "$oi_backup_dir" ]; then
                 mkdir -p "$oi_backup_dir"
             fi
-            tar --checkpoint=1 --checkpoint-action=echo="%T packing... (%u)" -cf "$backup_tar" -C "$oi_data_dir" "ord"
-            if [ $? -ne 0 ]; then
+            if ! tar --checkpoint=1 --checkpoint-action=echo="%T packing... (%u)" -cf "$backup_tar" -C "$oi_data_dir" "ord"; then
                 echo "Error: tar command failed." >&2
                 exit 1
-            fi  
+            fi
             ;;
         "recover")
             if [ ! -f "$backup_tar" ]; then
@@ -224,12 +221,11 @@ if [ "$use_ord" = true ]; then
             fi
             if [ ! -d "$ord_data_dir" ]; then
                 mkdir -p "$ord_data_dir"
-            fi       
-            tar --checkpoint=1 --checkpoint-action=echo="%T unpacking... (%u)" -xf "$backup_tar" -C "$ord_data_dir" --strip-components=1
-            if [ $? -ne 0 ]; then
+            fi
+            if ! tar --checkpoint=1 --checkpoint-action=echo="%T unpacking... (%u)" -xf "$backup_tar" -C "$ord_data_dir" --strip-components=1; then
                 echo "Error: tar command failed." >&2
                 exit 1
-            fi  
+            fi
             ;;
     esac
 

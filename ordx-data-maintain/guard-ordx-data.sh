@@ -12,41 +12,41 @@ while getopts "c:o:d:h" opt; do
     case ${opt} in
         c )
             ordxConfPath=$(eval echo "$OPTARG")
-            ;;
+        ;;
         o )
             case $OPTARG in
                 ord)
                     ordxHeight="ord"
-                    ;;
+                ;;
                 ordx)
                     ordxHeight="ordx"
-                    ;;
+                ;;
                 latest)
                     ordxHeight="latest"
-                    ;;
+                ;;
                 *)
                     echo "Invalid ordxHeight option: $OPTARG, use default latest"
                     ordxHeight="latest"
-                    ;;
+                ;;
             esac
-            ;;
+        ;;
         d )
             case $OPTARG in
                 basic)
                     disable_basic=true
                     disable_ord=false
-                    ;;
+                ;;
                 ord)
                     disable_basic=false
                     disable_ord=true
-                    ;;                
+                ;;
                 *)
                     echo "Invalid index option: $OPTARG, use default ord"
                     disable_basic=false
                     disable_ord=true
-                    ;;
+                ;;
             esac
-            ;;
+        ;;
         h )
             echo "Usage: run-ordxdata.sh -c <ordxConfPath> [-d <indeData>] [-o <ordxHeight>] [-h]"
             echo "Options:"
@@ -55,13 +55,13 @@ while getopts "c:o:d:h" opt; do
             echo "  -d <indeData>: Specify the index data to disable run. Valid options are 'basic', 'ord', or 'all', default ord"
             echo "  -h: Display this help message"
             exit 0
-            ;;
+        ;;
         \? )
             echo "Invalid option: -$OPTARG"
-            ;;
+        ;;
         : )
             echo "Option -$OPTARG requires an argument."
-            ;;
+        ;;
     esac
 done
 
@@ -76,52 +76,32 @@ if [ ! -f "$ordxConfPath" ]; then
 fi
 
 latest_height=""
-ordRpc=""
 chain=$(grep -w BITCOIN_CHAIN "$ordxConfPath" | awk -F= '{print $2}')
 case $ordxHeight in
     "ord")
         case $chain in
             "mainnet")
-                latest_height="767430"
-                ;;
+                latest_height="height-767430"
+            ;;
             "testnet")
-                latest_height="2413343"
-                ;;
-            \? )
-                echo "The configuration file $ordxConfPath require BITCOIN_CHAIN, please check and try again"
-                exit 1
-                ;;
-        esac    
-        ;;
+                latest_height="height-2413343"
+            ;;
+        esac
+    ;;
     "ordx")
         case $chain in
             "mainnet")
-                latest_height="827306"
-                ;;
+                latest_height="height-827306"
+            ;;
             "testnet")
-                latest_height="2570588"
-                ;;
-            \? )
-                echo "The configuration file $ordxConfPath require BITCOIN_CHAIN, please check and try again"
-                exit 1
-                ;;
+                latest_height="height-2570588"
+            ;;
         esac
-        ;;
+    ;;
     "latest")
-        ordRpc=$(grep -w ORD_RPC_URL "$ordxConfPath" | awk -F= '{print $2}')
-        if [ -z "$ordRpc" ]; then
-            echo "The configuration file $ordxConfPath require ORD_RPC_URL, please check and try again"
-            exit 1
-        fi
-        latest_height=$(curl -H "Accept: application/json" "$ordRpc/status" 2>/dev/null | jq -r '.height')
-        if [ -z "$latest_height" ]; then
-            echo "ordinal rpc error: latest_height is empty"
-            exit 1
-        fi
-        ;;
+        latest_height="height-latest"
+    ;;
 esac
-
-sed -i "s/^#*MAX_INDEX_HEIGHT=.*/MAX_INDEX_HEIGHT=$latest_height/" "$ordxConfPath"
 
 ordxParam=""
 if [ "$disable_basic" = true ]; then
@@ -149,13 +129,30 @@ formatted_time=$(echo "$elapsed_time" | awk '{
     printf "%dd%dh%dm%ds", days, hours, minutes, seconds;
 }')
 
+result=""
 if eval "$command_str" | tee /dev/tty; then
-    echo "$(date -d "@$end_time" "+%Y-%m-%d %H:%M:%S") -> run ordx data is succ,\
-    start time:$(date -d "@$start_time" "+%Y-%m-%d %H:%M:%S"), elapsed time:$formatted_time, latest_height: $latest_height" \
-    | tee -a "$log_file"
+    result="succ"
 else
-    echo "$(date -d "@$end_time" "+%Y-%m-%d %H:%M:%S") -> run ordx data is fail,\
-    start time:$(date -d "@$start_time" "+%Y-%m-%d %H:%M:%S"), elapsed time:$formatted_time, latest_height: $latest_height" \
-    | tee -a "$log_file"
+    result="fail"
+fi
+
+if [ "$result" = "fail" ]; then
     exit 1
 fi
+echo "$(date -d "@$end_time" "+%Y-%m-%d %H:%M:%S") -> run $command_str is $result,\
+start time:$(date -d "@$start_time" "+%Y-%m-%d %H:%M:%S"), elapsed time:$formatted_time, latest_height: $latest_height" \
+| tee -a "$log_file"
+
+while true; do
+    
+    if pgrep -f "$command_str" > /dev/null; then
+        result="succ"
+        sleep 10
+    else
+        # todo check command_str is normal exit, if not call b2r.sh, esle call command_str again
+        sleep 10
+    fi
+    echo "$(date -d "@$end_time" "+%Y-%m-%d %H:%M:%S") -> run $command_str is succ,\
+    start time:$(date -d "@$start_time" "+%Y-%m-%d %H:%M:%S"), elapsed time:$formatted_time, latest_height: $latest_height" \
+    | tee -a "$log_file"
+done

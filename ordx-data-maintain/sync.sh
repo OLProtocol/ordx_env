@@ -126,109 +126,104 @@ if [ -z "$prdUrl" ] && [ -z "$testUrl" ]; then
     exit 0
 fi
 
-lastest_height=""
+latest_height=""
 case $ordxHeight in
     "ord")
         case $chain in
             "mainnet")
-                lastest_height="height-767430"
+                latest_height="height-767430"
                 ;;
             "testnet")
-                lastest_height="height-2413343"
+                latest_height="height-2413343"
                 ;;
         esac
         ;;
     "ordx")
         case $chain in
             "mainnet")
-                lastest_height="height-827306"
+                latest_height="height-827306"
                 ;;
             "testnet")
-                lastest_height="height-2570588"
+                latest_height="height-2570588"
                 ;;
         esac
         ;;
     "latest")
-        lastest_height="height-latest"
+        latest_height="height-latest"
         ;;
 esac
 
 start_time=$(date +%s)
-local_basic_index_data_backup_tar_path="$localBackupDir/$chain/$lastest_height/$chain-ordx-basicindex.tar"
-remote_basic_index_data_backup_path="$remoteBackupDir/$chain/$lastest_height"
+local_basic_index_data_backup_tar_path="$localBackupDir/$chain/$latest_height/$chain-ordx-basicindex.tar"
+remote_basic_index_data_backup_path="$remoteBackupDir/$chain/$latest_height"
 remote_basic_index_data_tar_path="$remote_basic_index_data_backup_path/$chain-ordx-basicindex.tar"
 local_ord_index_data_tar_path="$localBackupDir/ord-latest/$chain-ordx-ordindex.tar"
 remote_ord_index_data_backup_path="$remoteBackupDir/ord-latest"
 remote_ord_index_data_tar_path="$remote_ord_index_data_backup_path/$chain-ordx-ordindex.tar"
 summary+=" local basic index data: $local_basic_index_data_backup_tar_path "
 summary+=" local ord index data: $local_basic_index_data_backup_tar_path "
-if [ ! -z "$prdUrl" ]; then
-   summary+=" prd rsync: "
-   # basic index data
-   if [ "$use_basic" = true ]; then
-      ssh -p "$prdPort" "$prdUrl" "mkdir -p $remote_basic_index_data_backup_path"
-      if [ $? -ne 0 ]; then
-         echo "Error: ssh mkdir -p command failed." >&2
-         exit 1
-      fi  
-      summary+=" remote basic index data: $prdUrl:$prdPort:$remote_basic_index_data_tar_path "
-      rsync -avv --update --progress -e "ssh -p $prdPort" "$local_basic_index_data_backup_tar_path" \
-      "$prdUrl:$remote_basic_index_data_tar_path"
-   fi
-   if [ $? -ne 0 ]; then
-      echo "Error: rsync command failed." >&2
-      exit 1
-   fi
-   # ord index data
-   if [ "$use_ord" = true ]; then
-      ssh -p "$prdPort" "$prdUrl" "mkdir -p $remote_ord_index_data_backup_path"
-      if [ $? -ne 0 ]; then
-         echo "Error: ssh mkdir -p command failed." >&2
-         exit 1
-      fi  
-      summary+=" remote ord index data: $prdUrl:$prdPort:$remote_ord_index_data_tar_path "
-      rsync -avv --update --progress -e "ssh -p $prdPort" "$local_ord_index_data_tar_path" \
-      "$prdUrl:$remote_ord_index_data_tar_path"
-   fi 
-   if [ $? -ne 0 ]; then
-      echo "Error: rsync command failed." >&2
-      exit 1
-   fi
-   
+if [ -n "$prdUrl" ]; then
+    summary+=" prd rsync: "
+    # basic index data
+    if [ "$use_basic" = true ]; then
+        if ! ssh -p "$prdPort" "$prdUrl" "mkdir -p $remote_basic_index_data_backup_path"; then
+            echo "Error: ssh mkdir -p command failed." >&2
+            exit 1
+        fi  
+        summary+=" remote basic index data: $prdUrl:$prdPort:$remote_basic_index_data_tar_path "
+        rsync -avv --update --progress -e "ssh -p $prdPort" "$local_basic_index_data_backup_tar_path" \
+        "$prdUrl:$remote_basic_index_data_tar_path"
+
+        if ! rsync -avv --update --progress -e "ssh -p $prdPort" "$local_basic_index_data_backup_tar_path" \
+        "$prdUrl:$remote_basic_index_data_tar_path"; then
+        echo "Error: rsync command failed." >&2
+        exit 1
+    fi
+    fi
+
+    # ord index data
+    if [ "$use_ord" = true ]; then
+        if ! ssh -p "$prdPort" "$prdUrl" "mkdir -p $remote_ord_index_data_backup_path"; then
+            echo "Error: ssh mkdir -p command failed." >&2
+            exit 1
+        fi  
+        summary+=" remote ord index data: $prdUrl:$prdPort:$remote_ord_index_data_tar_path "
+        if ! rsync -avv --update --progress -e "ssh -p $prdPort" "$local_ord_index_data_tar_path" \
+        "$prdUrl:$remote_ord_index_data_tar_path"; then
+            echo "Error: rsync command failed." >&2
+            exit 1
+        fi
+    fi
 fi
 
-if [ ! -z "$testUrl" ]; then
-   summary+=" test rsync:"
-   # basic index data
-   if [ "$use_basic" = true ]; then
-      ssh -p "$testPort" "$testUrl" "mkdir -p $remote_basic_index_data_backup_path"
-      if [ $? -ne 0 ]; then
-         echo "Error: ssh mkdir -p command failed." >&2
-         exit 1
-      fi  
-      summary+=" remote basic index data: $testUrl:$testPort:$remote_basic_index_data_tar_path "
-      rsync -avv --update --progress -e "ssh -p $testPort" "$local_basic_index_data_backup_tar_path" \
-      "$testUrl:$remote_basic_index_data_tar_path"
-   fi
-   if [ $? -ne 0 ]; then
-      echo "Error: rsync command failed." >&2
-      exit 1
-   fi
-   # ord index data
-   if [ "$use_ord" = true ]; then
-      summary+=" remote ord index data: $testUrl:$testPort:$remote_ord_index_data_tar_path "
-      ssh -p "$testPort" "$testUrl" "mkdir -p $remote_ord_index_data_backup_path"
-      if [ $? -ne 0 ]; then
-         echo "Error: rsync command failed." >&2
-         exit 1
-      fi
-      rsync -avv --update --progress -e "ssh -p $testPort" "$local_ord_index_data_tar_path" \
-      "$testUrl:$remote_ord_index_data_tar_path"
-   fi
-   if [ $? -ne 0 ]; then
-      echo "Error: rsync command failed." >&2
-      exit 1
-   fi
+if [ -n "$testUrl" ]; then
+    summary+=" test rsync:"
+    # basic index data
+    if [ "$use_basic" = true ]; then
+        if ! ssh -p "$testPort" "$testUrl" "mkdir -p $remote_basic_index_data_backup_path"; then
+            echo "Error: ssh mkdir -p command failed." >&2
+            exit 1
+        fi  
+        summary+=" remote basic index data: $testUrl:$testPort:$remote_basic_index_data_tar_path "
+        if ! rsync -avv --update --progress -e "ssh -p $testPort" "$local_basic_index_data_backup_tar_path" \
+            "$testUrl:$remote_basic_index_data_tar_path"; then
+            echo "Error: rsync command failed." >&2
+            exit 1
+        fi
+    fi
+    # ord index data
+    if [ "$use_ord" = true ]; then
+        summary+=" remote ord index data: $testUrl:$testPort:$remote_ord_index_data_tar_path "
+        if ! ssh -p "$testPort" "$testUrl" "mkdir -p $remote_ord_index_data_backup_path"; then
+            echo "Error: rsync command failed." >&2
+            exit 1
+        fi
+        if ! rsync -avv --update --progress -e "ssh -p $testPort" "$local_ord_index_data_tar_path" \
+        "$testUrl:$remote_ord_index_data_tar_path"; then
+            echo "Error: rsync command failed." >&2
+            exit 1
+        fi
+    fi
 fi
 
 end_time=$(date +%s)
@@ -243,6 +238,6 @@ formatted_time=$(echo "$elapsed_time" | awk '{
 
 script_dir=$(dirname "$(realpath "$0")")
 log_file="$script_dir/operation.log"
-echo "$(date -d "@$end_time" "+%Y-%m-%d %H:%M:%S")-> $chain ordx-server rsync is succ,\
- start time:$(date -d "@$start_time" "+%Y-%m-%d %H:%M:%S"), elapsed time:$formatted_time,$summary" \
- | tee -a "$log_file"
+echo "$(date -d "@$end_time" "+%Y-%m-%d %H:%M:%S")-> $chain ordx-server rsync is succ, \
+start time:$(date -d "@$start_time" "+%Y-%m-%d %H:%M:%S"), elapsed time:$formatted_time,$summary" \
+| tee -a "$log_file"
