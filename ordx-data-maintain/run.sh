@@ -82,7 +82,7 @@ case $ordxHeight in
     "ord")
         case $chain in
             "mainnet")
-                latest_height="1000"
+                latest_height="767430"
             ;;
             "testnet")
                 latest_height="2413343"
