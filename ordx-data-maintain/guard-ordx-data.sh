@@ -139,11 +139,11 @@ while $result_code -eq 0; do
         result="succ"
         sleep 10
     else
-        sleep 10
+        result="fail"
     fi
-
-    echo "$(date -d "@$end_time" "+%Y-%m-%d %H:%M:%S") -> run $command_str is $result,\
-start time:$(date -d "@$start_time" "+%Y-%m-%d %H:%M:%S"), elapsed time:$formatted_time, latest_height: $latest_height" \
+    timeFormat="+%Y-%m-%d %H:%M:%S"
+    echo "$(date -d "@$end_time" "$timeFormat") -> run $command_str is $result,\
+start time:$(date -d "@$start_time" "$timeFormat"), elapsed time:$formatted_time, latest_height: $latest_height" \
 | tee -a "$log_file"
     
 done
