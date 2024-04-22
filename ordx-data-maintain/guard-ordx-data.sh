@@ -137,7 +137,6 @@ while $result_code -eq 0; do
     
     if $result_code -eq 0; then
         result="succ"
-        sleep 10
     else
         result="fail"
     fi
