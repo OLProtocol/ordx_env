@@ -7,12 +7,20 @@ ordxConfPath=""
 ordxHeight="latest"
 disable_basic=false
 disable_ord=true
+dataDir=""
+backupDir=""
 
-while getopts "c:o:d:h" opt; do
+while getopts "c:d:b:o:h" opt; do
     case ${opt} in
         c )
             ordxConfPath=$(eval echo "$OPTARG")
         ;;
+        d )
+            dataDir="$OPTARG"
+            ;;
+        b )
+            backupDir="$OPTARG"
+            ;;
         o )
             case $OPTARG in
                 ord)
@@ -30,29 +38,13 @@ while getopts "c:o:d:h" opt; do
                 ;;
             esac
         ;;
-        d )
-            case $OPTARG in
-                basic)
-                    disable_basic=true
-                    disable_ord=false
-                ;;
-                ord)
-                    disable_basic=false
-                    disable_ord=true
-                ;;
-                *)
-                    echo "Invalid index option: $OPTARG, use default ord"
-                    disable_basic=false
-                    disable_ord=true
-                ;;
-            esac
-        ;;
         h )
             echo "Usage: run-ordxdata.sh -c <ordxConfPath> [-d <indeData>] [-o <ordxHeight>] [-h]"
             echo "Options:"
             echo "  -c <ordxConfPath>: Specify the ordx confuration path"
+            echo "  -d <dataDir>: Specify the path to the data"
+            echo "  -b <backupDir>: Specify the path to the backup"
             echo "  -o <ordxHeight>: Specify the max ordx height, default latest, other options: ordx(mainnet:827306; testnet:2570588, ord(mainnet:767429; testnet:2413342"
-            echo "  -d <indeData>: Specify the index data to disable run. Valid options are 'basic', 'ord', or 'all', default ord"
             echo "  -h: Display this help message"
             exit 0
         ;;
@@ -129,30 +121,29 @@ formatted_time=$(echo "$elapsed_time" | awk '{
     printf "%dd%dh%dm%ds", days, hours, minutes, seconds;
 }')
 
-result=""
-if eval "$command_str" | tee /dev/tty; then
-    result="succ"
-else
-    result="fail"
-fi
+result_code=1
+init=true
+while $result_code -eq 0; do
+    if [ $init = false ]; then
+        "$script_dir/b2r.sh m recover -c $chain -i basic -d $dataDir -b $backupDir -o latest" 
+    else
+        init=false
+    fi
 
-if [ "$result" = "fail" ]; then
-    exit 1
-fi
-echo "$(date -d "@$end_time" "+%Y-%m-%d %H:%M:%S") -> run $command_str is $result,\
-start time:$(date -d "@$start_time" "+%Y-%m-%d %H:%M:%S"), elapsed time:$formatted_time, latest_height: $latest_height" \
-| tee -a "$log_file"
+    eval "$command_str" &
+    pid=$!
+    wait $pid
+    result_code=$?
 
-while true; do
-    
-    if pgrep -f "$command_str" > /dev/null; then
+    if $result_code -eq 0; then
         result="succ"
         sleep 10
     else
-        # todo check command_str is normal exit, if not call b2r.sh, esle call command_str again
         sleep 10
     fi
-    echo "$(date -d "@$end_time" "+%Y-%m-%d %H:%M:%S") -> run $command_str is succ,\
-    start time:$(date -d "@$start_time" "+%Y-%m-%d %H:%M:%S"), elapsed time:$formatted_time, latest_height: $latest_height" \
-    | tee -a "$log_file"
+
+    echo "$(date -d "@$end_time" "+%Y-%m-%d %H:%M:%S") -> run $command_str is $result,\
+start time:$(date -d "@$start_time" "+%Y-%m-%d %H:%M:%S"), elapsed time:$formatted_time, latest_height: $latest_height" \
+| tee -a "$log_file"
+    
 done

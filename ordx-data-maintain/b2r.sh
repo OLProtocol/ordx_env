@@ -157,8 +157,8 @@ if [ "$use_basic" = true ]; then
 
     case $maintain in
         "backup")
-            if [ ! -d "$bi_data_dir" ]; then
-                mkdir -p "$bi_data_dir"
+            if [ ! -d "$bi_backup_dir" ]; then
+                mkdir -p "$bi_backup_dir"
             fi
             if ! tar --checkpoint=1 --checkpoint-action=echo="%T packing... (%u)" -cf "$backup_tar" -C "$dataDir" "$chain/basic" "$chain/ordx"; then
                 echo "Error: tar command failed." >&2

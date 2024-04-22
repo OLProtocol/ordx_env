@@ -18,6 +18,7 @@
 ~/ordx-data-maintain/b2r.sh -m backup -c testnet -i basic -d /data2/ordxData -b /data2/ordxData-backup -o latest
 #~/ordx-data-maintain/b2r.sh -m backup -c testnet -i basic -d /data2/ordxData -b /data2/ordxData-backup -o ordx
 #~/ordx-data-maintain/b2r.sh -m backup -c testnet -i ord -d /data2/ordxData -b /data2/ordxData-backup
+#~/ordx-data-maintain/b2r.sh -m backup -c mainnet -i basic -d /data2/ordxData -b /data2/ordxData-backup -o latest
 
 5 sync ordx basic index data:
 ~/ordx-data-maintain/sync.sh -c testnet -o latest -i basic -l /data2/ordxData-backup -r /data/ordxData-backup \
