@@ -82,7 +82,7 @@ case $ordxHeight in
     "ord")
         case $chain in
             "mainnet")
-                latest_height="767430"
+                latest_height="1000"
             ;;
             "testnet")
                 latest_height="2413343"
@@ -96,7 +96,7 @@ case $ordxHeight in
     "ordx")
         case $chain in
             "mainnet")
-                # latest_height="827306"
+                latest_height="827306"
             ;;
             "testnet")
                 latest_height="2570588"
@@ -139,21 +139,28 @@ fi
 start_time=$(date +%s)
 script_dir=$(dirname "$(realpath "$0")")
 log_file="$script_dir/operation.log"
-end_time=$(date +%s)
-elapsed_time=$((end_time - start_time))
-formatted_time=$(echo "$elapsed_time" | awk '{
-    days = int($1 / 86400);
-    hours = int($1 % 86400 / 3600);
-    minutes = int($1 % 3600 / 60);
-    seconds = $1 % 60;
-    printf "%dd%dh%dm%ds", days, hours, minutes, seconds;
-}')
-
 timeFormat="+%Y-%m-%d %H:%M:%S"
+
+format_time() {
+    local elapsed=$1
+    local days hours minutes seconds
+    days=$((elapsed / 86400))
+    hours=$((elapsed % 86400 / 3600))
+    minutes=$((elapsed % 3600 / 60))
+    seconds=$((elapsed % 60))
+    printf "%dd%dh%dm%ds" "$days" "$hours" "$minutes" "$seconds"
+}
+
 if eval "$command_str" | tee /dev/tty; then
+    end_time=$(date +%s)
+    elapsed_time=$((end_time - start_time))
+    formatted_time=$(format_time "$elapsed_time")
     echo "$(date -d "@$end_time" "$timeFormat") -> run ordx data is succ, start time:$(date -d "@$start_time" "$timeFormat"), elapsed time:$formatted_time, latest_height: $latest_height" \
     | tee -a "$log_file"
 else
+    end_time=$(date +%s)
+    elapsed_time=$((end_time - start_time))
+    formatted_time=$(format_time "$elapsed_time")
     echo "$(date -d "@$end_time" "$timeFormat") -> run ordx data is fail, start time:$(date -d "@$start_time" "$timeFormat"), elapsed time:$formatted_time, latest_height: $latest_height" \
     | tee -a "$log_file"
     exit 1
