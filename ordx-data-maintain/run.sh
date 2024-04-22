@@ -12,41 +12,41 @@ while getopts "c:o:d:h" opt; do
     case ${opt} in
         c )
             ordxConfPath=$(eval echo "$OPTARG")
-            ;;
+        ;;
         o )
             case $OPTARG in
                 ord)
                     ordxHeight="ord"
-                    ;;
+                ;;
                 ordx)
                     ordxHeight="ordx"
-                    ;;
+                ;;
                 latest)
                     ordxHeight="latest"
-                    ;;
+                ;;
                 *)
                     echo "Invalid ordxHeight option: $OPTARG, use default latest"
                     ordxHeight="latest"
-                    ;;
+                ;;
             esac
-            ;;
+        ;;
         d )
             case $OPTARG in
                 basic)
                     disable_basic=true
                     disable_ord=false
-                    ;;
+                ;;
                 ord)
                     disable_basic=false
                     disable_ord=true
-                    ;;                
+                ;;
                 *)
                     echo "Invalid index option: $OPTARG, use default ord"
                     disable_basic=false
                     disable_ord=true
-                    ;;
+                ;;
             esac
-            ;;
+        ;;
         h )
             echo "Usage: run-ordxdata.sh -c <ordxConfPath> [-d <indeData>] [-o <ordxHeight>] [-h]"
             echo "Options:"
@@ -55,13 +55,13 @@ while getopts "c:o:d:h" opt; do
             echo "  -d <indeData>: Specify the index data to disable run. Valid options are 'basic', 'ord', or 'all', default ord"
             echo "  -h: Display this help message"
             exit 0
-            ;;
+        ;;
         \? )
             echo "Invalid option: -$OPTARG"
-            ;;
+        ;;
         : )
             echo "Option -$OPTARG requires an argument."
-            ;;
+        ;;
     esac
 done
 
@@ -84,30 +84,30 @@ case $ordxHeight in
             "mainnet")
                 latest_height="767430"
                 # latest_height="100000"
-                ;;
+            ;;
             "testnet")
                 latest_height="2413343"
-                ;;
+            ;;
             \? )
                 echo "The configuration file $ordxConfPath require BITCOIN_CHAIN, please check and try again"
                 exit 1
-                ;;
-        esac    
-        ;;
+            ;;
+        esac
+    ;;
     "ordx")
         case $chain in
             "mainnet")
                 # latest_height="827306"
-                ;;
+            ;;
             "testnet")
                 latest_height="2570588"
-                ;;
+            ;;
             \? )
                 echo "The configuration file $ordxConfPath require BITCOIN_CHAIN, please check and try again"
                 exit 1
-                ;;
+            ;;
         esac
-        ;;
+    ;;
     "latest")
         ordRpc=$(grep -w ORD_RPC_URL "$ordxConfPath" | awk -F= '{print $2}')
         if [ -z "$ordRpc" ]; then
@@ -119,7 +119,7 @@ case $ordxHeight in
             echo "ordinal rpc error: latest_height is empty"
             exit 1
         fi
-        ;;
+    ;;
 esac
 
 sed -i "s/^#*MAX_INDEX_HEIGHT=.*/MAX_INDEX_HEIGHT=$latest_height/" "$ordxConfPath"
@@ -150,13 +150,12 @@ formatted_time=$(echo "$elapsed_time" | awk '{
     printf "%dd%dh%dm%ds", days, hours, minutes, seconds;
 }')
 
+timeFormat="+%Y-%m-%d %H:%M:%S"
 if eval "$command_str" | tee /dev/tty; then
-    echo "$(date -d "@$end_time" "+%Y-%m-%d %H:%M:%S") -> run ordx data is succ,\
-    start time:$(date -d "@$start_time" "+%Y-%m-%d %H:%M:%S"), elapsed time:$formatted_time, latest_height: $latest_height" \
+    echo "$(date -d "@$end_time" "$timeFormat") -> run ordx data is succ, start time:$(date -d "@$start_time" "$timeFormat"), elapsed time:$formatted_time, latest_height: $latest_height" \
     | tee -a "$log_file"
 else
-    echo "$(date -d "@$end_time" "+%Y-%m-%d %H:%M:%S") -> run ordx data is fail,\
-    start time:$(date -d "@$start_time" "+%Y-%m-%d %H:%M:%S"), elapsed time:$formatted_time, latest_height: $latest_height" \
+    echo "$(date -d "@$end_time" "$timeFormat") -> run ordx data is fail, start time:$(date -d "@$start_time" "$timeFormat"), elapsed time:$formatted_time, latest_height: $latest_height" \
     | tee -a "$log_file"
     exit 1
 fi

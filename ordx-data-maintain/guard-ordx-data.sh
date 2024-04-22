@@ -17,10 +17,10 @@ while getopts "c:d:b:o:h" opt; do
         ;;
         d )
             dataDir="$OPTARG"
-            ;;
+        ;;
         b )
             backupDir="$OPTARG"
-            ;;
+        ;;
         o )
             case $OPTARG in
                 ord)
@@ -125,16 +125,16 @@ result_code=1
 init=true
 while $result_code -eq 0; do
     if [ $init = false ]; then
-        "$script_dir/b2r.sh m recover -c $chain -i basic -d $dataDir -b $backupDir -o latest" 
+        "$script_dir/b2r.sh m recover -c $chain -i basic -d $dataDir -b $backupDir -o latest"
     else
         init=false
     fi
-
+    
     eval "$command_str" &
     pid=$!
     wait $pid
     result_code=$?
-
+    
     if $result_code -eq 0; then
         result="succ"
         sleep 10
@@ -142,8 +142,6 @@ while $result_code -eq 0; do
         result="fail"
     fi
     timeFormat="+%Y-%m-%d %H:%M:%S"
-    echo "$(date -d "@$end_time" "$timeFormat") -> run $command_str is $result,\
-start time:$(date -d "@$start_time" "$timeFormat"), elapsed time:$formatted_time, latest_height: $latest_height" \
-| tee -a "$log_file"
-    
+    echo "$(date -d "@$end_time" "$timeFormat") -> run $command_str is $result, start time:$(date -d "@$start_time" "$timeFormat"), elapsed time:$formatted_time, latest_height: $latest_height" \
+    | tee -a "$log_file"
 done
