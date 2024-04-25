@@ -50,20 +50,6 @@ ssh-keygen -R root@192.168.1.106
 ssh -T git@github.com
 ssh -vT git@github.com
 
-git add . && git commit -m "fix" && git push
-git push -u origin main
-git remote add origin git@github.com:tinyverse-web3/tvsconnect.git
-git remote get-url origin
-git fetch
-git fetch --all
-git remote -v
-git reset --hard HEAD
-git reset --hard 449da4b21ecbd17c991a5523e9235371bc977277^
-git log -n 1 --pretty=format:%H
-git log -n 1 --pretty=format:%H
-git config --global user.email "softwarecheng@126.com"
-git config --global user.name "jackychen"
-
 protoc-gen-go --version
 protoc --go_out=. ./ordinals/indexer/pb/*.proto
 protoc --go_out=paths=source_relative:. ./ordx/indexer/pb/*.proto
@@ -201,7 +187,7 @@ ipfs repo gc
 
 sudo add-apt-repository ppa:deadsnakes/ppa
 ssh-keygen -t rsa -b 4096 -C "dev@tinyverse.space"
-git submodule update --init
+
 sysctl fs.file-max
 sudo vi /etc/sysctl.conf
 ulimit -Hn
