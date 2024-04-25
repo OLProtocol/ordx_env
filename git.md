@@ -9,7 +9,6 @@ git remote -v
 git reset --hard HEAD
 git reset --hard 449da4b21ecbd17c991a5523e9235371bc977277^
 git log -n 1 --pretty=format:%H
-git log -n 1 --pretty=format:%H
 git config --global user.email "softwarecheng@126.com"
 git config --global user.name "jackychen"
 git submodule update --init
@@ -20,8 +19,11 @@ git push origin main
 git push -u origin main
 
 git fetch --tags
+git fetch origin tag <tagname>
 git ls-remote --tags origin
 git checkout tags/0.2.0-release
 git checkout -b new-branch-name tags/0.2.0-release
 
 git branch --all
+git branch -r
+git remote show <remote-name>
