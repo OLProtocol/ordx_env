@@ -339,3 +339,31 @@ ddb.geometry.cylinders = "6527"
 ```
 
 # 8 VMware-converter-en-6.6.0-23265344.exe
+
+# manager ubuntu 22 tools
+apt install supervisor tmux tmuxinator
+# install golang
+
+# softwarecheng/olp github
+~/github/clash-for-linux
+~/github/mole
+~/github/btcnet_env
+~/github/btcnet_env/ordx-data-maintain
+~/github/btcnet_env/monitor
+~/github/btcnet_env/clash-for-linux
+~/github/btcnet_env/mole
+
+~/ordx-data-maintain
+~/monitor
+~/.tmux.conf
+~/.tmux
+~/.config/tmuxinator
+/etc/supervisor
+/etc/ordx
+
+/data/github
+/data/ordxData
+/data/ordData
+/data/ordxData-backup
+/data/bitcoinData
+/data/bitcoinData-backup
