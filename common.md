@@ -41,6 +41,7 @@ trzsz ssh -t root@192.168.1.101
 
 ssh root@192.168.1.103 -t tmux new -Asordx
 ssh -p 10000 root@192.168.1.101
+ssh-keygen -R 192.168.1.101
 ssh-copy-id  root@103.103.245.177
 ssh-copy-id -p 8020 root@103.103.245.177
 ssh -J root@103.103.245.177:8020 root@192.168.1.103
