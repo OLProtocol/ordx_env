@@ -14,5 +14,5 @@ while true; do
     else
         echo "mole start remote --verbose --source 103.103.245.177:5433 --destination 127.0.0.1:5432 --server root@103.103.245.177 --key /root/.ssh/id_ed25519 -R 0 is already running with PID: $(pgrep -f "mole start remote --verbose --source 103.103.245.177:8002")"
     fi
-    sleep 1
+    sleep 10
 done

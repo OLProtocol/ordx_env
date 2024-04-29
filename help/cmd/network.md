@@ -26,4 +26,9 @@ sudo nethogs eth0
 sudo nethogs eth0 -d 5
 sudo nethogs -t | grep sshd
 sudo nethogs -t | grep nginx
+# clash
+vi ~/github/clash-for-linux/.env
+~/github/clash-for-linux/start.sh
+proxy_on
+proxy_off
 ```

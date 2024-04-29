@@ -50,8 +50,13 @@ ssh -vT git@github.com
 
 # autossh
 sudo apt install autossh
-autossh -M 20010 -o 'ServerAliveInterval 10' -o 'ServerAliveCountMax 3' -o 'Ciphers aes128-ctr' -o \
-'KexAlgorithms diffie-hellman-group14-sha1' -CN -R 8020:192.168.1.101:10000 root@103.103.245.177
+autossh -M 20010 -o 'ServerAliveInterval 10' -o 'ServerAliveCountMax 3' \
+-o 'Ciphers aes128-ctr' -o 'KexAlgorithms diffie-hellman-group14-sha1' \
+-CN -R 8020:192.168.1.101:10000 root@103.103.245.177
 ssh -J root@103.103.245.177:8020 root@192.168.1.102
+
+# mole
+mole start remote --verbose --source 103.103.245.177:8005 --destination 127.0.0.1:8005 \
+--server root@103.103.245.177 --key /root/.ssh/id_ed25519 -R 0
 ```
 
