@@ -6,10 +6,10 @@ path = electors
 url = https://github.com/blockstream/electrs
 [submodule "ord"]
 path = ord
-url = https://github.com/OLProtocol/ord
+url = https://github.com/softwarecheng/ord
 [submodule "mole"]
 path = mole
 url = https://github.com/OLProtocol/mole
 [submodule "clash"]
-	path = clash
-	url = https://github.com/softwarecheng/clash
+path = clash
+url = https://github.com/softwarecheng/clash
