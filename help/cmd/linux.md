@@ -9,6 +9,8 @@ uname -s
 # name
 sudo hostnamectl set-hostname dev-server
 # zsh
+sudo apt install zsh
+sh -c "$(curl -fsSL https://raw.githubusercontent.com/ohmyzsh/ohmyzsh/master/tools/install.sh)"
 source ~/.zshrc
 # crontab
 crontab -e
