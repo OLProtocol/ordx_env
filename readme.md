@@ -1,5 +1,17 @@
 
 ```shell
+## install
+bin/install/daemon.sh
+bin/install/autossh.sh
+bin/install/bitcond.sh
+bin/install/golang.sh
+bin/install/mole.sh
+bin/install/rust.sh
+bin/install/ord.sh
+bin/install/tmux.sh
+bin/install/tmuxinator.sh
+bin/install/supervisor.sh
+
 ## config
 # tmux
 cp ../cmd/tmux/tmux.conf ~/.tmux.conf
@@ -14,10 +26,13 @@ cp ../cmd/supervisor/conf/supervisord.conf /etc/supervisor/supervisord.conf
 vi /etc/supervisor/supervisord.conf
 cp ../cmd/supervisor/conf/ordx.ini /etc/supervisor/conf.d/ordx.ini
 vi /etc/supervisor/conf.d/ordx.ini
+
+# ordx
 cp ./etc/ordx /etc/ordx
 
-# install bin
-cp ../../bin/daemon ~/
+## program
+# install maintain script
+cp -r ../../bin/daemon ~/
 cp -r ../../bin/ordx-data-maintain ~/
 
 ## install ordx
@@ -29,6 +44,7 @@ export CGO_ENABLED=0
 go build -o /usr/local/bin/ordx-server
 cp root@192.168.1.103:/data2/ordxData-backup /data/
 
+## data
 # bitcoin data
 mkdir -p /data/bitcoinData/main /data/bitcoinData/testnet3
 scp root@192.168.1.103:/data2/bitcoin-backup/bitcoin.conf /data/bitcoinData/
