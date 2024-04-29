@@ -130,8 +130,7 @@ sudo nano /etc/ssh/sshd_config
 PermitRootLogin yes
 sudo systemctl reload sshd
 
-ip addr show | grep inet | awk '{ print $2; }' \
-ip addr show | grep inet | awk '{ print $2; }' | sed 's/\/.*$//'\
+
 diff config.json config1.json
 apt-get install jq
 jq config.json
