@@ -1,6 +1,27 @@
 ```shell
+# ip
 ip -6 addr show
 ip addr show | grep inet | awk '{ print $2; }' | sed 's/\/.*$//'
+
+# set ip
+vi /etc/netplan/00-installer-config.yaml
+network:
+  ethernets:
+    enp7s0:
+      addresses:
+      - 192.168.1.102/24
+      nameservers:
+        addresses:
+        - 202.96.134.133
+        - 114.114.114.114
+        - 8.8.8.8
+        search: []
+      routes:
+      - to: default
+        via: 192.168.1.1
+  version: 2
+sudo netplan apply
+
 # lsof
 lsof -i :5000
 # netstat
