@@ -1,4 +1,8 @@
 #!/bin/bash
+# set -x
+set -e
+
+# install bitcoind
 version=25.0
 if command -v bitcoind &> /dev/null
 then
@@ -15,4 +19,3 @@ else
     --strip-components 2 \
     bitcoin-$version/bin/{bitcoin-cli,bitcoind}
 fi
-
