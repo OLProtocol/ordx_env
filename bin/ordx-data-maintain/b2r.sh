@@ -84,7 +84,7 @@ while getopts "c:m:o:i:d:b:h" opt; do
             backupDir="$OPTARG"
             ;;
         h )
-            echo "Usage: run-ordxdata.sh [-c <chain>] [-m <maintain>] [-o <ordxHeight>] [-i <indexData>] -d <dataDir> -b <backupDir> [-h]"
+            echo "Usage: b2r.sh [-c <chain>] [-m <maintain>] [-o <ordxHeight>] [-i <indexData>] -d <dataDir> -b <backupDir> [-h]"
             echo "Options:"
             echo "  -c <chain>: Specify the chain. Valid options are 'mainnet' or 'testnet', default testnet"
             echo "  -m <maintain>: Specify the maintain mode. Valid options are 'backup' or 'restore', default backup"

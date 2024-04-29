@@ -86,7 +86,7 @@ while getopts "c:o:i:l:r::p:a:t:b:h" opt; do
             testPort="$OPTARG"
             ;;
         h )
-            echo "Usage: run-ordxdata.sh [-c <chain>] [-o <ordxHeight>] [-i <indexData>] -l <localBackupDir> -r <remoteBackupDir> -p <prdUrl> [-a <prdPort>] -t <testUrl> [-b <testPort>] [-h]"
+            echo "Usage: sync.sh [-c <chain>] [-o <ordxHeight>] [-i <indexData>] -l <localBackupDir> -r <remoteBackupDir> -p <prdUrl> [-a <prdPort>] -t <testUrl> [-b <testPort>] [-h]"
             echo "Options:"
             echo "  -c <chain>: Specify the chain. valid options are 'mainnet' or 'testnet', default testnet"
             echo "  -o <ordxHeight>: Specify the max ordx height, default latest, other options: ordx(mainnet:827306; testnet:2570588, ord(mainnet:767429; testnet:2413342"

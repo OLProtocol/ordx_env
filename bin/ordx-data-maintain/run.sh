@@ -48,7 +48,7 @@ while getopts "c:o:d:h" opt; do
             esac
         ;;
         h )
-            echo "Usage: run-ordxdata.sh -c <ordxConfPath> [-d <indeData>] [-o <ordxHeight>] [-h]"
+            echo "Usage: run.sh -c <ordxConfPath> [-d <indeData>] [-o <ordxHeight>] [-h]"
             echo "Options:"
             echo "  -c <ordxConfPath>: Specify the ordx confuration path"
             echo "  -o <ordxHeight>: Specify the max ordx height, default latest, other options: ordx(mainnet:827306; testnet:2570588, ord(mainnet:767429; testnet:2413342"
