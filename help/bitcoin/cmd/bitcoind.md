@@ -1,12 +1,12 @@
 # main
 bitcoind -rpcworkqueue=512 -rpcthreads=128 -chain=main \
--conf=/data/bitcoinData/bitcoin.conf -datadir=/data/bitcoinData/main
-tail -f -n 30 /data/bitcoinData/main/debug.log
+-conf=/data/bitcoin-data/bitcoin.conf -datadir=/data/bitcoin-data/main
+tail -f -n 30 /data/bitcoin-data/main/debug.log
 
 # testnet
 bitcoind -rpcworkqueue=512 -rpcthreads=128 -chain=test \
--conf=/data/bitcoinData/bitcoin.conf -datadir=/data/bitcoinData
-tail -f -n 30 /data/bitcoinData/testnet3/debug.log
+-conf=/data/bitcoin-data/bitcoin.conf -datadir=/data/bitcoin-data
+tail -f -n 30 /data/bitcoin-data/testnet3/debug.log
 
 
 # mac

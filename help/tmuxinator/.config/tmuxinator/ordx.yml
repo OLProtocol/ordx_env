@@ -1,15 +1,15 @@
 windows:
-  - bitcind25.0-testnet: tail -f -n 30 /data/bitcoinData/testnet3/debug.log
-  - bitcoind25.0-mainnet: tail -f -n 30 /data/bitcoinData/main/debug.log
+  - bitcind25.0-testnet: tail -f -n 30 /data/bitcoin-data/testnet3/debug.log
+  - bitcoind25.0-mainnet: tail -f -n 30 /data/bitcoin-data/main/debug.log
   - ord0.16.0-testnet: tail -f -n 30 /var/log/supervisor/ord0.16.0-testnet.out.log
   - ord0.16.0-main: tail -f -n 30 /var/log/supervisor/ord0.16.0-mainnet.out.log
   - ordx-server-testnet: tail -f -n 30 /var/log/supervisor/ordx-server-testnet.out.log
   - ordx-server-main: tail -f -n 30 /var/log/supervisor/ordx-server-main.out.log
   - mole-ordx-server-testnet: ~/monitor/test-monitor-mole-ordx-server-testnet.sh
   - mole-ordx-server-main: ~/monitor/test-monitor-mole-ordx-server-mainnet.sh
-  #- bitcind25.0-testnet: bitcoind -chain=test -conf=/data/bitcoinData/bitcoin.conf -datadir=/data/bitcoinData
+  #- bitcind25.0-testnet: bitcoind -chain=test -conf=/data/bitcoin-data/bitcoin.conf -datadir=/data/bitcoin-data
   #- ord0.15.0-testnet: ord0.15.0 --chain testnet --rpc-url 192.168.1.102:18332 --data-dir /data/ord-data/0.15.0 --bitcoin-rpc-user jacky --bitcoin-rpc-pass 123456 --index-sats server --enable-json-api --http --http-port 80
-  #- electrs-testnet: electrs -vvvv --cookie jacky:123456 --db-dir /data/electorsData --daemon-dir /data/bitcoinData/ --daemon-rpc-addr "192.168.1.102:18332" --network testnet --cors "*" --utxos-limit 5000 --electrum-txs-limit 5000 --electrum-rpc-addr "0.0.0.0:60001" --http-addr "0.0.0.0:3002"
+  #- electrs-testnet: electrs -vvvv --cookie jacky:123456 --db-dir /data/electorsData --daemon-dir /data/bitcoin-data/ --daemon-rpc-addr "192.168.1.102:18332" --network testnet --cors "*" --utxos-limit 5000 --electrum-txs-limit 5000 --electrum-rpc-addr "0.0.0.0:60001" --http-addr "0.0.0.0:3002"
   #- esplora-testnet: cd /data/github/btcnet_env/esplora && export API_URL=http://192.168.1.102:3002/ && npm run dev-server
   #- ordx-server-testnet: ordx-server -env /etc/ordx/test-testnet.env
   #- ordx-server-main: ordx-server -env /etc/ordx/test-mainnet.env

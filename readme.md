@@ -42,14 +42,14 @@ export GOOS=linux
 export GOARCH=amd64
 export CGO_ENABLED=0
 go build -o /usr/local/bin/ordx-server
-cp root@192.168.1.103:/data2/ordxData-backup /data/
+cp root@192.168.1.103:/data2/ordx-data-backup /data/
 
 ## data
 # bitcoin data
-mkdir -p /data/bitcoinData/main /data/bitcoinData/testnet3
-scp root@192.168.1.103:/data2/bitcoin-backup/bitcoin.conf /data/bitcoinData/
-scp -r root@192.168.1.103:/data2/bitcoin-backup/main/20240321/ /data/bitcoinData/main/
-scp -r root@192.168.1.103:/data2/bitcoin-backup/testnet3/20240321/ /data/bitcoinData/testnet3/
+mkdir -p /data/bitcoin-data/main /data/bitcoin-data/testnet3
+scp root@192.168.1.103:/data2/bitcoin-backup/bitcoin.conf /data/bitcoin-data/
+scp -r root@192.168.1.103:/data2/bitcoin-backup/main/20240321/ /data/bitcoin-data/main/
+scp -r root@192.168.1.103:/data2/bitcoin-backup/testnet3/20240321/ /data/bitcoin-data/testnet3/
 
 # ord data
 mkdir -p /data/ord-data

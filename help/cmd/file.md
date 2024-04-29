@@ -5,7 +5,7 @@ lsof -n | awk '{print $1, $2}' | grep -v '^COMMAND PID' | sort | uniq -c | sort 
 scp -P 2222 your_file.txt username@remote_host:/remote/directory
 scp -r root@192.168.1.103:/data1/github/ordx/ ~/Desktop
 # rsync
-rsync -avv --delete --update --progress --delete root@192.168.1.103:/data2/ordxData-backup/ord-lastest  /Volumes/backup
+rsync -avv --delete --update --progress --delete root@192.168.1.103:/data2/ordx-data-backup/ord-lastest  /Volumes/backup
 # trzsz
 trzsz ssh root@192.168.1.106
 trzsz -d ssh root@192.168.1.101
@@ -14,7 +14,7 @@ trzsz ssh -t root@192.168.1.101
 tsz ./user.keystore
 # find
 find . -name 'Bitcoin-FullNodeData-March-16th-2024.7z.*' -exec shasum -a 256 {} \;
-find /data/ordxData/testnet/basic /data/ordxData/testnet/ordx -mindepth 1 -delete
+find /data/ordx-data/testnet/basic /data/ordx-data/testnet/ordx -mindepth 1 -delete
 # shasum
 shasum -a 256 ./Bitcoin-FullNodeData-March-16th-2024.7z.002
 # du

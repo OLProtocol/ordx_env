@@ -47,6 +47,6 @@ root: ~/
 windows:
   - ord0.13.1-mainnet: /btcdata/ord/bin/ord0.13.1 --chain mainnet --rpc-url 192.168.1.117:8332 --data-dir /btcdata/ord/data/0.13.1/mainnet --bitcoin-rpc-user jacky --bitcoin-rpc-pass 123456 --index-sats server --enable-json-api --http --http-port 81
   - ord0.15.0-mainnet: /data/ord/target/release/ord --chain mainnet --rpc-url 192.168.1.117:8332 --data-dir /media/sf_ordindex/0.15.0/mainnet --bitcoin-rpc-user jacky --bitcoin-rpc-pass 123456 --index-sats server --enable-json-api --http --http-port 82
-  #  - bitcind25.0-mainnet: bitcoind -chain=main -conf=/data/bitcoinData/bitcoin.conf -datadir=/data/bitcoinData
+  #  - bitcind25.0-mainnet: bitcoind -chain=main -conf=/data/bitcoin-data/bitcoin.conf -datadir=/data/bitcoin-data
   #  - electrs-testnet: /data/btcnet_env/electors/target/release/electrs -vvvv --cookie jacky:123456 --db-dir /data/electorsData --daemon-dir /media/sf_bitcoin/ --daemon-rpc-addr "192.168.1.100:38443" --network testnet --cors "*" --utxos-limit 5000 --electrum-txs-limit 5000 --electrum-rpc-addr "0.0.0.0:60001" --http-addr "0.0.0.0:3002"
   #  - esplora-testnet: cd /data/btcnet_env/esplora && export API_URL=http://192.168.1.106:3002/ && npm run dev-server
