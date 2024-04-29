@@ -1,5 +1,18 @@
-```shell
-bitcoind -server -daemon -rpcworkqueue=32 -chain=regtest -txindex -maxmempool=1024 -datadir=/var/lib/bitcoind -conf=/etc/bitcoin/bitcoin.conf  
-bitcoind -server -daemon -rpcworkqueue=32 -chain=regtest -txindex -maxmempool=1024 -datadir=./ -rpcuser=jacky -rpcpassword=123456 -rpcallowip=0.0.0.0/0 -rpcbind=0.0.0.0:18443 -rpcport=18443 
-# ./Bitcoin-Qt 
-```
+# main
+bitcoind -rpcworkqueue=512 -rpcthreads=128 -chain=main \
+-conf=/data/bitcoinData/bitcoin.conf -datadir=/data/bitcoinData/main
+tail -f -n 30 /data/bitcoinData/main/debug.log
+
+# testnet
+bitcoind -rpcworkqueue=512 -rpcthreads=128 -chain=test \
+-conf=/data/bitcoinData/bitcoin.conf -datadir=/data/bitcoinData
+tail -f -n 30 /data/bitcoinData/testnet3/debug.log
+
+
+# mac
+diskutil list
+du -h -d 1 ../db/testnet-ord
+pbcopy < ~/.ssh/id_rsa.pub
+sudo brew services info bitcoin
+sudo brew services stop bitcoin
+sudo rm -rf  /Library/Application\ Support/Bitcoin

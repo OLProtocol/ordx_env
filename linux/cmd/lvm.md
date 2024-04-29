@@ -1,6 +1,12 @@
-sudo partprobe
+```shell
 lsblk
 sudo df -h
+# for raid
+mdadm --stop /dev/md126
+mdadm --stop /dev/md127
+mdadm --remove /dev/md126和mdadm --remove /dev/md127
+mdadm --zero-superblock /dev/sda
+# for lvm
 sudo pvdisplay
 sudo vgdisplay
 sudo lvdisplay
@@ -10,7 +16,8 @@ sudo pvs
 sudo pvscan
 
 mount | grep /dev/mapper/ubuntu--vg-ubuntu--lv
-fdisk /dev/sdb
+sudo fdisk -l
+sudo fdisk /dev/sdb #n,p,1,w
 -n ... w
 # >2TB
 sudo apt install gdisk
@@ -18,7 +25,7 @@ sudo gdisk /dev/sdc
 o ... w
 sudo gdisk /dev/sdc
 n ... w
-sudo partprobe
+sudo partprobe # re-read partition table
 # lvm
 sudo pvcreate /dev/sdc1 /dev/sdb1
 sudo pvremove /dev/sdc1
@@ -40,9 +47,15 @@ sudo mkdir /data
 sudo mount /dev/vg_data1/lv_data1 /data
 sudo mount /dev/mapper/vg_data1-lv_data1 /data
 
-/etc/fstab
-# /dev/vg_data1/lv_data1 /data ext4 defaults 0 0
+/etc/fstab # /dev/vg_data1/lv_data1 /data ext4 defaults 0 0
 
 lvremove /dev/data-vg/data-lv1
 vgremove data-vg
 pvremove /dev/sdb1
+```
+
+
+
+
+
+
