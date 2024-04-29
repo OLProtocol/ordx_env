@@ -4,10 +4,11 @@ ip -6 addr show
 ip addr show | grep inet | awk '{ print $2; }' | sed 's/\/.*$//'
 
 # set ip
+ip addr show
 vi /etc/netplan/00-installer-config.yaml
 network:
   ethernets:
-    enp7s0:
+    {ens160}:
       addresses:
       - 192.168.1.102/24
       nameservers:
