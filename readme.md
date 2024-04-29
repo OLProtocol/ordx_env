@@ -37,7 +37,7 @@ cp -r ../../bin/ordx-data-maintain ~/
 
 ## install ordx
 mkdir -p /data/github 
-cd /data/github && git clone https://github.com/OLProtocol/ordx.git && cd ordx
+cd /data/github/ordx && git clone https://github.com/OLProtocol/ordx.git && cd ordx
 export GOOS=linux
 export GOARCH=amd64
 export CGO_ENABLED=0
