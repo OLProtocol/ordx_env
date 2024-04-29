@@ -11,5 +11,5 @@ url = https://github.com/OLProtocol/ord
 path = mole
 url = https://github.com/OLProtocol/mole
 [submodule "clash"]
-path = clash
-url = https://github.com/softwarecheng/clash
+	path = clash
+	url = https://github.com/softwarecheng/clash

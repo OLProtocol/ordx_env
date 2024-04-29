@@ -12,6 +12,9 @@ git log -n 1 --pretty=format:%H
 git config --global user.email "softwarecheng@126.com"
 git config --global user.name "jackychen"
 git submodule update --init
+git submodule sync --recursive
+git submodule update --init --recursive
+git submodule add https://github.com/softwarecheng/clash clash
 
 git pull origin main
 git merge support_reorg
@@ -27,3 +30,4 @@ git checkout -b new-branch-name tags/0.2.0-release
 git branch --all
 git branch -r
 git remote show <remote-name>
+
