@@ -31,3 +31,6 @@ git branch --all
 git branch -r
 git remote show <remote-name>
 
+git remote -v
+git remote set-url origin https://github.com/OLProtocol/ordx_env.git
+git remote -v
