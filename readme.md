@@ -14,21 +14,21 @@ bin/install/supervisor.sh
 
 ## config
 # tmux
-cp cmd/tmux/tmux.conf ~/.tmux.conf
-cp -r cmd/tmux/.tmux ~/.tmux
+cp help/tmux/tmux.conf ~/.tmux.conf
+cp -r help/tmux/.tmux ~/.tmux
 
 # tmuxinator
-cp -r ../cmd/tmuxinator/.config/tmuxinator/ordx.yml ~/.config/tmuxinator/ordx.yml
+cp -r help/cmd/tmuxinator/.config/tmuxinator/ordx.yml ~/.config/tmuxinator/ordx.yml
 vi ~/.config/tmuxinator/ordx.yml
 
 # supervisord
-cp ../cmd/supervisor/conf/supervisord.conf /etc/supervisor/supervisord.conf
+cp help/supervisor/conf/supervisord.conf /etc/supervisor/supervisord.conf
 vi /etc/supervisor/supervisord.conf
-cp ../cmd/supervisor/conf/ordx.ini /etc/supervisor/conf.d/ordx.ini
+cp help/supervisor/conf/ordx.ini /etc/supervisor/conf.d/ordx.ini
 vi /etc/supervisor/conf.d/ordx.ini
 
 # ordx
-cp ./etc/ordx /etc/ordx
+cp help/etc/ordx /etc/ordx
 
 ## program
 # install maintain script
