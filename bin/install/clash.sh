@@ -3,6 +3,5 @@
 set -e
 
 script_path=$(cd "$(dirname "$0")" && pwd)
-projectPath="$script_path/../.."
-cd "$projectPath"
+cd "$script_path/../.."
 git submodule update --init --recursive clash

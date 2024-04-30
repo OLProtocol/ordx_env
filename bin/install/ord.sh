@@ -2,9 +2,9 @@
 # set -x
 set -e
 
-git submodule update --init --recursive
-
 script_path=$(cd "$(dirname "$0")" && pwd)
+cd "$script_path/../.."
+git submodule update --init --recursive ord
 
 # ord
 projectPath="$script_path/../../ord"

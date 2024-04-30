@@ -2,11 +2,9 @@
 # set -x
 set -e
 
-git submodule update --init --recursive
-
 script_path=$(cd "$(dirname "$0")" && pwd)
-
-# electrs
+cd "$script_path/../.."
+git submodule update --init --recursive electrs esplora
 projectPath="$script_path/../../electrs"
 binPath="$projectPath/target/release/electrs"
 

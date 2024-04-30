@@ -2,9 +2,10 @@
 # set -x
 set -e
 
-git submodule update --init --recursive
+script_path=$(cd "$(dirname "$0")" && pwd)
+cd "$script_path/../.."
+git submodule update --init --recursive mole
 
-# install mole
 if command -v mole &> /dev/null
 then
     echo "mole is already installed"
