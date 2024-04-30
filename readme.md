@@ -14,7 +14,7 @@ bin/install/supervisor.sh
 
 ## config
 # tmux
-cp help/tmux/tmux.conf ~/.tmux.conf
+cp help/tmux/.tmux.conf ~/.tmux.conf
 cp -r help/tmux/.tmux ~/.tmux
 
 # tmuxinator
