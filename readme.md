@@ -32,7 +32,7 @@ cp -r help/ordx/conf/* /etc/ordx/
 
 ## program
 # install maintain script
-cp -r bin ~/ordx/
+cp -r bin/* ~/ordx/bin/
 
 ## install ordx
 mkdir -p /data/github 
