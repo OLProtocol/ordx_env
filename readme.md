@@ -14,8 +14,8 @@ bin/install/supervisor.sh
 
 ## config
 # tmux
-cp ../cmd/tmux/tmux.conf ~/.tmux.conf
-cp -r ../cmd/tmux/.tmux ~/.tmux
+cp cmd/tmux/tmux.conf ~/.tmux.conf
+cp -r cmd/tmux/.tmux ~/.tmux
 
 # tmuxinator
 cp -r ../cmd/tmuxinator/.config/tmuxinator/ordx.yml ~/.config/tmuxinator/ordx.yml
@@ -32,8 +32,7 @@ cp ./etc/ordx /etc/ordx
 
 ## program
 # install maintain script
-cp -r ../../bin/daemon ~/
-cp -r ../../bin/ordx-data-maintain ~/
+cp -r bin ~/ordx/
 
 ## install ordx
 mkdir -p /data/github 
