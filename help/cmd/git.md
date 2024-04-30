@@ -29,6 +29,7 @@ git checkout -b new-branch-name tags/0.2.0-release
 
 git branch --all
 git branch -r
+git branch -a
 git remote show <remote-name>
 
 git remote -v
