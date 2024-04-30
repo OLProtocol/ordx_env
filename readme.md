@@ -32,6 +32,7 @@ cp -r help/ordx/conf/* /etc/ordx/
 
 ## program
 # install maintain script
+mkdir -p ~/ordx/bin
 cp -r bin/* ~/ordx/bin/
 
 ## install ordx
