@@ -18,7 +18,7 @@ cp help/tmux/.tmux.conf ~/.tmux.conf
 cp -r help/tmux/.tmux ~/.tmux
 
 # tmuxinator
-cp -r help/cmd/tmuxinator/.config/tmuxinator/ordx.yml ~/.config/tmuxinator/ordx.yml
+cp -r help/tmuxinator/.config/tmuxinator/ordx.yml ~/.config/tmuxinator/ordx.yml
 vi ~/.config/tmuxinator/ordx.yml
 
 # supervisord
@@ -28,7 +28,7 @@ cp help/supervisor/conf/ordx.ini /etc/supervisor/conf.d/ordx.ini
 vi /etc/supervisor/conf.d/ordx.ini
 
 # ordx
-cp help/etc/ordx /etc/ordx
+cp -r help/ordx/conf/* /etc/ordx/
 
 ## program
 # install maintain script

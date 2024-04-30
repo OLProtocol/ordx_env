@@ -1,0 +1,8 @@
+apikey_list:
+  "ueZdkm8s93ZL4QjHcVbb":
+    user_name: ordx.space
+    rate_limit:
+      per_second: 5
+      per_day: 10000
+nolimit_api_list:
+  - "/health"
