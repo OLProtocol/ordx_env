@@ -53,10 +53,10 @@ root: ~/
 # autossh -M 20010 -o 'ServerAliveInterval 10' -o 'ServerAliveCountMax 3' -o 'Ciphers aes128-ctr' -o 'KexAlgorithms diffie-hellman-group14-sha1' -CN -R 8020:192.168.1.101:10000 root@103.103.245.177
 # mole start local --verbose --source 192.168.1.101:8001 --destination 103.103.245.177:8001 --server root@103.103.245.17
 windows:
-  - olp-main-index:testnet3: cd /btcdata/test/olp/olpindex/modules/main_index && node index.js
-  - olp-ordx-index:testnet3: cd /btcdata/test/olp/olpindex/modules/ord2_index && python3 ord2_index.py
-  - olp-ordx-api:testnet3: cd /btcdata/test/olp/olpindex/modules/ord2_api && node index.js
-  - mole-ordx-api:testnet3: mole start remote --verbose --source 103.103.245.177:8001 --destination 127.0.0.1:8001 --server root@103.103.245.177 --key /root/.ssh/id_ed25519 -R 0
+  - olp-main-index:testnet: cd /btcdata/test/olp/olpindex/modules/main_index && node index.js
+  - olp-ordx-index:testnet: cd /btcdata/test/olp/olpindex/modules/ord2_index && python3 ord2_index.py
+  - olp-ordx-api:testnet: cd /btcdata/test/olp/olpindex/modules/ord2_api && node index.js
+  - mole-ordx-api:testnet: mole start remote --verbose --source 103.103.245.177:8001 --destination 127.0.0.1:8001 --server root@103.103.245.177 --key /root/.ssh/id_ed25519 -R 0
   - olp-main-index:mainnet: cd /btcdata/mainnet/olpindex/modules/main_index && node index.js
   - olp-ordx-index:mainnet: cd /btcdata/mainnet/olpindex/modules/ord2_index && python3 ord2_index.py
   - olp-ordx-api:mainnet: cd /btcdata/mainnet/olpindex/modules/ord2_api && node index.js

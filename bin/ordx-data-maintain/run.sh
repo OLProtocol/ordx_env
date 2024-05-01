@@ -84,7 +84,7 @@ case $ordxHeight in
     "mainnet")
         latest_height="767430"
         ;;
-    "testnet3")
+    "testnet")
         latest_height="2413343"
         ;;
     \?)
@@ -98,7 +98,7 @@ case $ordxHeight in
     "mainnet")
         latest_height="827306"
         ;;
-    "testnet3")
+    "testnet")
         latest_height="2570588"
         ;;
     \?)

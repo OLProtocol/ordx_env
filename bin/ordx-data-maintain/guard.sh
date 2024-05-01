@@ -75,7 +75,7 @@ case $ordxHeight in
     "mainnet")
         latest_height="height-767430"
         ;;
-    "testnet3")
+    "testnet")
         latest_height="height-2413343"
         ;;
     esac
@@ -85,7 +85,7 @@ case $ordxHeight in
     "mainnet")
         latest_height="height-827306"
         ;;
-    "testnet3")
+    "testnet")
         latest_height="height-2570588"
         ;;
     esac
