@@ -4,7 +4,7 @@ set -e
 
 programName="ordx-server"
 ordxConfPath=""
-ordxHeight="latest"
+ordxHeight=""
 disable_basic=false
 disable_ord=true
 
@@ -12,21 +12,24 @@ while getopts "c:o:d:h" opt; do
     case ${opt} in
     c)
         ordxConfPath="$OPTARG"
+        if [ -z "$ordxConfPath" ]; then
+            echo "Please specify -c option for ordx confuration path, example -c run-ordxdata-testnet.env"
+            exit 1
+        fi
+
+        if [ ! -f "$ordxConfPath" ]; then
+            echo "Please specify -c option for ordx confuration path, $ordxConfPath does not exist, please check and try again"
+            exit 1
+        fi
         ;;
     o)
         case $OPTARG in
-        ord)
-            ordxHeight="ord"
-            ;;
-        ordx)
-            ordxHeight="ordx"
-            ;;
-        latest)
-            ordxHeight="latest"
+        ord | ordx | latest)
+            ordxHeight="$OPTARG"
             ;;
         *)
-            echo "Invalid ordxHeight option: $OPTARG, use default latest"
-            ordxHeight="latest"
+            echo "Invalid o option: $OPTARG"
+            exit 1
             ;;
         esac
         ;;
@@ -41,39 +44,30 @@ while getopts "c:o:d:h" opt; do
             disable_ord=true
             ;;
         *)
-            echo "Invalid index option: $OPTARG, use default ord"
-            disable_basic=false
-            disable_ord=true
+            echo "Invalid d option: $OPTARG"
+            exit 1
             ;;
         esac
         ;;
     h)
-        echo "Usage: run.sh -c <ordxConfPath> [-d <indeData>] [-o <ordxHeight>] [-h]"
+        echo "Usage: run.sh -c <ordxConfPath> -d <indeData> -o <ordxHeight> [-h]"
         echo "Options:"
         echo "  -c <ordxConfPath>: Specify the ordx confuration path"
-        echo "  -o <ordxHeight>: Specify the max ordx height, default latest, other options: ordx(mainnet:827306; testnet:2570588, ord(mainnet:767429; testnet:2413342"
+        echo "  -o <ordxHeight>: Specify the max ordx height, default latest, other options: ordx(mainnet:827307; testnet:2570589, ord(mainnet:767430; testnet:2413342"
         echo "  -d <indeData>: Specify the index data to disable run. Valid options are 'basic', 'ord', or 'all', default ord"
         echo "  -h: Display this help message"
         exit 0
         ;;
     \?)
         echo "Invalid option: -$OPTARG"
+        exit 1
         ;;
     :)
         echo "Option -$OPTARG requires an argument."
+        exit 1
         ;;
     esac
 done
-
-if [ -z "$ordxConfPath" ]; then
-    echo "Please specify -c option for ordx confuration path, example -c run-ordxdata-testnet.env"
-    exit 1
-fi
-
-if [ ! -f "$ordxConfPath" ]; then
-    echo "ordx confuration path $ordxConfPath does not exist, please check and try again"
-    exit 1
-fi
 
 latest_height=""
 ordRpc=""
@@ -87,7 +81,7 @@ case $ordxHeight in
     "testnet")
         latest_height="2413343"
         ;;
-    \?)
+    *)
         echo "The configuration file $ordxConfPath require BITCOIN_CHAIN, please check and try again"
         exit 1
         ;;
@@ -96,12 +90,12 @@ case $ordxHeight in
 "ordx")
     case $chain in
     "mainnet")
-        latest_height="827306"
+        latest_height="827307"
         ;;
     "testnet")
-        latest_height="2570588"
+        latest_height="2570589"
         ;;
-    \?)
+    *)
         echo "The configuration file $ordxConfPath require BITCOIN_CHAIN, please check and try again"
         exit 1
         ;;

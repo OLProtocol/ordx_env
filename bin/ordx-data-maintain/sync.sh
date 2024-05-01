@@ -2,9 +2,9 @@
 # set -x
 set -e
 
-chain="testnet"
+chain=""
 use_basic=true
-ordxHeight="latest"
+ordxHeight=""
 use_ord=false
 localBackupDir=""
 remoteBackupDir=""
@@ -15,142 +15,130 @@ testPort="22"
 
 while getopts "c:o:i:l:r::p:a:t:b:h" opt; do
     case ${opt} in
-        c )
-            case $OPTARG in
-                mainnet)
-                    chain="mainnet"
-                    ;;
-                testnet)
-                    chain="testnet"
-                    ;;
-                *)
-                    echo "Invalid chain option: $OPTARG, use default testnet"
-                    chain="testnet"
-                    ;;
-            esac
+    c)
+        case $OPTARG in
+        mainnet | testnet)
+            chain="$OPTARG"
             ;;
-        o )
-            case $OPTARG in
-                ord)
-                    ordxHeight="ord"
-                    ;;
-                ordx)
-                    ordxHeight="ordx"
-                    ;;
-                latest)
-                    ordxHeight="latest"
-                    ;;
-                *)
-                    echo "Invalid ordxHeight option: $OPTARG, use default empty"
-                    ordxHeight="latest"
-                    ;;
-            esac
+        *)
+            echo "Invalid c option: $OPTARG"
+            exit 1
             ;;
-        i )
-            case $OPTARG in
-                basic)
-                    use_basic=true
-                    use_ord=false
-                    ;;
-                ord)
-                    use_basic=false
-                    use_ord=true
-                    ;;
-                all)
-                    use_basic=true
-                    use_ord=true
-                    ;;                   
-                *)
-                    echo "Invalid index option: $OPTARG, use default ord"
-                    use_basic=true
-                    use_ord=false
-                    ;;
-            esac
+        esac
+        ;;
+    o)
+        case $OPTARG in
+        ord | ordx | latest)
+            ordxHeight="$OPTARG"
             ;;
-        l )
-            localBackupDir="$OPTARG"
+        *)
+            echo "Invalid o option: $OPTARG"
+            exit 1
             ;;
-        r )
-            remoteBackupDir="$OPTARG"
+        esac
+        ;;
+    i)
+        case $OPTARG in
+        basic)
+            use_basic=true
+            use_ord=false
             ;;
-        p )
-            prdUrl="$OPTARG"
+        ord)
+            use_basic=false
+            use_ord=true
             ;;
-        a )
-            prdPort="$OPTARG"
+        all)
+            use_basic=true
+            use_ord=true
             ;;
-        t )
-            testUrl="$OPTARG"
+        *)
+            echo "Invalid i option: $OPTARG"
+            exit 1
             ;;
-        b )
-            testPort="$OPTARG"
-            ;;
-        h )
-            echo "Usage: sync.sh [-c <chain>] [-o <ordxHeight>] [-i <indexData>] -l <localBackupDir> -r <remoteBackupDir> -p <prdUrl> [-a <prdPort>] -t <testUrl> [-b <testPort>] [-h]"
-            echo "Options:"
-            echo "  -c <chain>: Specify the chain. valid options are 'mainnet' or 'testnet', default testnet"
-            echo "  -o <ordxHeight>: Specify the max ordx height, default latest, other options: ordx(mainnet:827306; testnet:2570588, ord(mainnet:767429; testnet:2413342"
-            echo "  -i <indexData>: Specify the index data to use. valid options are 'basic', 'ord', or 'all', default ord"
-            echo "  -l <localBackupDir>: Specify the local backup path"
-            echo "  -r <remoteBackupDir>: Specify the remote backup path"
-            echo "  -p <prdUrl>: Specify production server url(ex: root@192.168.1.101)"
-            echo "  -a <prdPort>: Specify production server port, default 22"
-            echo "  -t <testUrl>: Specify test server url(root@192.168.1.102)"
-            echo "  -b <testPort>: Specify test server port, default 22"
-            echo "  -h: Display this help message"
-            exit 0
-            ;;
-        \? )
-            echo "Invalid option: -$OPTARG"
-            exit 0
-            ;;
-        : )
-            echo "Option -$OPTARG requires an argument"
-            exit 0
-            ;;
+        esac
+        ;;
+    l)
+        localBackupDir="$OPTARG"
+        if [ -z "$localBackupDir" ]; then
+            echo "Please specify -l {localBackupDir} to local backup path and try and again"
+            exit 1
+        fi
+        ;;
+    r)
+        remoteBackupDir="$OPTARG"
+        if [ -z "$remoteBackupDir" ]; then
+            echo "Please specify -r {remoteBackupDir} to remote backup path and try and again"
+            exit 1
+        fi
+        ;;
+    p)
+        prdUrl="$OPTARG"
+        ;;
+    a)
+        prdPort="$OPTARG"
+        ;;
+    t)
+        testUrl="$OPTARG"
+        ;;
+    b)
+        testPort="$OPTARG"
+        ;;
+    h)
+        echo "Usage: sync.sh -c <chain> -o <ordxHeight> -i <indexData> -l <localBackupDir> -r <remoteBackupDir> -p <prdUrl> [-a <prdPort>] -t <testUrl> [-b <testPort>] [-h]"
+        echo "Options:"
+        echo "  -c <chain>: Specify the chain. valid options are 'mainnet' or 'testnet', default testnet"
+        echo "  -o <ordxHeight>: Specify the max ordx height, default latest, other options: ordx(mainnet:827307; testnet:2570589, ord(mainnet:767430; testnet:2413342"
+        echo "  -i <indexData>: Specify the index data to use. valid options are 'basic', 'ord', or 'all', default ord"
+        echo "  -l <localBackupDir>: Specify the local backup path"
+        echo "  -r <remoteBackupDir>: Specify the remote backup path"
+        echo "  -p <prdUrl>: Specify production server url(ex: root@192.168.1.101)"
+        echo "  -a <prdPort>: Specify production server port, default 22"
+        echo "  -t <testUrl>: Specify test server url(root@192.168.1.102)"
+        echo "  -b <testPort>: Specify test server port, default 22"
+        echo "  -h: Display this help message"
+        exit 0
+        ;;
+    \?)
+        echo "Invalid option: -$OPTARG"
+        exit 1
+        ;;
+    :)
+        echo "Option -$OPTARG requires an argument"
+        exit 1
+        ;;
     esac
 done
 
-if [ -z "$localBackupDir" ]; then
-    echo "Please specify -l {localBackupDir} to local backup path and try and again"
-    exit 0
-fi
-
-if [ -z "$remoteBackupDir" ]; then
-    echo "Please specify -r {remoteBackupDir} to remote backup path and try and again"
-    exit 0
-fi
-
 if [ -z "$prdUrl" ] && [ -z "$testUrl" ]; then
     echo "Please specify one of -p {prdUrl}/-t {testUrl} specify to the production/test server url(ex: root@192.168.1.101)"
-    exit 0
+    exit 1
 fi
 
 latest_height=""
 case $ordxHeight in
-    "ord")
-        case $chain in
-            "mainnet")
-                latest_height="height-767430"
-                ;;
-            "testnet")
-                latest_height="height-2413343"
-                ;;
-        esac
+"ord")
+    case $chain in
+    "mainnet")
+        latest_height="height-767430"
         ;;
-    "ordx")
-        case $chain in
-            "mainnet")
-                latest_height="height-827306"
-                ;;
-            "testnet")
-                latest_height="height-2570588"
-                ;;
-        esac
+    "testnet")
+        latest_height="height-2413343"
         ;;
-    "latest")
-        latest_height="height-latest"
+    esac
+    ;;
+"ordx")
+    case $chain in
+    "mainnet")
+        latest_height="height-827307"
         ;;
+    "testnet")
+        latest_height="height-2570589"
+        ;;
+    esac
+    ;;
+"latest")
+    latest_height="height-latest"
+    ;;
 esac
 
 start_time=$(date +%s)
@@ -169,16 +157,16 @@ if [ -n "$prdUrl" ]; then
         if ! ssh -p "$prdPort" "$prdUrl" "mkdir -p $remote_basic_index_data_backup_path"; then
             echo "Error: ssh mkdir -p command failed." >&2
             exit 1
-        fi  
+        fi
         summary+=" remote basic index data: $prdUrl:$prdPort:$remote_basic_index_data_tar_path "
         rsync -avv --update --progress -e "ssh -p $prdPort" "$local_basic_index_data_backup_tar_path" \
-        "$prdUrl:$remote_basic_index_data_tar_path"
+            "$prdUrl:$remote_basic_index_data_tar_path"
 
         if ! rsync -avv --update --progress -e "ssh -p $prdPort" "$local_basic_index_data_backup_tar_path" \
-        "$prdUrl:$remote_basic_index_data_tar_path"; then
-        echo "Error: rsync command failed." >&2
-        exit 1
-    fi
+            "$prdUrl:$remote_basic_index_data_tar_path"; then
+            echo "Error: rsync command failed." >&2
+            exit 1
+        fi
     fi
 
     # ord index data
@@ -186,10 +174,10 @@ if [ -n "$prdUrl" ]; then
         if ! ssh -p "$prdPort" "$prdUrl" "mkdir -p $remote_ord_index_data_backup_path"; then
             echo "Error: ssh mkdir -p command failed." >&2
             exit 1
-        fi  
+        fi
         summary+=" remote ord index data: $prdUrl:$prdPort:$remote_ord_index_data_tar_path "
         if ! rsync -avv --update --progress -e "ssh -p $prdPort" "$local_ord_index_data_tar_path" \
-        "$prdUrl:$remote_ord_index_data_tar_path"; then
+            "$prdUrl:$remote_ord_index_data_tar_path"; then
             echo "Error: rsync command failed." >&2
             exit 1
         fi
@@ -203,7 +191,7 @@ if [ -n "$testUrl" ]; then
         if ! ssh -p "$testPort" "$testUrl" "mkdir -p $remote_basic_index_data_backup_path"; then
             echo "Error: ssh mkdir -p command failed." >&2
             exit 1
-        fi  
+        fi
         summary+=" remote basic index data: $testUrl:$testPort:$remote_basic_index_data_tar_path "
         if ! rsync -avv --update --progress -e "ssh -p $testPort" "$local_basic_index_data_backup_tar_path" \
             "$testUrl:$remote_basic_index_data_tar_path"; then
@@ -219,7 +207,7 @@ if [ -n "$testUrl" ]; then
             exit 1
         fi
         if ! rsync -avv --update --progress -e "ssh -p $testPort" "$local_ord_index_data_tar_path" \
-        "$testUrl:$remote_ord_index_data_tar_path"; then
+            "$testUrl:$remote_ord_index_data_tar_path"; then
             echo "Error: rsync command failed." >&2
             exit 1
         fi
@@ -239,5 +227,5 @@ formatted_time=$(echo "$elapsed_time" | awk '{
 script_dir=$(dirname "$(realpath "$0")")
 log_file="$script_dir/operation.log"
 echo "$(date -d "@$end_time" "+%Y-%m-%d %H:%M:%S")-> $chain ordx-server rsync is succ, \
-start time:$(date -d "@$start_time" "+%Y-%m-%d %H:%M:%S"), elapsed time:$formatted_time,$summary" \
-| tee -a "$log_file"
+start time:$(date -d "@$start_time" "+%Y-%m-%d %H:%M:%S"), elapsed time:$formatted_time,$summary" |
+    tee -a "$log_file"

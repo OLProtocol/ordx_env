@@ -1,7 +1,7 @@
 #!/bin/bash
 
-set -x
-#set -e
+# set -x
+set -e
 
 chain=""
 confdir=""
@@ -25,14 +25,22 @@ while getopts "n:c:d:h" opt; do
             ;;
         *)
             echo "Invalid chain option: $OPTARG"
+            exit 1
             ;;
         esac
         ;;
     c)
         confdir="$OPTARG"
+        if [ ! -f "$confdir" ]; then
+            echo "bitcoin.conf not found, exit"
+        fi
         ;;
     d)
         datadir="$OPTARG"
+        if [ -z "$datadir" ]; then
+            echo "Please specify -d option for data path, example -d /data/bitcoin-data"
+            exit 1
+        fi
         ;;
     h)
         echo "Usage: bitcoind.sh -n <network> -c <confdir> -d <datadir> [-h]"
@@ -45,25 +53,15 @@ while getopts "n:c:d:h" opt; do
         ;;
     \?)
         echo "Invalid option: -$OPTARG"
+        exit 1
         ;;
     :)
         echo "Option -$OPTARG requires an argument."
+        exit 1
         ;;
     esac
 done
 
-if [ -z "$chain" ]; then
-    echo "chain not found, exit"
-fi
-
-if [ ! -f "$confdir" ]; then
-    echo "bitcoin.conf not found, exit"
-fi
-
-if [ -z "$datadir" ]; then
-    echo "Please specify -d option for data path, example -d /data/bitcoin-data"
-    exit 1
-fi
 if [ ! -d "$datadir" ]; then
     mkdir -p "$datadir"
 fi

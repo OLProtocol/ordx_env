@@ -26,23 +26,44 @@ while getopts "n:b:d:u:w:p:h" opt; do
             ;;
         *)
             echo "Invalid chain option: $OPTARG"
+            exit 1
             ;;
         esac
         ;;
     b)
         brpcurl="$OPTARG"
+        if [ -z "$brpcurl" ]; then
+            echo "Please specify -b option for rpc url, ex: http://127.0.0.1:8332 or http://127.0.0.1:18332"
+            exit 1
+        fi
         ;;
     d)
         datadir="$OPTARG"
+        if [ -z "$datadir" ]; then
+            echo "Please specify -d option for data path, ex: /data/ord-data/0.16.0"
+            exit 1
+        fi
         ;;
     u)
         rpcuser="$OPTARG"
+        if [ -z "$rpcuser" ]; then
+            echo "Please specify -u option for rpc username, ex: jacky"
+            exit 1
+        fi
         ;;
     w)
         rpcpassword="$OPTARG"
+        if [ -z "$rpcpassword" ]; then
+            echo "Please specify -w option for rpc password, ex: _RZekaGRgKQJSIOYi6vq0_CkJtjoCootamy81J2cDn0"
+            exit 1
+        fi
         ;;
     p)
         rpcport="$OPTARG"
+        if [ -z "$rpcport" ]; then
+            echo "Please specify -p option for rpc port, ex: 80"
+            exit 1
+        fi
         ;;
     h)
         echo "Usage: ord.sh -n <network> -b <brpcurl> -d <datadir> [-h]"
@@ -50,42 +71,22 @@ while getopts "n:b:d:u:w:p:h" opt; do
         echo "  -n <chain>: Specify the chain. Valid options are 'mainnet' or 'testnet' or 'regtest'"
         echo "  -b <brpcurl>: Specify the bitcoin rpc url, ex: http://127.0.0.1:8332 or http://127.0.0.1:18332"
         echo "  -d <datadir>: Specify the path to the data directory, ex: /data/ord-data/0.16.0"
+        echo "  -u <rpcuser>: Specify the rpc username, ex: jacky"
+        echo "  -w <rpcpassword>: Specify the rpc password, ex: _RZekaGRgKQJSIOYi6vq0_CkJtjoCootamy81J2cDn0"
+        echo "  -p <rpcport>: Specify the rpc port, ex: 80"
         echo "  -h: Display this help message"
         exit 0
         ;;
     \?)
         echo "Invalid option: -$OPTARG"
+        exit 1
         ;;
     :)
         echo "Option -$OPTARG requires an argument."
+        exit 1
         ;;
     esac
 done
-
-if [ -z "$chain" ]; then
-    echo "chain not found, exit"
-fi
-
-if [ -z "$brpcurl" ]; then
-    echo "Please specify -b option for rpc url, ex: http://127.0.0.1:8332 or http://127.0.0.1:18332"
-fi
-
-if [ -z "$rpcuser" ]; then
-    echo "Please specify -u option for rpc username, ex: jacky"
-fi
-
-if [ -z "$rpcpassword" ]; then
-    echo "Please specify -w option for rpc password, ex: _RZekaGRgKQJSIOYi6vq0_CkJtjoCootamy81J2cDn0"
-fi
-
-if [ -z "$rpcport" ]; then
-    echo "Please specify -p option for rpc port, ex: 80"
-fi
-
-if [ -z "$datadir" ]; then
-    echo "Please specify -d option for data path, ex: /data/ord-data/0.16.0"
-    exit 1
-fi
 
 [ "${datadir: -1}" != "/" ] && datadir+="/"
 
