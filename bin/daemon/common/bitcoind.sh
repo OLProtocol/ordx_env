@@ -68,8 +68,11 @@ fi
 #     mkdir -p "$datadir"
 # fi
 
-command_str="-rpcthreads=128 -rpcworkqueue=512 -chain=$chain -conf=$confdir -datadir=$datadir"
-echo "starting $command_str"
-# if pgrep -f "$command_str" >/dev/null; then
-#     echo "please stop $command_str and run again."
-# fi
+command_str="bitcoind -rpcthreads=128 -rpcworkqueue=512 -chain=$chain -conf=$confdir -datadir=$datadir"
+# echo "starting $command_str"
+if pgrep -f "$command_str" >/dev/null; then
+    echo "please stop $command_str and run again."
+    exit 1
+fi
+
+$command_str
