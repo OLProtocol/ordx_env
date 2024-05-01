@@ -3,9 +3,9 @@
 set -x
 #set -e
 
-datadir=""
-confdir=""
 chain=""
+confdir=""
+datadir=""
 
 while getopts "n:c:d:h" opt; do
     case ${opt} in
