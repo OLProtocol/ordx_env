@@ -64,9 +64,9 @@ if [ -z "$datadir" ]; then
     exit 1
 fi
 
-# if [ ! -d "$datadir" ]; then
-#     mkdir -p "$datadir"
-# fi
+if [ ! -d "$datadir" ]; then
+    mkdir -p "$datadir"
+fi
 
 command_str="bitcoind -rpcthreads=128 -rpcworkqueue=512 -chain=$chain -conf=$confdir -datadir=$datadir"
 
