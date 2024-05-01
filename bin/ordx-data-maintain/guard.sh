@@ -12,47 +12,47 @@ backupDir=""
 
 while getopts "c:d:b:o:h" opt; do
     case ${opt} in
-        c )
-            ordxConfPath=$(eval echo "$OPTARG")
+    c)
+        ordxConfPath=$(eval echo "$OPTARG")
         ;;
-        d )
-            dataDir="$OPTARG"
+    d)
+        dataDir="$OPTARG"
         ;;
-        b )
-            backupDir="$OPTARG"
+    b)
+        backupDir="$OPTARG"
         ;;
-        o )
-            case $OPTARG in
-                ord)
-                    ordxHeight="ord"
-                ;;
-                ordx)
-                    ordxHeight="ordx"
-                ;;
-                latest)
-                    ordxHeight="latest"
-                ;;
-                *)
-                    echo "Invalid ordxHeight option: $OPTARG, use default latest"
-                    ordxHeight="latest"
-                ;;
-            esac
+    o)
+        case $OPTARG in
+        ord)
+            ordxHeight="ord"
+            ;;
+        ordx)
+            ordxHeight="ordx"
+            ;;
+        latest)
+            ordxHeight="latest"
+            ;;
+        *)
+            echo "Invalid ordxHeight option: $OPTARG, use default latest"
+            ordxHeight="latest"
+            ;;
+        esac
         ;;
-        h )
-            echo "Usage: guard.sh -c <ordxConfPath> [-d <indeData>] [-o <ordxHeight>] [-h]"
-            echo "Options:"
-            echo "  -c <ordxConfPath>: Specify the ordx confuration path"
-            echo "  -d <dataDir>: Specify the path to the data"
-            echo "  -b <backupDir>: Specify the path to the backup"
-            echo "  -o <ordxHeight>: Specify the max ordx height, default latest, other options: ordx(mainnet:827306; testnet:2570588, ord(mainnet:767429; testnet:2413342"
-            echo "  -h: Display this help message"
-            exit 0
+    h)
+        echo "Usage: guard.sh -c <ordxConfPath> [-d <indeData>] [-o <ordxHeight>] [-h]"
+        echo "Options:"
+        echo "  -c <ordxConfPath>: Specify the ordx confuration path"
+        echo "  -d <dataDir>: Specify the path to the data"
+        echo "  -b <backupDir>: Specify the path to the backup"
+        echo "  -o <ordxHeight>: Specify the max ordx height, default latest, other options: ordx(mainnet:827306; testnet:2570588, ord(mainnet:767429; testnet:2413342"
+        echo "  -h: Display this help message"
+        exit 0
         ;;
-        \? )
-            echo "Invalid option: -$OPTARG"
+    \?)
+        echo "Invalid option: -$OPTARG"
         ;;
-        : )
-            echo "Option -$OPTARG requires an argument."
+    :)
+        echo "Option -$OPTARG requires an argument."
         ;;
     esac
 done
@@ -70,28 +70,28 @@ fi
 latest_height=""
 chain=$(grep -w BITCOIN_CHAIN "$ordxConfPath" | awk -F= '{print $2}')
 case $ordxHeight in
-    "ord")
-        case $chain in
-            "mainnet")
-                latest_height="height-767430"
-            ;;
-            "testnet")
-                latest_height="height-2413343"
-            ;;
-        esac
+"ord")
+    case $chain in
+    "mainnet")
+        latest_height="height-767430"
+        ;;
+    "testnet3")
+        latest_height="height-2413343"
+        ;;
+    esac
     ;;
-    "ordx")
-        case $chain in
-            "mainnet")
-                latest_height="height-827306"
-            ;;
-            "testnet")
-                latest_height="height-2570588"
-            ;;
-        esac
+"ordx")
+    case $chain in
+    "mainnet")
+        latest_height="height-827306"
+        ;;
+    "testnet3")
+        latest_height="height-2570588"
+        ;;
+    esac
     ;;
-    "latest")
-        latest_height="height-latest"
+"latest")
+    latest_height="height-latest"
     ;;
 esac
 
@@ -104,7 +104,7 @@ if [ "$disable_ord" = true ]; then
 fi
 
 command_str="${programName} -env ${ordxConfPath} ${ordxParam}"
-if pgrep -f "$command_str" > /dev/null; then
+if pgrep -f "$command_str" >/dev/null; then
     echo "please stop $command_str and run again."
 fi
 
@@ -129,18 +129,18 @@ while $result_code -eq 0; do
     else
         init=false
     fi
-    
+
     eval "$command_str" &
     pid=$!
     wait $pid
     result_code=$?
-    
+
     if $result_code -eq 0; then
         result="succ"
     else
         result="fail"
     fi
     timeFormat="+%Y-%m-%d %H:%M:%S"
-    echo "$(date -d "@$end_time" "$timeFormat") -> run $command_str is $result, start time:$(date -d "@$start_time" "$timeFormat"), elapsed time:$formatted_time, latest_height: $latest_height" \
-    | tee -a "$log_file"
+    echo "$(date -d "@$end_time" "$timeFormat") -> run $command_str is $result, start time:$(date -d "@$start_time" "$timeFormat"), elapsed time:$formatted_time, latest_height: $latest_height" |
+        tee -a "$log_file"
 done
