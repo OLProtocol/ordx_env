@@ -5,22 +5,14 @@ set -e
 programName="ordx-server"
 ordxConfPath=""
 ordxHeight=""
+indexData=""
 disable_basic=false
 disable_ord=true
 
-while getopts "c:o:d:h" opt; do
+while getopts ":c:o:d:h" opt; do
     case ${opt} in
     c)
         ordxConfPath="$OPTARG"
-        if [ -z "$ordxConfPath" ]; then
-            echo "Please specify -c option for ordx confuration path, example -c run-ordxdata-testnet.env"
-            exit 1
-        fi
-
-        if [ ! -f "$ordxConfPath" ]; then
-            echo "Please specify -c option for ordx confuration path, $ordxConfPath does not exist, please check and try again"
-            exit 1
-        fi
         ;;
     o)
         case $OPTARG in
@@ -34,6 +26,7 @@ while getopts "c:o:d:h" opt; do
         esac
         ;;
     d)
+        indexData="$OPTARG"
         case $OPTARG in
         basic)
             disable_basic=true
@@ -68,6 +61,26 @@ while getopts "c:o:d:h" opt; do
         ;;
     esac
 done
+
+if [ -z "$ordxConfPath" ]; then
+    echo "Please specify -c option for ordx confuration path, example -c run-ordxdata-testnet.env"
+    exit 1
+fi
+
+if [ ! -f "$ordxConfPath" ]; then
+    echo "Please specify -c option for ordx confuration path, $ordxConfPath does not exist, please check and try again"
+    exit 1
+fi
+
+if [ -z "$ordxHeight" ]; then
+    echo "Please specify -o option for ordx height"
+    exit 1
+fi
+
+if [ -z "$indexData" ]; then
+    echo "Please specify -d option for index data"
+    exit 1
+fi
 
 latest_height=""
 ordRpc=""

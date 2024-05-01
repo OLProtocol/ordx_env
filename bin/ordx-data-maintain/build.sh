@@ -6,18 +6,10 @@ programName="ordx-server"
 srcCodePath=""
 needPull=false
 
-while getopts "s:ph" opt; do
+while getopts ":s:ph" opt; do
     case ${opt} in
     s)
         srcCodePath="$OPTARG"
-        if [ -z "$srcCodePath" ]; then
-            echo "Please specify -s option for source code path, example -s /data1/github/ordx-rundata"
-            exit 1
-        fi
-        if [ ! -d "$srcCodePath" ]; then
-            echo "Please speciafy -s option for source code path, $srcCodePath does not exist, please check the path and try again"
-            exit 1
-        fi
         ;;
     p)
         needPull=true
@@ -40,6 +32,15 @@ while getopts "s:ph" opt; do
         ;;
     esac
 done
+
+if [ -z "$srcCodePath" ]; then
+    echo "Please specify -s option for source code path, example -s /data1/github/ordx-rundata"
+    exit 1
+fi
+if [ ! -d "$srcCodePath" ]; then
+    echo "Please speciafy -s option for source code path, $srcCodePath does not exist, please check the path and try again"
+    exit 1
+fi
 
 originalDir=$(pwd)
 cd "$srcCodePath"

@@ -10,19 +10,10 @@ disable_ord=true
 dataDir=""
 backupDir=""
 
-while getopts "c:d:b:o:h" opt; do
+while getopts ":c:d:b:o:h" opt; do
     case ${opt} in
     c)
         ordxConfPath="$OPTARG"
-        if [ -z "$ordxConfPath" ]; then
-            echo "Please specify -c option for ordx conf path, example -c run-ordxdata-testnet.env"
-            exit 1
-        fi
-
-        if [ ! -f "$ordxConfPath" ]; then
-            echo "Please specify -c option for ordx conf path, $ordxConfPath does not exist, please check and try again"
-            exit 1
-        fi
         ;;
     d)
         dataDir="$OPTARG"
@@ -61,6 +52,26 @@ while getopts "c:d:b:o:h" opt; do
         ;;
     esac
 done
+
+if [ ! -f "$ordxConfPath" ]; then
+    echo "Please specify -c option for ordx conf path, $ordxConfPath does not exist, please check and try again"
+    exit 1
+fi
+
+if [ -z "$dataDir" ]; then
+    echo "Please specify -d option for data directory"
+    exit 1
+fi
+
+if [ -z "$backupDir" ]; then
+    echo "Please specify -b option for backup directory"
+    exit 1
+fi
+
+if [ -z "$ordxHeight" ]; then
+    echo "Please specify -o option for ordx height"
+    exit 1
+fi
 
 latest_height=""
 chain=$(grep -w BITCOIN_CHAIN "$ordxConfPath" | awk -F= '{print $2}')

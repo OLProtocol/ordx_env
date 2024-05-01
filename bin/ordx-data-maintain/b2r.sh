@@ -3,6 +3,7 @@
 set -e
 
 chain=""
+indexData=""
 use_basic=true
 use_ord=false
 dataDir=""
@@ -11,7 +12,7 @@ ordxHeight=""
 maintain=""
 latest_height=""
 
-while getopts "c:m:o:i:d:b:h" opt; do
+while getopts ":c:m:o:i:d:b:h" opt; do
     case ${opt} in
     c)
         case $OPTARG in
@@ -47,6 +48,7 @@ while getopts "c:m:o:i:d:b:h" opt; do
         esac
         ;;
     i)
+        indexData="$OPTARG"
         case $OPTARG in
         basic)
             use_basic=true
@@ -68,17 +70,9 @@ while getopts "c:m:o:i:d:b:h" opt; do
         ;;
     d)
         dataDir="$OPTARG"
-        if [ -z "$dataDir" ]; then
-            echo "Please specify -d {dataDir} to data directory"
-            exit 1
-        fi
         ;;
     b)
         backupDir="$OPTARG"
-        if [ -z "$backupDir" ]; then
-            echo "Please specify -b {backupDir} to backup directory"
-            exit 1
-        fi
         ;;
     h)
         echo "Usage: b2r.sh [-c <chain>] [-m <maintain>] [-o <ordxHeight>] [-i <indexData>] -d <dataDir> -b <backupDir> [-h]"
@@ -102,6 +96,36 @@ while getopts "c:m:o:i:d:b:h" opt; do
         ;;
     esac
 done
+
+if [ -z "$chain" ]; then
+    echo "Please specify -c {chain} to chain"
+    exit 1
+fi
+
+if [ -z "$maintain" ]; then
+    echo "Please specify -m {maintain} to maintain mode"
+    exit 1
+fi
+
+if [ -z "$ordxHeight" ]; then
+    echo "Please specify -o {ordxHeight} to ordx height"
+    exit 1
+fi
+
+if [ -z "$indexData" ]; then
+    echo "Please specify -i {indexData} to index type"
+    exit 1
+fi
+
+if [ -z "$dataDir" ]; then
+    echo "Please specify -d {dataDir} to data directory"
+    exit 1
+fi
+
+if [ -z "$backupDir" ]; then
+    echo "Please specify -b {backupDir} to backup directory"
+    exit 1
+fi
 
 start_time=$(date +%s)
 echo "$(date -d "@$start_time" "+%Y-%m-%d %H:%M:%S") - prepare $maintain $chain ordx-server db"

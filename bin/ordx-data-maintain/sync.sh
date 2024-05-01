@@ -3,6 +3,7 @@
 set -e
 
 chain=""
+indexData=""
 use_basic=true
 ordxHeight=""
 use_ord=false
@@ -13,7 +14,7 @@ prdPort="22"
 testUrl=""
 testPort="22"
 
-while getopts "c:o:i:l:r::p:a:t:b:h" opt; do
+while getopts ":c:o:i:l:r::p:a:t:b:h" opt; do
     case ${opt} in
     c)
         case $OPTARG in
@@ -38,6 +39,7 @@ while getopts "c:o:i:l:r::p:a:t:b:h" opt; do
         esac
         ;;
     i)
+        indexData="$OPTARG"
         case $OPTARG in
         basic)
             use_basic=true
@@ -59,17 +61,9 @@ while getopts "c:o:i:l:r::p:a:t:b:h" opt; do
         ;;
     l)
         localBackupDir="$OPTARG"
-        if [ -z "$localBackupDir" ]; then
-            echo "Please specify -l {localBackupDir} to local backup path and try and again"
-            exit 1
-        fi
         ;;
     r)
         remoteBackupDir="$OPTARG"
-        if [ -z "$remoteBackupDir" ]; then
-            echo "Please specify -r {remoteBackupDir} to remote backup path and try and again"
-            exit 1
-        fi
         ;;
     p)
         prdUrl="$OPTARG"
@@ -108,6 +102,31 @@ while getopts "c:o:i:l:r::p:a:t:b:h" opt; do
         ;;
     esac
 done
+
+if [ -z "$chain" ]; then
+    echo "Please specify -c {chain} to chain"
+    exit 1
+fi
+
+if [ -z "$ordxHeight" ]; then
+    echo "Please specify -o {ordxHeight} to ordx height"
+    exit 1
+fi
+
+if [ -z "$indexData" ]; then
+    echo "Please specify -i {indexData} to index type"
+    exit 1
+fi
+
+if [ -z "$localBackupDir" ]; then
+    echo "Please specify -l {localBackupDir} to local backup path and try and again"
+    exit 1
+fi
+
+if [ -z "$remoteBackupDir" ]; then
+    echo "Please specify -r {remoteBackupDir} to remote backup path and try and again"
+    exit 1
+fi
 
 if [ -z "$prdUrl" ] && [ -z "$testUrl" ]; then
     echo "Please specify one of -p {prdUrl}/-t {testUrl} specify to the production/test server url(ex: root@192.168.1.101)"

@@ -31,16 +31,9 @@ while getopts "n:c:d:h" opt; do
         ;;
     c)
         confdir="$OPTARG"
-        if [ ! -f "$confdir" ]; then
-            echo "bitcoin.conf not found, exit"
-        fi
         ;;
     d)
         datadir="$OPTARG"
-        if [ -z "$datadir" ]; then
-            echo "Please specify -d option for data path, example -d /data/bitcoin-data"
-            exit 1
-        fi
         ;;
     h)
         echo "Usage: bitcoind.sh -n <network> -c <confdir> -d <datadir> [-h]"
@@ -62,7 +55,21 @@ while getopts "n:c:d:h" opt; do
     esac
 done
 
-if [ ! -d "$datadir" ]; then
-    mkdir -p "$datadir"
+if [ ! -f "$confdir" ]; then
+    echo "bitcoin.conf not found, exit"
 fi
-bitcoind -rpcthreads=128 -rpcworkqueue=512 -chain="$chain" -conf="$confdir" -datadir="$datadir"
+
+if [ -z "$datadir" ]; then
+    echo "Please specify -d option for data path, example -d /data/bitcoin-data"
+    exit 1
+fi
+
+# if [ ! -d "$datadir" ]; then
+#     mkdir -p "$datadir"
+# fi
+
+command_str="-rpcthreads=128 -rpcworkqueue=512 -chain=$chain -conf=$confdir -datadir=$datadir"
+echo "starting $command_str"
+# if pgrep -f "$command_str" >/dev/null; then
+#     echo "please stop $command_str and run again."
+# fi
