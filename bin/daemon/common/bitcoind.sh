@@ -11,11 +11,14 @@ while getopts "n:c:d:h" opt; do
     case ${opt} in
     n)
         case $OPTARG in
-        main)
+        mainnet)
             chain="main"
             ;;
-        test)
+        testnet)
             chain="test"
+            ;;
+        signet)
+            chain="signet"
             ;;
         regtest)
             chain="regtest"
