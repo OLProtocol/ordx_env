@@ -119,6 +119,7 @@ fi
 command_str="${programName} -env ${ordxConfPath} ${ordxParam}"
 if pgrep -f "$command_str" >/dev/null; then
     echo "please stop $command_str and run again."
+    exit 1
 fi
 
 start_time=$(date +%s)
