@@ -20,8 +20,12 @@ while getopts ":c:o:d:h" opt; do
             ordxHeight="$OPTARG"
             ;;
         *)
-            echo "Invalid o option: $OPTARG"
-            exit 1
+            if [[ "$OPTARG" =~ ^[1-9][0-9]*$ ]]; then
+                ordxHeight="$OPTARG"
+            else
+                echo "Invalid -o option: $OPTARG. It must be 'ord', 'ordx', 'latest', or a positive number greater than 0."
+                exit 1
+            fi
             ;;
         esac
         ;;
@@ -126,6 +130,9 @@ case $ordxHeight in
         exit 1
     fi
     ;;
+*)
+    latest_height="$ordxHeight"
+    ;;
 esac
 
 sed -i "s/^#*MAX_INDEX_HEIGHT=.*/MAX_INDEX_HEIGHT=$latest_height/" "$ordxConfPath"
@@ -159,7 +166,7 @@ format_time() {
     printf "%dd%dh%dm%ds" "$days" "$hours" "$minutes" "$seconds"
 }
 
-if eval "$command_str" | tee /dev/tty; then
+if eval "$command_str"; then
     end_time=$(date +%s)
     elapsed_time=$((end_time - start_time))
     formatted_time=$(format_time "$elapsed_time")
