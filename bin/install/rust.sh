@@ -6,8 +6,7 @@ set -e
 sudo apt-get install pkg-config libssl-dev
 sudo apt install build-essential
 rm -rf "$HOME/.cargo/registry"
-if command -v rustc &> /dev/null
-then
+if command -v rustc &>/dev/null; then
     echo "rustc is already installed"
 else
     echo "preparing to install rustc"
@@ -15,7 +14,7 @@ else
     # shellcheck disable=SC1091
     source "$HOME/.cargo/env"
     rustc --version
-    rustup toolchain install 1.70
-    rustup default 1.70
+    rustup install 1.76.0
+    rustup default 1.76.0
     # rustup show, rustup toolchain list
 fi

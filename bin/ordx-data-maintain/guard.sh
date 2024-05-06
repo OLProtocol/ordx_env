@@ -4,94 +4,107 @@ set -e
 
 programName="ordx-server"
 ordxConfPath=""
-ordxHeight="latest"
+ordxHeight=""
 disable_basic=false
 disable_ord=true
 dataDir=""
 backupDir=""
 
-while getopts "c:d:b:o:h" opt; do
+while getopts ":c:d:b:o:h" opt; do
     case ${opt} in
-        c )
-            ordxConfPath=$(eval echo "$OPTARG")
+    c)
+        ordxConfPath="$OPTARG"
         ;;
-        d )
-            dataDir="$OPTARG"
+    d)
+        dataDir="$OPTARG"
         ;;
-        b )
-            backupDir="$OPTARG"
+    b)
+        backupDir="$OPTARG"
         ;;
-        o )
-            case $OPTARG in
-                ord)
-                    ordxHeight="ord"
-                ;;
-                ordx)
-                    ordxHeight="ordx"
-                ;;
-                latest)
-                    ordxHeight="latest"
-                ;;
-                *)
-                    echo "Invalid ordxHeight option: $OPTARG, use default latest"
-                    ordxHeight="latest"
-                ;;
-            esac
+    o)
+        case $OPTARG in
+        ord | ordx | latest)
+            ordxHeight="$OPTARG"
+            ;;
+        *)
+            echo "Invalid o option: $OPTARG"
+            exit 1
+            ;;
+        esac
         ;;
-        h )
-            echo "Usage: guard.sh -c <ordxConfPath> [-d <indeData>] [-o <ordxHeight>] [-h]"
-            echo "Options:"
-            echo "  -c <ordxConfPath>: Specify the ordx confuration path"
-            echo "  -d <dataDir>: Specify the path to the data"
-            echo "  -b <backupDir>: Specify the path to the backup"
-            echo "  -o <ordxHeight>: Specify the max ordx height, default latest, other options: ordx(mainnet:827306; testnet:2570588, ord(mainnet:767429; testnet:2413342"
-            echo "  -h: Display this help message"
-            exit 0
+    h)
+        echo "Usage: guard.sh -c <ordxConfPath> -d <indeData> -o <ordxHeight> [-h]"
+        echo "Options:"
+        echo "  -c <ordxConfPath>: Specify the ordx confuration path"
+        echo "  -d <dataDir>: Specify the path to the data"
+        echo "  -b <backupDir>: Specify the path to the backup"
+        echo "  -o <ordxHeight>: Specify the max ordx height, default latest, other options: ordx(mainnet:827307; testnet:2570589, ord(mainnet:767430; testnet:2413342"
+        echo "  -h: Display this help message"
+        exit 0
         ;;
-        \? )
-            echo "Invalid option: -$OPTARG"
+    \?)
+        echo "Invalid option: -$OPTARG"
+        exit 1
         ;;
-        : )
-            echo "Option -$OPTARG requires an argument."
+    :)
+        echo "Option -$OPTARG requires an argument."
+        exit 1
         ;;
     esac
 done
 
-if [ -z "$ordxConfPath" ]; then
-    echo "Please specify -c option for ordx confuration path, example -c run-ordxdata-testnet.env"
+if [ ! -f "$ordxConfPath" ]; then
+    echo "Please specify -c option for ordx conf path, $ordxConfPath does not exist, please check and try again"
     exit 1
 fi
 
-if [ ! -f "$ordxConfPath" ]; then
-    echo "ordx confuration path $ordxConfPath does not exist, please check and try again"
+if [ -z "$dataDir" ]; then
+    echo "Please specify -d option for data directory"
+    exit 1
+fi
+
+if [ -z "$backupDir" ]; then
+    echo "Please specify -b option for backup directory"
+    exit 1
+fi
+
+if [ -z "$ordxHeight" ]; then
+    echo "Please specify -o option for ordx height"
     exit 1
 fi
 
 latest_height=""
 chain=$(grep -w BITCOIN_CHAIN "$ordxConfPath" | awk -F= '{print $2}')
-case $ordxHeight in
+case $chain in
+"mainnet")
+    case $ordxHeight in
     "ord")
-        case $chain in
-            "mainnet")
-                latest_height="height-767430"
-            ;;
-            "testnet")
-                latest_height="height-2413343"
-            ;;
-        esac
-    ;;
+        latest_height="height-767430"
+        ;;
     "ordx")
-        case $chain in
-            "mainnet")
-                latest_height="height-827306"
-            ;;
-            "testnet")
-                latest_height="height-2570588"
-            ;;
-        esac
-    ;;
+        latest_height="height-827307"
+        ;;
     "latest")
         latest_height="height-latest"
+        ;;
+    esac
+    ;;
+"testnet")
+    case $ordxHeight in
+    "ord")
+        latest_height="height-2413343"
+        ;;
+    "ordx")
+        latest_height="height-2570589"
+        ;;
+    "latest")
+        latest_height="height-latest"
+        ;;
+    esac
+    ;;
+*)
+    echo "The configuration file $ordxConfPath require correct BITCOIN_CHAIN param, please check and try again"
+    exit 1
     ;;
 esac
 
@@ -104,8 +117,9 @@ if [ "$disable_ord" = true ]; then
 fi
 
 command_str="${programName} -env ${ordxConfPath} ${ordxParam}"
-if pgrep -f "$command_str" > /dev/null; then
+if pgrep -f "$command_str" >/dev/null; then
     echo "please stop $command_str and run again."
+    exit 1
 fi
 
 start_time=$(date +%s)
@@ -129,18 +143,18 @@ while $result_code -eq 0; do
     else
         init=false
     fi
-    
+
     eval "$command_str" &
     pid=$!
     wait $pid
     result_code=$?
-    
+
     if $result_code -eq 0; then
         result="succ"
     else
         result="fail"
     fi
     timeFormat="+%Y-%m-%d %H:%M:%S"
-    echo "$(date -d "@$end_time" "$timeFormat") -> run $command_str is $result, start time:$(date -d "@$start_time" "$timeFormat"), elapsed time:$formatted_time, latest_height: $latest_height" \
-    | tee -a "$log_file"
+    echo "$(date -d "@$end_time" "$timeFormat") -> run $command_str is $result, start time:$(date -d "@$start_time" "$timeFormat"), elapsed time:$formatted_time, latest_height: $latest_height" |
+        tee -a "$log_file"
 done
