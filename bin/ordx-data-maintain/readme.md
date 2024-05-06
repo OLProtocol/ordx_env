@@ -1,3 +1,4 @@
+```shell
 1 build latest ordx server
 ~/ordx-data-maintain/build.sh -s /data1/github/ordx-rundata -p
 # ~/ordx-data-maintain/build.sh -s /data1/github/ordx-rundata
@@ -28,3 +29,4 @@
     -t root@192.168.1.102 -a 22
 ~/ordx-data-maintain/sync.sh -c testnet -i ord -l /data2/ordx-data-backup -r /data/ordx-data-backup \
     -t root@192.168.1.102 -a 22
+```
