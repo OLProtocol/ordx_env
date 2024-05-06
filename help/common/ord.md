@@ -35,7 +35,7 @@ ord --chain testnet --rpc-url 192.168.1.106:38443 --data-dir /media/sf_ordindex 
 ord --wallet ord --chain regtest  --cookie-file /root/btcnet_env/bitcoin/regtest/node1/data/regtest/.cookie --data-dir ./ wallet inscribe --file ./ord.md --fee-rate 25
 
 #10
-RUST_LOG=info && RUST_BACKTRACE=1 && ord0.16.0 --chain testnet --bitcoin-rpc-url 192.168.1.103:18332 --data-dir /data2/ord-data/0.16.0 --bitcoin-rpc-username jacky --bitcoin-rpc-password 123456 --first-inscription-height 2413343 --index-sats --minify server --http --http-port 80
+RUST_LOG=info RUST_BACKTRACE=1 ord0.16.0 --chain testnet --bitcoin-rpc-url 192.168.1.103:18332 --data-dir /data2/ord-data/0.16.0 --bitcoin-rpc-username jacky --bitcoin-rpc-password 123456 --first-inscription-height 2413343 --index-sats --minify server --http --http-port 80
 
-RUST_LOG=info && RUST_BACKTRACE=1 && ord0.16.0 --chain mainnet --bitcoin-rpc-url 192.168.1.103:8332 --data-dir /data2/ord-data/0.16.0/main --bitcoin-rpc-username jacky --bitcoin-rpc-password _RZekaGRgKQJSIOYi6vq0_CkJtjoCootamy81J2cDn0 --first-inscription-height 767430 --index-sats --minify server --http --http-port 82
+RUST_LOG=info RUST_BACKTRACE=1 ord0.16.0 --chain mainnet --bitcoin-rpc-url 192.168.1.103:8332 --data-dir /data2/ord-data/0.16.0/main --bitcoin-rpc-username jacky --bitcoin-rpc-password _RZekaGRgKQJSIOYi6vq0_CkJtjoCootamy81J2cDn0 --first-inscription-height 767430 --index-sats --minify server --http --http-port 82
 ```
