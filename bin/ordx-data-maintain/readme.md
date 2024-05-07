@@ -16,7 +16,7 @@
 #~/ordx/bin/ordx-data-maintain/run.sh -c ~/ordx/bin/ordx-data-maintain/run-mainnet.env -d ord -o latest
 
 4 dbgc ordx basic index db 
-~/ordx/bin/ordx-data-maintain/dgbc.sh -d /data/ordx-data/testnet/basic
+~/ordx/bin/ordx-data-maintain/dbgc.sh -d /data/ordx-data/testnet/basic
 
 5 backup ordx basic index data
 ~/ordx/bin/ordx-data-maintain/b2r.sh -m backup -c testnet -i basic -d /data/ordx-data -b /data/ordx-data-backup -o latest
