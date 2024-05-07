@@ -26,9 +26,11 @@
 #~/ordx/bin/ordx-data-maintain/b2r.sh -m backup -c mainnet -i basic -d /data/ordx-data -b /data/ordx-data-backup -o ord
 
 6 sync ordx basic index data:
-~/ordx/bin/ordx-data-maintain/sync.sh -c testnet -o latest -i basic -l /data/ordx-data-backup -r /data/ordx-data-backup \
+~/ordx/bin/ordx-data-maintain/sync.sh -c mainnet -o latest -i basic -l /data2/ordx-data-backup -r /data/ordx-data-backup \
+    -t root@192.168.1.102 -a 22
+~/ordx/bin/ordx-data-maintain/sync.sh -c testnet -o latest -i basic -l /data2/ordx-data-backup -r /data/ordx-data-backup \
     -p root@192.168.1.101 -a 10000 -t root@192.168.1.102 -a 22
-~/ordx/bin/ordx-data-maintain/sync.sh -c testnet -i basic -o latest -l /data/ordx-data-backup -r /data/ordx-data-backup \
+~/ordx/bin/ordx-data-maintain/sync.sh -c testnet -i basic -o latest -l /data2/ordx-data-backup -r /data/ordx-data-backup \
     -t root@192.168.1.102 -a 22
 ~/ordx/bin/ordx-data-maintain/sync.sh -c testnet -i ord -l /data/ordx-data-backup -r /data/ordx-data-backup \
     -t root@192.168.1.102 -a 22
