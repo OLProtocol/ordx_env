@@ -31,12 +31,8 @@ while getopts ":c:m:o:i:d:b:h" opt; do
             maintain="$OPTARG"
             ;;
         *)
-            if [[ "$OPTARG" =~ ^[1-9][0-9]*$ ]]; then
-                ordxHeight="$OPTARG"
-            else
-                echo "Invalid -o option: $OPTARG. It must be 'ord', 'ordx', 'latest', or a positive number greater than 0."
-                exit 1
-            fi
+            echo "Invalid o option: $OPTARG"
+            exit 1
             ;;
         esac
         ;;
@@ -46,8 +42,12 @@ while getopts ":c:m:o:i:d:b:h" opt; do
             ordxHeight="$OPTARG"
             ;;
         *)
-            echo "Invalid o option: $OPTARG"
-            exit 1
+            if [[ "$OPTARG" =~ ^[1-9][0-9]*$ ]]; then
+                ordxHeight="$OPTARG"
+            else
+                echo "Invalid -o option: $OPTARG. It must be 'ord', 'ordx', 'latest', or a positive number greater than 0."
+                exit 1
+            fi
             ;;
         esac
         ;;

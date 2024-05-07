@@ -178,5 +178,5 @@ else
     formatted_time=$(format_time "$elapsed_time")
     echo "$(date -d "@$end_time" "$timeFormat") -> run ordx data is fail, start time:$(date -d "@$start_time" "$timeFormat"), elapsed time:$formatted_time, latest_height: $latest_height" |
         tee -a "$log_file"
-    exit 1
+    exit 2
 fi

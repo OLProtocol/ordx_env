@@ -15,7 +15,7 @@ while getopts ":s:ph" opt; do
         needPull=true
         ;;
     h)
-        echo "Usage: build-ordxserver.sh -s <source_code_path> [-p] [-h]"
+        echo "Usage: build.sh -s <source_code_path> [-p] [-h]"
         echo "Options:"
         echo "  -s <source_code_path>: Specify the source code path"
         echo "  -p: Pull updates from remote repository, default false"
