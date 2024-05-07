@@ -37,7 +37,7 @@ while getopts ":c:d:b:o:h" opt; do
         esac
         ;;
     h)
-        echo "Usage: guard.sh -c <ordxConfPath> -d <indeData> -o <ordxHeight> [-h]"
+        echo "Usage: guard.sh -c <ordxConfPath> -d <dataDir> -o <ordxHeight> [-h]"
         echo "Options:"
         echo "  -c <ordxConfPath>: Specify the ordx confuration path"
         echo "  -d <dataDir>: Specify the path to the data"
