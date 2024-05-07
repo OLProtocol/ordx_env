@@ -50,7 +50,7 @@ while getopts ":c:o:d:h" opt; do
         echo "Usage: run.sh -c <ordxConfPath> -d <indeData> -o <ordxHeight> [-h]"
         echo "Options:"
         echo "  -c <ordxConfPath>: Specify the ordx confuration path"
-        echo "  -o <ordxHeight>: Specify the max ordx height, default latest, other options: ordx(mainnet:827307; testnet:2570589, ord(mainnet:767430; testnet:2413342"
+        echo "  -o <ordxHeight>: Specify the max ordx height, default latest, other options: ordx(mainnet:827307; testnet:2570589), ord(mainnet:767430; testnet:2413342), special height"
         echo "  -d <indeData>: Specify the index data to disable run. Valid options are 'basic', 'ord', or 'all', default ord"
         echo "  -h: Display this help message"
         exit 0
