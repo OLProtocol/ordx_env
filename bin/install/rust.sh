@@ -40,8 +40,7 @@ EOF
             fi
         fi
     else
-        sudo apt-get install pkg-config libssl-dev
-        sudo apt install build-essential
+        sudo apt install pkg-config libssl-dev build-essential
     fi
     echo "rust finish install"
 fi
