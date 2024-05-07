@@ -66,14 +66,12 @@ if eval "$command_str"; then
     elapsed_time=$((end_time - start_time))
     formatted_time=$(format_time "$elapsed_time")
     echo "$(date -d "@$end_time" "$timeFormat") -> run $programName -dbgc is succ, start time:$(date -d "@$start_time" "$timeFormat"), \
-    elapsed time:$formatted_time, db path: $dbPath, old db size: $old_db_size, new db size: $(du -sh "$dbPath" | cut -f1)" |
-        tee -a "$log_file"
+elapsed time:$formatted_time, db path: $dbPath, old db size: $old_db_size, new db size: $(du -sh "$dbPath" | cut -f1)" | tee -a "$log_file"
 else
     end_time=$(date +%s)
     elapsed_time=$((end_time - start_time))
     formatted_time=$(format_time "$elapsed_time")
     echo "$(date -d "@$end_time" "$timeFormat") -> run ordx data is fail, start time:$(date -d "@$start_time" "$timeFormat"), \
-    elapsed time:$formatted_time, db path: $dbPath, old db size: $old_db_size" |
-        tee -a "$log_file"
+elapsed time:$formatted_time, db path: $dbPath, old db size: $old_db_size" | tee -a "$log_file"
     exit 1
 fi
