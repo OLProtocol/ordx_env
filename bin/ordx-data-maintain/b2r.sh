@@ -16,7 +16,7 @@ while getopts ":c:m:o:i:d:b:h" opt; do
     case ${opt} in
     c)
         case $OPTARG in
-        mainnet | testnet)
+        mainnet | testnet | sigtest | regtest)
             chain="$OPTARG"
             ;;
         *)
@@ -31,8 +31,12 @@ while getopts ":c:m:o:i:d:b:h" opt; do
             maintain="$OPTARG"
             ;;
         *)
-            echo "Invalid m option: $OPTARG"
-            exit 1
+            if [[ "$OPTARG" =~ ^[1-9][0-9]*$ ]]; then
+                ordxHeight="$OPTARG"
+            else
+                echo "Invalid -o option: $OPTARG. It must be 'ord', 'ordx', 'latest', or a positive number greater than 0."
+                exit 1
+            fi
             ;;
         esac
         ;;
@@ -79,7 +83,7 @@ while getopts ":c:m:o:i:d:b:h" opt; do
         echo "Options:"
         echo "  -c <chain>: Specify the chain. Valid options are 'mainnet' or 'testnet', default testnet"
         echo "  -m <maintain>: Specify the maintain mode. Valid options are 'backup' or 'restore', default backup"
-        echo "  -o <ordxHeight>: Specify the max ordx height, default latest, other options: ordx(mainnet:827307; testnet:2570589, ord(mainnet:767430; testnet:2413342"
+        echo "  -o <ordxHeight>: Specify the max ordx height, default latest, other options: ordx(mainnet:827307; testnet:2570589), ord(mainnet:767430; testnet:2413342), special height"
         echo "  -i <indexData>: Specify the index data to use. Valid options are 'basic', 'ord', or 'all', default ord"
         echo "  -d <dataDir>: Specify the path to the data"
         echo "  -b <backupDir>: Specify the path to the backup"
@@ -153,6 +157,9 @@ case $ordxHeight in
     ;;
 "latest")
     latest_height="height-latest"
+    ;;
+*)
+    latest_height="$ordxHeight"
     ;;
 esac
 

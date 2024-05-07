@@ -27,8 +27,12 @@ while getopts ":c:d:b:o:h" opt; do
             ordxHeight="$OPTARG"
             ;;
         *)
-            echo "Invalid o option: $OPTARG"
-            exit 1
+            if [[ "$OPTARG" =~ ^[1-9][0-9]*$ ]]; then
+                ordxHeight="$OPTARG"
+            else
+                echo "Invalid -o option: $OPTARG. It must be 'ord', 'ordx', 'latest', or a positive number greater than 0."
+                exit 1
+            fi
             ;;
         esac
         ;;
@@ -38,7 +42,7 @@ while getopts ":c:d:b:o:h" opt; do
         echo "  -c <ordxConfPath>: Specify the ordx confuration path"
         echo "  -d <dataDir>: Specify the path to the data"
         echo "  -b <backupDir>: Specify the path to the backup"
-        echo "  -o <ordxHeight>: Specify the max ordx height, default latest, other options: ordx(mainnet:827307; testnet:2570589, ord(mainnet:767430; testnet:2413342"
+        echo "  -o <ordxHeight>: Specify the max ordx height, default latest, other options: ordx(mainnet:827307; testnet:2570589), ord(mainnet:767430; testnet:2413342), special height"
         echo "  -h: Display this help message"
         exit 0
         ;;
@@ -87,6 +91,9 @@ case $chain in
     "latest")
         latest_height="height-latest"
         ;;
+    *)
+        latest_height="$ordxHeight"
+        ;;
     esac
     ;;
 "testnet")
@@ -99,6 +106,9 @@ case $chain in
         ;;
     "latest")
         latest_height="height-latest"
+        ;;
+    *)
+        latest_height="$ordxHeight"
         ;;
     esac
     ;;

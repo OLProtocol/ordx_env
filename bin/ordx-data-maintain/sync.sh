@@ -18,7 +18,7 @@ while getopts ":c:o:i:l:r::p:a:t:b:h" opt; do
     case ${opt} in
     c)
         case $OPTARG in
-        mainnet | testnet)
+        mainnet | testnet | sigtest | regtest)
             chain="$OPTARG"
             ;;
         *)
