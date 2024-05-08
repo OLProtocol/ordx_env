@@ -75,46 +75,7 @@ if [ -z "$ordxHeight" ]; then
     exit 1
 fi
 
-latest_height=""
 chain=$(grep -w BITCOIN_CHAIN "$ordxConfPath" | awk -F= '{print $2}')
-case $chain in
-"mainnet")
-    case $ordxHeight in
-    "ord")
-        latest_height="height-767430"
-        ;;
-    "ordx")
-        latest_height="height-827307"
-        ;;
-    "latest")
-        latest_height="height-latest"
-        ;;
-    *)
-        latest_height="$ordxHeight"
-        ;;
-    esac
-    ;;
-"testnet")
-    case $ordxHeight in
-    "ord")
-        latest_height="height-2413343"
-        ;;
-    "ordx")
-        latest_height="height-2570589"
-        ;;
-    "latest")
-        latest_height="height-latest"
-        ;;
-    *)
-        latest_height="$ordxHeight"
-        ;;
-    esac
-    ;;
-*)
-    echo "The configuration file $ordxConfPath require correct BITCOIN_CHAIN param, please check and try again"
-    exit 1
-    ;;
-esac
 
 command_str="${programName} -env ${ordxConfPath}"
 if pgrep -f "$command_str" >/dev/null; then
@@ -139,7 +100,7 @@ result_code=1
 init=true
 while [ "$result_code" -ne 0 ]; do
     if [ $init = false ]; then
-        "$script_dir/b2r.sh -m recover -c $chain -i basic -d $dataDir -b $backupDir -o $latest_height"
+        "$script_dir/b2r.sh -m recover -c $chain -i basic -d $dataDir -b $backupDir -o $ordxHeight"
     else
         init=false
     fi
@@ -155,6 +116,7 @@ while [ "$result_code" -ne 0 ]; do
         result="fail"
     fi
     timeFormat="+%Y-%m-%d %H:%M:%S"
-    echo "$(date -d "@$end_time" "$timeFormat") -> run $command_str is $result, start time:$(date -d "@$start_time" "$timeFormat"), elapsed time:$formatted_time, latest_height: $latest_height" |
+    echo "$(date -d "@$end_time" "$timeFormat") -> run $command_str is $result, \
+start time:$(date -d "@$start_time" "$timeFormat"), elapsed time:$formatted_time" |
         tee -a "$log_file"
 done
