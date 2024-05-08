@@ -144,7 +144,7 @@ while [ "$result_code" -eq 0 ]; do
         init=false
     fi
 
-    eval "$command_str" &
+    $command_str
     pid=$!
     wait $pid
     result_code=$?
