@@ -41,4 +41,7 @@
 ~/ordx/bin/ordx-data-maintain/diagnosis.sh -c ~/ordx/bin/ordx-data-maintain/run-mainnet.env -d /data/ordx-data \
 -s 0 -o latest -b /data/ordx-data-backup 
 
+8 guard ordx-server
+~/ordx/bin/ordx-data-maintain/guard.sh -c ~/ordx/bin/ordx-data-maintain/run-testnet.env -d /data/ordx-data\
+ -b /data/ordx-data-backup -o latest
 ```

@@ -149,7 +149,7 @@ result_code=1
 init=true
 while $result_code -eq 0; do
     if [ $init = false ]; then
-        "$script_dir/b2r.sh m recover -c $chain -i basic -d $dataDir -b $backupDir -o latest"
+        "$script_dir/b2r.sh -m recover -c $chain -i basic -d $dataDir -b $backupDir -o latest"
     else
         init=false
     fi
