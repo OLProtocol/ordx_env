@@ -137,7 +137,7 @@ formatted_time=$(echo "$elapsed_time" | awk '{
 
 result_code=1
 init=true
-while [ "$result_code" -eq 0 ]; do
+while [ "$result_code" -ne 0 ]; do
     if [ $init = false ]; then
         "$script_dir/b2r.sh -m recover -c $chain -i basic -d $dataDir -b $backupDir -o $latest_height"
     else
