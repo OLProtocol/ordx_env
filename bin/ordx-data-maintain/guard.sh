@@ -5,8 +5,6 @@ set -e
 programName="ordx-server"
 ordxConfPath=""
 ordxHeight=""
-disable_basic=false
-disable_ord=true
 dataDir=""
 backupDir=""
 
@@ -118,15 +116,7 @@ case $chain in
     ;;
 esac
 
-ordxParam=""
-if [ "$disable_basic" = true ]; then
-    ordxParam+=" -dbi "
-fi
-if [ "$disable_ord" = true ]; then
-    ordxParam+=" -doi "
-fi
-
-command_str="${programName} -env ${ordxConfPath} ${ordxParam}"
+command_str="${programName} -env ${ordxConfPath}"
 if pgrep -f "$command_str" >/dev/null; then
     echo "please stop $command_str and run again."
     exit 1
