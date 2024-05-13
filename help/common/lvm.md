@@ -1,4 +1,5 @@
 ```shell
+# for disk
 lsblk
 sudo df -h
 # for raid
@@ -52,6 +53,12 @@ sudo mount /dev/mapper/vg_data1-lv_data1 /data
 lvremove /dev/data-vg/data-lv1
 vgremove data-vg
 pvremove /dev/sdb1
+
+# test disk speed
+# test write
+time dd if=/dev/zero of=/data/test bs=1M count=10240
+# test read
+time dd if=/data/test of=/dev/null bs=1M count=10240
 ```
 
 
