@@ -27,13 +27,13 @@
 
 6 sync ordx basic index data:
 ~/ordx/bin/ordx-data-maintain/sync.sh -c mainnet -o latest -i basic -l /data2/ordx-data-backup -r /data/ordx-data-backup \
-    -t root@192.168.1.102 -a 22
+    -t root@192.168.1.102 -b 22
 ~/ordx/bin/ordx-data-maintain/sync.sh -c testnet -o latest -i basic -l /data2/ordx-data-backup -r /data/ordx-data-backup \
-    -p root@192.168.1.101 -a 10000 -t root@192.168.1.102 -a 22
+    -p root@192.168.1.101 -a 10000 -t root@192.168.1.102 -b 22
 ~/ordx/bin/ordx-data-maintain/sync.sh -c testnet -i basic -o latest -l /data2/ordx-data-backup -r /data/ordx-data-backup \
-    -t root@192.168.1.102 -a 22
+    -t root@192.168.1.102 -b 22
 ~/ordx/bin/ordx-data-maintain/sync.sh -c testnet -i ord -l /data/ordx-data-backup -r /data/ordx-data-backup \
-    -t root@192.168.1.102 -a 22
+    -t root@192.168.1.102 -b 22
 
 7 diagnosis ordx basic index data
 ~/ordx/bin/ordx-data-maintain/diagnosis.sh -c ~/ordx/bin/ordx-data-maintain/run-testnet.env -d /data/ordx-data -s 0 -o ord
