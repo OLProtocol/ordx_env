@@ -5,8 +5,10 @@ set -e
 programName="ordx-server"
 srcCodePath=""
 needPull=false
+remoteUrl=""
+remotePort="22"
 
-while getopts ":s:ph" opt; do
+while getopts ":s:p:r:a:h" opt; do
     case ${opt} in
     s)
         srcCodePath="$OPTARG"
@@ -14,11 +16,20 @@ while getopts ":s:ph" opt; do
     p)
         needPull=true
         ;;
+    r)
+        remoteUrl="$OPTARG"
+        ;;
+    a)
+        remotePort="$OPTARG"
+        ;;
     h)
-        echo "Usage: build.sh -s <source_code_path> [-p] [-h]"
+        echo "Usage: build.sh -s <source_code_path> [-p] -r <remoteUrl> [-a <remotePort>] [-h]"
+        echo "build.sh /data/github/ordx-rundata -p -r root@192.168.1.101:/usr/local/bin/ordx-server-master -a 10000"
         echo "Options:"
         echo "  -s <source_code_path>: Specify the source code path"
         echo "  -p: Pull updates from remote repository, default false"
+        echo "  -r <remoteUrl>: Specify the remote server url, ex: root@192.168.1.101:/usr/local/bin/ordx-server-master"
+        echo "  -a <remotePort>: Specify the remote server port, default 22"
         echo "  -h: Display this help message"
         exit 0
         ;;
@@ -56,9 +67,14 @@ if [ "$needPull" = true ]; then
     fi
 fi
 
-if ! go build -o "/usr/local/bin/$programName"; then
+export CGO_ENABLED=0
+binary_path="/usr/local/bin/$programName"
+if ! go build -o "$binary_path"; then
     echo "Error building the program. Return code: $?"
     exit 1
+fi
+if [ -n "$remoteUrl" ]; then
+    scp -P "$remotePort" "$binary_path" "$remoteUrl"
 fi
 cd "$originalDir"
 
