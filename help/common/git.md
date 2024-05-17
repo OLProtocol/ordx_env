@@ -1,4 +1,5 @@
 
+```shell
 git add . && git commit -m "fix" && git push
 
 git remote add origin git@github.com:tinyverse-web3/tvsconnect.git
@@ -29,6 +30,8 @@ git checkout main
 git pull origin main
 git checkout new-feature
 git merge main / git rebase main
+git add . && git commit -m "fix"
+git push origin new-feature / git push -f origin new-feature (rebase)
 
 git fetch --tags
 git fetch origin tag <tagname>
@@ -44,3 +47,4 @@ git remote show <remote-name>
 git remote -v
 git remote set-url origin https://github.com/OLProtocol/ordx_env.git
 git remote -v
+```
