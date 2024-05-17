@@ -17,9 +17,18 @@ git submodule update --init --recursive
 git submodule add https://github.com/softwarecheng/clash clash
 
 git pull origin main
-git merge support_reorg
-git push origin main
+git rebase main / git merge support_reorg
 git push -u origin main
+
+git checkout -b new-feature
+git diff
+git add .
+git commit -m "fix"
+git push -u origin new-feature/ git push origin new-feature
+git checkout main
+git pull origin main
+git checkout new-feature
+git merge main / git rebase main
 
 git fetch --tags
 git fetch origin tag <tagname>
