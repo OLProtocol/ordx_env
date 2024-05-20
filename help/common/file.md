@@ -50,6 +50,9 @@ curl http://192.168.1.101:82/ordx/block/inscriptions/826228 >> /data2/ordx-data-
 cat deleted_content.txt >> /data2/ordx-data-backup/ord-latest/mainnet-all-inscription-data.ordx
 # replace the string
 sed -i '51032r test2.out' /data2/ordx-data-backup/ord-latest/mainnet-all-inscription-data.ordx
+
+tail -n 1 /data2/ordx-data-backup/ord-latest/mainnet-all-inscription-data.ordx | cut -c -20
+tail -n 2 /data2/ordx-data-backup/ord-latest/mainnet-all-inscription-data.ordx | head -n 1 | cut -c -20
 # search and replace the string
 sed -i 's/git:/https:/g' .gitmodules
 ```
