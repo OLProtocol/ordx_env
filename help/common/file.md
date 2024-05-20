@@ -43,6 +43,11 @@ sed -n '51030p' /data2/ordx-data-backup/ord-latest/mainnet-all-inscription-data.
 sed -i '51032d' /data2/ordx-data-backup/ord-latest/mainnet-all-inscription-data.ordx
 # delete the string for specific line to the end
 sed -i '51032,$d' /data2/ordx-data-backup/ord-latest/mainnet-all-inscription-data.ordx
+sed -n '51032,$p' /data2/ordx-data-backup/ord-latest/mainnet-all-inscription-data.ordx > deleted_content.txt
+sed -n '51032p' /data2/ordx-data-backup/ord-latest/mainnet-all-inscription-data.ordx | cut -c 1-20
+echo "" >> /data2/ordx-data-backup/ord-latest/mainnet-all-inscription-data.ordx
+curl http://192.168.1.101:82/ordx/block/inscriptions/826228 >> /data2/ordx-data-backup/ord-latest/mainnet-all-inscription-data.ordx
+cat deleted_content.txt >> /data2/ordx-data-backup/ord-latest/mainnet-all-inscription-data.ordx
 # replace the string
 sed -i '51032r test2.out' /data2/ordx-data-backup/ord-latest/mainnet-all-inscription-data.ordx
 # search and replace the string
