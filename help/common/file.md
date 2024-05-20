@@ -39,8 +39,10 @@ history | grep ipfs
 grep -no "\{\"height\":826230" /data2/ordx-data-backup/ord-latest/mainnet-all-inscription-data.ordx | cut -d: -f1
 # print the line number of the string
 sed -n '51030p' /data2/ordx-data-backup/ord-latest/mainnet-all-inscription-data.ordx
-# delete the string
+# delete the string for specific line
 sed -i '51032d' /data2/ordx-data-backup/ord-latest/mainnet-all-inscription-data.ordx
+# delete the string for specific line to the end
+sed -i '51032,$d' /data2/ordx-data-backup/ord-latest/mainnet-all-inscription-data.ordx
 # replace the string
 sed -i '51032r test2.out' /data2/ordx-data-backup/ord-latest/mainnet-all-inscription-data.ordx
 # search and replace the string
