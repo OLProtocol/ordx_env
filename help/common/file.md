@@ -34,4 +34,15 @@ diff config.json config1.json
 sudo ln -s /snap/bin/certbot /usr/bin/certbot
 # history
 history | grep ipfs
+
+# search and show the line number of the string
+grep -no "\{\"height\":826230" /data2/ordx-data-backup/ord-latest/mainnet-all-inscription-data.ordx | cut -d: -f1
+# print the line number of the string
+sed -n '51030p' /data2/ordx-data-backup/ord-latest/mainnet-all-inscription-data.ordx
+# delete the string
+sed -i '51032d' /data2/ordx-data-backup/ord-latest/mainnet-all-inscription-data.ordx
+# replace the string
+sed -i '51032r test2.out' /data2/ordx-data-backup/ord-latest/mainnet-all-inscription-data.ordx
+# search and replace the string
+sed -i 's/git:/https:/g' .gitmodules
 ```
