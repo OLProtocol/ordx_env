@@ -20,3 +20,7 @@ pbcopy < ~/.ssh/id_rsa.pub
 sudo brew services info bitcoin
 sudo brew services stop bitcoin
 sudo rm -rf  /Library/Application\ Support/Bitcoin
+
+# magic value 
+# ref https://learnmeabitcoin.com/technical/networking/#version
+hexdump -C -n 293 blk00000.dat
