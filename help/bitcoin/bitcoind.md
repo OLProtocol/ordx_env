@@ -22,5 +22,5 @@ sudo brew services stop bitcoin
 sudo rm -rf  /Library/Application\ Support/Bitcoin
 
 # magic value 
-# ref https://learnmeabitcoin.com/technical/networking/#version
+# ref https://learnmeabitcoin.com/technical/networking/magic-bytes/
 hexdump -C -n 293 blk00000.dat
