@@ -9,7 +9,7 @@ bitcoind -rpcworkqueue=512 -rpcthreads=128 -chain=test \
 tail -f -n 30 /data/bitcoin-data/testnet3/debug.log
 
 # testnet4
-bitcoind -rpcworkqueue=512 -rpcthreads=128 -chain=testnet4 \
+bitcoind-testnet4 -rpcworkqueue=512 -rpcthreads=128 -chain=testnet4 \
 -conf=/data/bitcoin-data/bitcoin.conf -datadir=/data/bitcoin-data
 tail -f -n 30 /data/bitcoin-data/testnet4/debug.log
 
