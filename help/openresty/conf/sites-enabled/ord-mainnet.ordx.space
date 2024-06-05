@@ -42,7 +42,7 @@ server {
         proxy_cache_valid 200 1h;
         proxy_cache_valid 400 401 10m;
         proxy_cache_valid any 1m;
-        proxy_pass http://prd_mainnet;
+        proxy_pass http://ord_mainnet;
         rewrite ^/(content/|preview/|r/blockhash/|r/blockinfo/|r/inscription/|r/metadata/)(.*)$ /mainnet/ord/$1$2 break;
         proxy_set_header Host $host;
         proxy_set_header X-Real-IP $remote_addr;
