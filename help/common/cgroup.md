@@ -6,8 +6,9 @@ blkio.throttle.write_iops_device：限制写操作的IOPS。 -->
 ## 查找MAJ:MIN这一列来确定设备号
 lsblk 
 mkdir /sys/fs/cgroup/<your-cgroup-name>
-## 使用io.max文件设置特定设备的写入速率限制。假设你的设备主设备号是8，次设备号是16，并且你想要限制写入速率为每秒10MB（10485760字节）
+## 使用io.max文件设置特定设备的写入速率限制。假设你的设备主设备号是8，次设备号是16，并且你想要限制写入速率为每秒1MB（1048576字节）
 echo "8:16 wbps=10485760" > /sys/fs/cgroup/<your-cgroup-name>/io.max
+echo "253:1 rbps=1048576 wbps=1048576" > /sys/fs/cgroup/mygroup1/io.max
 echo <PID> > /sys/fs/cgroup/<your-cgroup-name>/cgroup.procs
 
 # 检查cgroup v2是否挂载和启用
@@ -35,3 +36,6 @@ ps -p 1234 -o etime=
 kill -SIGSTOP <PID>
 kill -SIGCONT <PID>
 ps -e -o pid,state,cmd | grep ' T '
+
+#
+pidstat -dl -p <PID> 1
