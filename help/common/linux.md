@@ -15,3 +15,6 @@ source ~/.zshrc
 # crontab
 crontab -e
 ```
+
+# 
+disown
