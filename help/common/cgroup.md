@@ -23,7 +23,7 @@ echo 50 > /sys/fs/cgroup/<your-cgroup-name>/cpu.weight
 #
 cgcreate -g memory:/mygroup
 cgdelete -g <controller>:<cgroup-name>
-mkdir /sys/fs/cgraph/<your-cgroup-name>
+mkdir /sys/fs/cgroup/<your-cgroup-name>
 echo <memory-limit-in-bytes> > /sys/fs/cgroup/<your-cgroup-name>/memory.max
 
 # 将<PID>替换为你的进程ID，<LIMIT>替换为你想要设置的内存限制大小（以字节为单位）
