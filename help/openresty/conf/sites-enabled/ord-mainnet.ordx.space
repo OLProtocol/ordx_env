@@ -50,6 +50,19 @@ server {
         proxy_set_header X-Forwarded-Proto $scheme;
     }
 
+    location ~ ^/(static/)(.*)$ {
+        proxy_cache ord_cache;
+        proxy_cache_valid 200 1h;
+        proxy_cache_valid 400 401 5s;
+        proxy_cache_valid any 1s;
+        proxy_pass http://ord_mainnet;
+        rewrite ^/(static/)(.*)$ /static/$2 break;
+        proxy_set_header Host $host;
+        proxy_set_header X-Real-IP $remote_addr;
+        proxy_set_header X-Forwarded-For $proxy_add_x_forwarded_for;
+        proxy_set_header X-Forwarded-Proto $scheme;
+    }
+    
     listen [::]:443 ssl; # managed by Certbot
     listen 443 ssl; # managed by Certbot
     ssl_certificate /etc/letsencrypt/live/ordx.space/fullchain.pem; # managed by Certbot
