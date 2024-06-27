@@ -6,3 +6,4 @@ systemctl restart supervisor
 
 supervisord -n -c /etc/supervisor/supervisord.conf
 supervisorctl start ordx-server-master-testnet
+supervisorctl update
