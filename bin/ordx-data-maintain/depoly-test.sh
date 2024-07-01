@@ -16,11 +16,11 @@ scp -r /data/ordx-data-backup/mainnet/mainnet-849000-1.1.2/* root@192.168.1.101:
 # resume latest ordx data for prd master
 ssh root@192.168.1.101 supervisorctl stop ordx-mainnet-master
 ssh root@192.168.1.101 rm -rf /data/ordx-data/mainnet-master/*
-ssh root@192.168.1.101 cp -r /data/ordx-data-backup/mainnet/mainnet-849000-1.1.2/* root@192.168.1.101:/data/ordx-data/mainnet-master/
+ssh root@192.168.1.101 cpg -gR /data/ordx-data-backup/mainnet/mainnet-849000-1.1.2/* root@192.168.1.101:/data/ordx-data/mainnet-master/
 ssh root@192.168.1.101 supervisorctl start ordx-mainnet-master
 
 # resume latest ordx data for test slave
 ssh root@192.168.1.101 supervisorctl stop ordx-mainnet-slave
 ssh root@192.168.1.101 rm -rf /data/ordx-data/mainnet-slave/*
-ssh root@192.168.1.101 cp -r /data/ordx-data-backup/mainnet/mainnet-849000-1.1.2/* root@192.168.1.101:/data/ordx-data/mainnet-slave/
+ssh root@192.168.1.101 cpg -gR /data/ordx-data-backup/mainnet/mainnet-849000-1.1.2/* root@192.168.1.101:/data/ordx-data/mainnet-slave/
 ssh root@192.168.1.101 supervisorctl start ordx-mainnet-slave
