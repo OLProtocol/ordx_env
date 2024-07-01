@@ -17,6 +17,7 @@ scp -r /data/ordx-data-backup/mainnet/mainnet-849000-1.1.2 root@192.168.1.101:/d
 # resume latest mainnet ordx for prd master
 ssh root@192.168.1.101 supervisorctl stop ordx-mainnet-master
 ssh root@192.168.1.101 rm -rf /data/ordx-data/mainnet-master/*
+ssh root@192.168.1.101 mkdir -p /data/ordx-data/mainnet-master
 ssh root@192.168.1.101 cpg -gR /data/ordx-data-backup/mainnet/mainnet-849000-1.1.2/* /data/ordx-data/mainnet-master/
 scp /data/github/ordx/ordx-mainnet root@192.168.1.101:/usr/bin/ordx-mainnet-master
 ssh root@192.168.1.101 supervisorctl start ordx-mainnet-master
@@ -24,6 +25,7 @@ ssh root@192.168.1.101 supervisorctl start ordx-mainnet-master
 # resume latest mainnet ordx for prd slave
 ssh root@192.168.1.101 supervisorctl stop ordx-mainnet-slave
 ssh root@192.168.1.101 rm -rf /data/ordx-data/mainnet-slave/*
+ssh root@192.168.1.101 mkdir -p /data/ordx-data/mainnet-slave
 ssh root@192.168.1.101 cpg -gR /data/ordx-data-backup/mainnet/mainnet-849000-1.1.2/* /data/ordx-data/mainnet-slave/
 scp /data/github/ordx/ordx-mainnet root@192.168.1.101:/usr/bin/ordx-mainnet-slave
 ssh root@192.168.1.101 supervisorctl start ordx-mainnet-slave
