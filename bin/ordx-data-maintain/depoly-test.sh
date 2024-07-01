@@ -7,7 +7,7 @@ scp -r root@192.168.1.103:/data2/ordx-data-backup/mainnet/mainnet-849000-1.1.2 /
 supervisorctl stop ordx-mainnet
 rm -rf /data/ordx-data/mainnet/*
 cpg -gR /data/ordx-data-backup/mainnet/mainnet-849000-1.1.2/* /data/ordx-data/mainnet/
-cd /data/github/ordx && go build -o ordx-mainnet
+cd /data/github/ordx && git pull && go build -o ordx-mainnet
 supervisorctl start ordx-mainnet
 
 # backup latest mainnet ordx for prd
