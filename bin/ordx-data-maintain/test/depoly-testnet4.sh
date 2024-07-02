@@ -12,7 +12,7 @@ ssh root@192.168.1.101 rm -rf /data/ordx-data/testnet4-master/*
 scp /data/github/ordx-testnet/ordx-testnet root@192.168.1.101:/usr/bin/ordx-testnet4-master
 ssh root@192.168.1.101 supervisorctl start ordx-testnet4-master
 
-# resume latest testnet4 ordx for prd slave
+# reset latest testnet4 ordx for prd slave
 ssh root@192.168.1.101 supervisorctl stop ordx-testnet4-slave
 ssh root@192.168.1.101 rm -rf /data/ordx-data/testnet4-slave/*
 scp /data/github/ordx-testnet/ordx-testnet root@192.168.1.101:/usr/bin/ordx-testnet4-slave
