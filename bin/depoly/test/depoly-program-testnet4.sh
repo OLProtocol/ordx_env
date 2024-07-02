@@ -3,8 +3,6 @@
 # testnet4 ordx for test
 echo "deploying testnet4 on 192.168.1.102 for test"
 supervisorctl stop ordx-testnet4
-# shellcheck disable=SC1091
-source /root/.zshrc
 cd /data/github/ordx-testnet && git pull && go build -o ordx-testnet
 supervisorctl start ordx-testnet4
 
