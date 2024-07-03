@@ -10,7 +10,7 @@ rsync -avvz "root@192.168.1.103:/data2/ordx-data-backup/mainnet/$backup_name/" /
 # resume latest mainnet ordx for test
 echo "resume latest mainnet ordx for test for 192.168.1.102"
 supervisorctl stop ordx-mainnet
-rm -rf /data/ordx-data/mainnet/*
+rm -rf /data/ordx-data/mainnet && mkdir -p /data/ordx-data/mainnet
 cpg -gR /data/ordx-data-backup/mainnet/* /data/ordx-data/mainnet/
 cd /data/github/ordx && git pull && go build -o ordx-mainnet
 supervisorctl start ordx-mainnet
