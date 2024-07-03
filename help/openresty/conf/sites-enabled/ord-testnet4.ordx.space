@@ -30,8 +30,8 @@ server {
             local hc = require "resty.upstream.healthcheck"
             st , err = hc.prometheus_status_page()
             if not st then
-            ngx.say(err)
-            return
+                ngx.say(err)
+                return
             end
             ngx.print(st)
         }
