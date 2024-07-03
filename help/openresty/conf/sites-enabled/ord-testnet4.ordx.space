@@ -42,7 +42,7 @@ server {
         proxy_cache_valid 200 1h;
         proxy_cache_valid 400 401 5s;
         proxy_cache_valid any 1s;
-        proxy_pass http://ord_testnet4;
+        proxy_pass http://prd_testnet4;
         rewrite ^/(content/|preview/|r/blockhash/|r/blockinfo/|r/inscription/|r/metadata/)(.*)$ /testnet4/ord/$1$2 break;
         proxy_set_header Host $host;
         proxy_set_header X-Real-IP $remote_addr;
@@ -55,7 +55,7 @@ server {
         proxy_cache_valid 200 1h;
         proxy_cache_valid 400 401 5s;
         proxy_cache_valid any 1s;
-        proxy_pass http://ord_testnet4;
+        proxy_pass http://prd_testnet4;
         rewrite ^/(static/)(.*)$ /static/$2 break;
         proxy_set_header Host $host;
         proxy_set_header X-Real-IP $remote_addr;
