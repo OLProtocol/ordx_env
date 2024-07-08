@@ -1,7 +1,7 @@
 #!/bin/bash
 
-# mainnet ordx for test
-echo "deploying mainnet on 192.168.1.102 for test"
+# mainnet ordx for mainnet
+echo "deploying mainnet on 192.168.1.102 for mainnet"
 supervisorctl stop ordx-mainnet
 cd /data/github/ordx && git pull && go build -o ordx-mainnet
 supervisorctl start ordx-mainnet
