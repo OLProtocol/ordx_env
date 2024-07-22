@@ -1,4 +1,6 @@
 #!/bin/bash
+# set -x
+set -e
 
 # Define the ports to check
 ports=(8001 8007 8003 8008 8005 8009)
