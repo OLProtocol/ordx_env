@@ -3,7 +3,7 @@
 set -e
 
 # Define the ports to check
-ports=(8001 8007 8003 8008 8005 8009)
+ports=(8001 8003 8005 8007 8008 8009 8011)
 
 # Function to check a port
 check_port() {
