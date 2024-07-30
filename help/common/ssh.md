@@ -60,3 +60,10 @@ mole start remote --verbose --source 103.103.245.177:8005 --destination 127.0.0.
 --server root@103.103.245.177 --key /root/.ssh/id_ed25519 -R 0
 ```
 
+# check scp
+netstat -an | grep ESTABLISHED
+sudo lsof -i :22
+ps aux | grep sshd
+do tcpdump -i any port 22
+sudo tcpdump -i any port 22 and host 183.47.45.170
+
