@@ -1,5 +1,5 @@
 #!/bin/bash
-set -x
+# set -x
 set -e
 
 ports=(8001 8003 8005 8007 8008 8009 8011)
