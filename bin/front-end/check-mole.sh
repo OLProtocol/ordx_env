@@ -29,6 +29,6 @@ while true; do
         print "Showing service pid for port $port\n"
         lsof -i:"$port"
     done
-    echo "Checking ports is done, waiting for 10 seconds..."
-    sleep 10 # Wait for 10 seconds
+    echo "Checking ports is done, waiting for 30 seconds..."
+    sleep 30 # Wait for 30 seconds
 done
