@@ -28,5 +28,5 @@ while true; do
         check_port "$port"
     done
     echo "Checking ports is done, waiting for 5 minutes..."
-    sleep 300 # Wait for 5 minutes
+    sleep 60 # Wait for 5 minutes
 done
