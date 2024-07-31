@@ -21,7 +21,7 @@ function check_internet_api_health() {
 
 # dev
 function execute_dev() {
-    printf 'check api for %s\n' "$environment"
+    printf 'check api for %s\n' dev
     check_localnet_api_health "192.168.10.103" "8005" "mainnet"
     check_localnet_api_health "192.168.10.103" "8009" "testnet4"
     check_internet_api_health "dev" "mainnet"
@@ -30,7 +30,7 @@ function execute_dev() {
 
 # test
 function execute_test() {
-    printf 'check api for %s\n' "$environment"
+    printf 'check api for %s\n' test
     check_localnet_api_health "192.168.10.102" "8003" "mainnet"
     check_localnet_api_health "192.168.10.102" "8008" "testnet4"
     check_internet_api_health "test" "mainnet"
@@ -39,7 +39,7 @@ function execute_test() {
 
 # prd
 function execute_prd() {
-    printf 'check api for %s\n' "$environment"
+    printf 'check api for %s\n' prd
     check_localnet_api_health "192.168.10.101" "8001" "mainnet"
     check_localnet_api_health "192.168.10.101" "8007" "testnet4"
     check_internet_api_health "prd" "mainnet"
