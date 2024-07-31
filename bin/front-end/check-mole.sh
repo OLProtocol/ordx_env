@@ -8,8 +8,8 @@ check_port() {
     local port="$1"
     result=$(lsof -i:"$port" | wc -l)
     if [ "$result" -lt 2 ]; then
-        systemctl restart sshd
-        echo "sshd service for port $port is not running. Restarting sshd..."
+        # systemctl restart sshd
+        echo "sshd service for port $port is not running. need? to Restarting sshd..."
     else
         processes=$(lsof -i:"$port" | grep -E 'CLOSE_WAIT|TIME_WAIT' | awk '{print $2}' | awk '!a[$0]++' | xargs)
         echo "check port $port for TIME_WAIT and CLOSE_WAIT and kill it, processes: $processes"
