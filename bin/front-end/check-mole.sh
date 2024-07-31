@@ -26,6 +26,6 @@ while true; do
     for port in "${ports[@]}"; do
         check_port "$port"
     done
-    echo "Checking ports is done, waiting for 5 minutes..."
-    sleep 60 # Wait for 5 minutes
+    echo "Checking ports is done, waiting for 1 minutes..."
+    sleep 60 # Wait for 1 minutes
 done
