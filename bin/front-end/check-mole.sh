@@ -24,8 +24,11 @@ check_port() {
 while true; do
     echo "Start checking ports..."
     for port in "${ports[@]}"; do
+        echo "Checking port $port"
         check_port "$port"
+        print "Showing service pid for port $port\n"
+        lsof -i:"$port"
     done
-    echo "Checking ports is done, waiting for 1 minutes..."
-    sleep 60 # Wait for 1 minutes
+    echo "Checking ports is done, waiting for 10 seconds..."
+    sleep 10 # Wait for 10 seconds
 done
