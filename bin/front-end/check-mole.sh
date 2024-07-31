@@ -24,7 +24,6 @@ check_port() {
 while true; do
     echo "Start checking ports..."
     for port in "${ports[@]}"; do
-        echo "Checking port $port"
         check_port "$port"
     done
     echo "Checking ports is done, waiting for 5 minutes..."
