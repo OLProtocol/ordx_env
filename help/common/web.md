@@ -1,7 +1,7 @@
 ```shell
 # curl
 curl -H "Accept: application/json" https://apitest.ordx.space/testnet/bestheight
-curl -X POST -d '{"utxos":"umc8wucmk599j3aklgaqw54zfq"}'  http://192.168.1.102:8007/testnet-go/testnet/
+curl -X POST -d '{"utxos":"umc8wucmk599j3aklgaqw54zfq"}'  http://192.168.10.102:8007/testnet-go/testnet/
 # ab
 ab -n 1000 -c 100 https://apiprd.ordx.space/mainnet/health
 ab -n 1000 -c 100 https://apiprd.ordx.space/mainnet/status

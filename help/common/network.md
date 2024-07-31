@@ -10,7 +10,7 @@ network:
   ethernets:
     {ens160}:
       addresses:
-      - 192.168.1.102/24
+      - 192.168.10.102/24
       nameservers:
         addresses:
         - 202.96.134.133
@@ -33,7 +33,7 @@ netstat -ano | findstr :22
 netstat -ano | grep 22
 netstat -ano | grep :22
 # nc 
-nc -z 192.168.1.102 5432
+nc -z 192.168.10.102 5432
 echo "Hello, World!" | nc 103.103.245.177 1234
 nc -l -p 1234
 # nmap

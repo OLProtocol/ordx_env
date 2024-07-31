@@ -25,6 +25,6 @@ set -e
 # cargo publish -p bitcoint4-private
 
 # run
-# ord0.16.0-ordx-testnet4 --chain testnet4 --bitcoin-rpc-url 192.168.1.102:28332 --data-dir /data2/ord-data/0.16.0 \
+# ord0.16.0-ordx-testnet4 --chain testnet4 --bitcoin-rpc-url 192.168.10.102:28332 --data-dir /data2/ord-data/0.16.0 \
 #--bitcoin-rpc-username jacky --bitcoin-rpc-password 123456 --first-inscription-height 0 --index-sats \
 #--minify server --http --http-port 80

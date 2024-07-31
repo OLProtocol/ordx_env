@@ -1,8 +1,8 @@
 ## Supervisor 
 
-# env（192.168.1.102）
-prd  http://192.168.1.101:9001/
-test http://192.168.1.102:9001/
+# env（192.168.10.102）
+prd  http://192.168.10.101:9001/
+test http://192.168.10.102:9001/
 
 # basic config
 vi /etc/supervisor/supervisord.conf

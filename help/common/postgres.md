@@ -17,7 +17,7 @@ CREATE EXTENSION pglogical;
 
 psql -U postgres
 \c ord2_mainnet
-select pglogical.create_node(node_name := 'provider2', dsn := 'host=192.168.1.101 port=5432 dbname=ord2_mainnet user=postgres password=tinyverse');
+select pglogical.create_node(node_name := 'provider2', dsn := 'host=192.168.10.101 port=5432 dbname=ord2_mainnet user=postgres password=tinyverse');
 SELECT pglogical.replication_set_add_all_tables('default', ARRAY['public']);
 grant usage on schema pglogical to postgres;
 # drop
@@ -69,7 +69,7 @@ ALTER USER postgres with password 'tinyverse';
 vi /etc/postgresql/12/main/pg_hba.conf
 local   all             postgres                             password
 sudo systemctl restart postgresql.service
-psql -h 192.168.1.102 -U postgres -W
+psql -h 192.168.10.102 -U postgres -W
 
 vi /etc/postgresql/12/main/postgresql.conf
 data_directory = '/data/postgresql/12/main'
@@ -103,5 +103,5 @@ vi /etc/postgresql/12/main/postgresql.conf
 # data_directory = '/data/postgresql/postgresql1/12/main'
 sudo systemctl restart postgresql.service
 # sql
-psql -h 192.168.1.101 -d ord2_mainnet -U postgres -c "SELECT * from ord2_event_types;"
+psql -h 192.168.10.101 -d ord2_mainnet -U postgres -c "SELECT * from ord2_event_types;"
 ```

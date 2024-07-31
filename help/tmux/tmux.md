@@ -2,7 +2,7 @@
 # client
 ssh -t ip tmux -CC new -Asordx
 ssh -t ip tmux new -Asordx
-ssh root@192.168.1.103 -t tmux new -Asordx
+ssh root@192.168.10.103 -t tmux new -Asordx
 # server
 sudo apt install tmux
 tmux new -Asordx

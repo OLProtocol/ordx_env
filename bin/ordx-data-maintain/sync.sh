@@ -85,9 +85,9 @@ while getopts ":c:o:i:l:r::p:a:t:b:h" opt; do
         echo "  -i <indexData>: Specify the index data to use. valid options are 'basic', 'ord', or 'all', default ord"
         echo "  -l <localBackupDir>: Specify the local backup path"
         echo "  -r <remoteBackupDir>: Specify the remote backup path"
-        echo "  -p <prdUrl>: Specify production server url(ex: root@192.168.1.101)"
+        echo "  -p <prdUrl>: Specify production server url(ex: root@192.168.10.101)"
         echo "  -a <prdPort>: Specify production server port, default 22"
-        echo "  -t <testUrl>: Specify test server url(root@192.168.1.102)"
+        echo "  -t <testUrl>: Specify test server url(root@192.168.10.102)"
         echo "  -b <testPort>: Specify test server port, default 22"
         echo "  -h: Display this help message"
         exit 0
@@ -129,7 +129,7 @@ if [ -z "$remoteBackupDir" ]; then
 fi
 
 if [ -z "$prdUrl" ] && [ -z "$testUrl" ]; then
-    echo "Please specify one of -p {prdUrl}/-t {testUrl} specify to the production/test server url(ex: root@192.168.1.101)"
+    echo "Please specify one of -p {prdUrl}/-t {testUrl} specify to the production/test server url(ex: root@192.168.10.101)"
     exit 1
 fi
 

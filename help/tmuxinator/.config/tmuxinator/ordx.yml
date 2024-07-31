@@ -13,8 +13,8 @@ windows:
   # - mole-ordx-server-testnet: ~/monitor/test-monitor-mole-ordx-server-testnet.sh
   # - mole-ordx-server-main: ~/monitor/test-monitor-mole-ordx-server-mainnet.sh
   #- bitcind25.0-testnet: bitcoind -chain=test -conf=/data/bitcoin-data/bitcoin.conf -datadir=/data/bitcoin-data
-  #- ord0.15.0-testnet: RUST_LOG=info && RUST_BACKTRACE=1 && ord0.15.0 --chain testnet --rpc-url 192.168.1.102:18332 --data-dir /data/ord-data/0.15.0 --bitcoin-rpc-user jacky --bitcoin-rpc-pass 123456 --index-sats server --enable-json-api --http --http-port 80
-  #- electrs-testnet: electrs -vvvv --cookie jacky:123456 --db-dir /data/electorsData --daemon-dir /data/bitcoin-data/ --daemon-rpc-addr "192.168.1.102:18332" --network testnet --cors "*" --utxos-limit 5000 --electrum-txs-limit 5000 --electrum-rpc-addr "0.0.0.0:60001" --http-addr "0.0.0.0:3002"
-  #- esplora-testnet: cd /data/github/btcnet_env/esplora && export API_URL=http://192.168.1.102:3002/ && npm run dev-server
+  #- ord0.15.0-testnet: RUST_LOG=info && RUST_BACKTRACE=1 && ord0.15.0 --chain testnet --rpc-url 192.168.10.102:18332 --data-dir /data/ord-data/0.15.0 --bitcoin-rpc-user jacky --bitcoin-rpc-pass 123456 --index-sats server --enable-json-api --http --http-port 80
+  #- electrs-testnet: electrs -vvvv --cookie jacky:123456 --db-dir /data/electorsData --daemon-dir /data/bitcoin-data/ --daemon-rpc-addr "192.168.10.102:18332" --network testnet --cors "*" --utxos-limit 5000 --electrum-txs-limit 5000 --electrum-rpc-addr "0.0.0.0:60001" --http-addr "0.0.0.0:3002"
+  #- esplora-testnet: cd /data/github/btcnet_env/esplora && export API_URL=http://192.168.10.102:3002/ && npm run dev-server
   #- ordx-server-testnet: ordx-server -env /etc/ordx/test-testnet.env
   #- ordx-server-main: ordx-server -env /etc/ordx/test-mainnet.env

@@ -24,11 +24,11 @@ while getopts ":s:p:r:a:h" opt; do
         ;;
     h)
         echo "Usage: build.sh -s <source_code_path> [-p] -r <remoteUrl> [-a <remotePort>] [-h]"
-        echo "build.sh /data/github/ordx-rundata -p -r root@192.168.1.101:/usr/local/bin/ordx-server-master -a 10000"
+        echo "build.sh /data/github/ordx-rundata -p -r root@192.168.10.101:/usr/local/bin/ordx-server-master -a 10000"
         echo "Options:"
         echo "  -s <source_code_path>: Specify the source code path"
         echo "  -p: Pull updates from remote repository, default false"
-        echo "  -r <remoteUrl>: Specify the remote server url, ex: root@192.168.1.101:/usr/local/bin/ordx-server-master"
+        echo "  -r <remoteUrl>: Specify the remote server url, ex: root@192.168.10.101:/usr/local/bin/ordx-server-master"
         echo "  -a <remotePort>: Specify the remote server port, default 22"
         echo "  -h: Display this help message"
         exit 0
