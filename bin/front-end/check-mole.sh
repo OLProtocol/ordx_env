@@ -26,7 +26,8 @@ while true; do
     for port in "${ports[@]}"; do
         echo "Checking port $port"
         check_port "$port"
-        print "Showing service pid for port $port\n"
+        echo "Checking port $port is done"
+        # print "/nShowing service pid for port $port/n"
         lsof -i:"$port"
     done
     echo "Checking ports is done, waiting for 30 seconds..."
