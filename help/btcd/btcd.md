@@ -8,8 +8,10 @@ btcwallet --regtest --rpcuser=jacky --rpcpass=123456 --rpccert=/root/.btcd/rpc.c
 
 # dependencies
 sudo apt-get install jq 
-go install github.com/btcsuite/btcwallet@latest
 
+# wallet create
+go install github.com/btcsuite/btcwallet@latest
+btcwallet --simnet --create
 
 # 1 auto mint
 # mint.sh <receive-address>
