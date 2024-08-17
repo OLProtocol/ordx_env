@@ -12,15 +12,22 @@ sudo apt-get install jq
 
 # wallet create and run rpc service
 go install github.com/btcsuite/btcwallet@latest
-btcwallet --simnet --create
+btcwallet --simnet --create default
+btcctl -C ./btcctl-wallet.conf --wallet createnewaccount default
 btcwallet -C ./btcwallet.conf
-btcctl -C ./btcctl.conf --wallet getnewaddress
+
+btcctl -l # list commond list
+btcctl -C ./btcctl-wallet.conf --wallet walletpassphrase "hht" 600 # unlock wallet timeout 600s
+btcctl -C ./btcctl-wallet.conf --wallet getnewaddress
+btcctl -C ./btcctl-wallet.conf --wallet getaddressesbyaccount default
+btcctl -C ./btcctl-wallet.conf --wallet listaccounts
 
 # generate new block
-btcctl -C ./btcctl.conf generate 10
+btcctl -C ./btcctl-btcd.conf generate 10
+btcctl -C ./btcctl-wallet.conf --wallet getbalance default
 
 # send transaction
-btcctl -C ./btcctl.conf --wallet sendtoaddress SYaDYKqmywEGNUvVtCdnCdD2GpvSAWYBmn 100
+btcctl -C ./btcctl-wallet.conf --wallet sendtoaddress SYaDYKqmywEGNUvVtCdnCdD2GpvSAWYBmn 100
 
 # 1 auto mint
 # mint.sh <receive-address>
