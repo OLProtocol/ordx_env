@@ -3,7 +3,7 @@
 btcwallet --regtest --rpcuser=jacky --rpcpass=123456 --rpccert=/root/.btcd/rpc.cert --rpclisten=192.168.10.102
 
 # start btcd
-/data/github/satoshinet/satoshinet -C conf/simnet.conf --txindex --addrindex
+/data/github/satoshinet/satoshinet -C conf/simnet.conf --txindex --addrindex --miningaddr=SQLoAw7Q24DiLkoecZEsULUYbqcuGi2LTS
 /data/github/satoshinet/satoshinet -C conf/regtest.conf --txindex --addrindex
 /data/github/satoshinet/satoshinet -C conf/mainnet.conf --txindex --addrindex --connect=192.168.10.101 --maxpeers=1 --nodnsseed
 
