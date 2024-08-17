@@ -20,7 +20,7 @@ btcctl -C ./btcctl.conf --wallet getnewaddress
 btcctl -C ./btcctl.conf generate 10
 
 # send transaction
-btcctl --simnet --rpcuser=rpcuser --rpcpass=rpcpass --wallet sendtoaddress SYaDYKqmywEGNUvVtCdnCdD2GpvSAWYBmn 100
+btcctl -C ./btcctl.conf --wallet sendtoaddress SYaDYKqmywEGNUvVtCdnCdD2GpvSAWYBmn 100
 
 # 1 auto mint
 # mint.sh <receive-address>
