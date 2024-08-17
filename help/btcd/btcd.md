@@ -14,10 +14,13 @@ sudo apt-get install jq
 go install github.com/btcsuite/btcwallet@latest
 btcwallet --simnet --create
 btcwallet -C ./btcwallet.conf
-btcctl -C ./btcctl-wallet --wallet getnewaddress
+btcctl -C ./btcctl.conf --wallet getnewaddress
 
 # generate new block
-btcctl -C ./btcctl-btcd.conf generate 10
+btcctl -C ./btcctl.conf generate 10
+
+# send transaction
+btcctl --simnet --rpcuser=rpcuser --rpcpass=rpcpass --wallet sendtoaddress SYaDYKqmywEGNUvVtCdnCdD2GpvSAWYBmn 100
 
 # 1 auto mint
 # mint.sh <receive-address>
