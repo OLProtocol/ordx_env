@@ -11,5 +11,8 @@ sudo apt-get install jq
 # mint.sh <receive-address>
 
 # 2 generate new address: 
+# gen-addr.sh
 
+# 3 transaction
+# gen-tx.sh <receive-address> <amount>
 ```
