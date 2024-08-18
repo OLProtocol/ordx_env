@@ -23,7 +23,7 @@ btcctl -C ./btcctl-wallet.conf --wallet getaddressesbyaccount default
 btcctl -C ./btcctl-wallet.conf --wallet listaccounts
 
 # generate new block
-btcctl -C ./btcctl-btcd.conf generate 10
+btcctl -C ./btcctl-btcd.conf generate 100
 btcctl -C ./btcctl-wallet.conf --wallet getbalance default
 
 # send transaction
