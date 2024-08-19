@@ -59,6 +59,16 @@ pvremove /dev/sdb1
 time dd if=/dev/zero of=/data/test bs=1M count=10240
 # test read
 time dd if=/data/test of=/dev/null bs=1M count=10240
+
+# 192.168.10.103
+sudo mount /dev/sda1 /data3
+sudo blkid /dev/sda1
+sudo nano /etc/fstab
+# 添加以下行到 /etc/fstab 文件
+# /dev/sda1/     /data3 ext4 defaults 0 0 可能不稳定
+UUID=xxxxxxxx-xxxx-xxxx-xxxx-xxxxxxxxxxxx /data3 ext4 defaults 0 2
+sudo mount -a
+
 ```
 
 
