@@ -18,6 +18,8 @@ su root
 mysql -uroot - p
 select user,host,plugin from mysql.user; 
 set password for 'root'@'localhost' = password('root');
+grant all privileges on *.* to 'root'@'%' identified by 'root';
+grant all privileges on *.* to 'root'@'localhost' identified by 'root';
 flush privileges;
 
 ## config file
