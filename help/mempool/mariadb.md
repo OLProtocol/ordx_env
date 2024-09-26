@@ -69,5 +69,32 @@ SHOW VARIABLES LIKE '%case%';
 exit;
 ## common
 sudo systemctl start/enable/stop/restart/status mariadb
+## change database data/log location
+export mysql_log=/data/log/mysql   ###新的日志存储路径
+export mysql_modify=/etc/mysql/mariadb.conf.d/50-server.cnf  ###Mariadb配置文件路径
+sudo mkdir ${mysql_log} -p
+sudo systemctl stop mariadb
+sudo cp -r /var/lib/mysql /data/mysql  
+#sudo rsync -avzh /var/lib/mysql /data/mysql
+sudo chown -R mysql:mysql /data/mysql
+sudo sed -i '$a\alias /var/lib/mysql -> /data/mysql,' /etc/apparmor.d/tunables/alias
+sudo systemctl restart apparmor   ###重启apparmor
+sudo sed -i '/datadir/a\datadir                 = /data/mysql' ${mysql_modify}
+sudo sed -i 's/ProtectHome=.*/ProtectHome=False/' /lib/systemd/system/mysql.service
+sudo sed -i 's/ProtectHome-.*/ProtectHome=False/' /lib/systemd/system/mysqld.service
+
+###修改Mariadb日志文件存储目录脚本
+sudo sed -i "/^#general_log/s/^#//" ${mysql_modify}    ###取消注释
+sudo sed -i "s#general_log_file.*#general_log_file        = ${mysql_log}/mysql.log#" ${mysql_modify}    ###修改存储路径
+sudo sed -i "/^#log_error/s/^#//" ${mysql_modify}   ###取消注释
+sudo sed -i "s#log_error.*#log_error = ${mysql_log}/error.log#" ${mysql_modify}    ###修改存储路径
+sudo chown -R mysql:adm ${mysql_log}
+systemctl daemon-reload
+sudo systemctl start mariadb   ###重启mariadb
+
+
+mysql -uroot -p 
+select @@datadir;
+exit;
 
 ```
