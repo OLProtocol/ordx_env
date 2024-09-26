@@ -20,6 +20,8 @@ select user,host,plugin from mysql.user;
 set password for 'root'@'localhost' = password('root');
 grant all privileges on *.* to 'root'@'%' identified by 'root';
 grant all privileges on *.* to 'root'@'localhost' identified by 'root';
+grant all privileges on mempool.* to 'mempool'@'%' identified by 'mempool';
+grant all privileges on mempool.* to 'mempool'@'localhost' identified by 'mempool';
 flush privileges;
 
 ## config file
@@ -43,6 +45,7 @@ drop database `database_A`;
 # ubuntu
 ## clean
 sudo apt-get remove mysql-*
+rm /var/run/mysqld/mysqld.sock
 ## install
 sudo apt update
 sudo apt install mariadb-server
@@ -56,7 +59,10 @@ lower_case_table_names = 1
 systemctl restart mariadb.service
 ## config cmd
 sudo mysql / sudo mariadb / mysql -uroot -p
-GRANT ALL ON *.* TO 'admin'@'localhost' IDENTIFIED BY 'password' WITH GRANT OPTION;
+GRANT ALL ON *.* TO 'root'@'localhost' IDENTIFIED BY 'password' WITH GRANT OPTION;
+GRANT ALL ON *.* TO 'root'@'%' IDENTIFIED BY 'password' WITH GRANT OPTION;
+grant all privileges on mempool.* to 'mempool'@'%' identified by 'mempool';
+grant all privileges on mempool.* to 'mempool'@'localhost' identified by 'mempool';
 FLUSH PRIVILEGES;
 ### lower_case_table_names
 SHOW VARIABLES LIKE '%case%'; 
