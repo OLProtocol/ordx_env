@@ -74,7 +74,7 @@ export mysql_log=/data/log/mysql   ###新的日志存储路径
 export mysql_modify=/etc/mysql/mariadb.conf.d/50-server.cnf  ###Mariadb配置文件路径
 sudo mkdir ${mysql_log} -p
 sudo systemctl stop mariadb
-sudo cp -r /var/lib/mysql /data/mysql  
+sudo cp -r /var/lib/mysql /data/  
 #sudo rsync -avzh /var/lib/mysql /data/mysql
 sudo chown -R mysql:mysql /data/mysql
 sudo sed -i '$a\alias /var/lib/mysql -> /data/mysql,' /etc/apparmor.d/tunables/alias
