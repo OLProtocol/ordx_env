@@ -1,4 +1,5 @@
 ```shell
+
 # macos
 ## clean 
 rm -rf /usr/local/etc/mecabrc
@@ -41,7 +42,6 @@ desc table;
 create database `database_A`; 
 drop database `database_A`;
 
-
 # ubuntu
 ## clean
 sudo apt-get remove mysql-*
@@ -70,18 +70,17 @@ exit;
 ## common
 sudo systemctl start/enable/stop/restart/status mariadb
 ## change database data/log location
-export mysql_log=/data/log/mysql   ###新的日志存储路径
+export mysql_log=/data3/log/mysql   ###新的日志存储路径
 export mysql_modify=/etc/mysql/mariadb.conf.d/50-server.cnf  ###Mariadb配置文件路径
 sudo mkdir ${mysql_log} -p
 sudo systemctl stop mariadb
-sudo cp -r /var/lib/mysql /data/  
-#sudo rsync -avzh /var/lib/mysql /data/mysql
-sudo chown -R mysql:mysql /data/mysql
-sudo sed -i '$a\alias /var/lib/mysql -> /data/mysql,' /etc/apparmor.d/tunables/alias
+sudo rsync -avzh /var/lib/mysql /data3/
+sudo chown -R mysql:mysql /data3/mysql
+sudo sed -i '$a\alias /var/lib/mysql -> /data3/mysql,' /etc/apparmor.d/tunables/alias
 sudo systemctl restart apparmor   ###重启apparmor
-sudo sed -i '/datadir/a\datadir                 = /data/mysql' ${mysql_modify}
-sudo sed -i 's/ProtectHome=.*/ProtectHome=False/' /lib/systemd/system/mysql.service
-sudo sed -i 's/ProtectHome-.*/ProtectHome=False/' /lib/systemd/system/mysqld.service
+sudo sed -i '/datadir/a\datadir                 = /data3/mysql' ${mysql_modify}
+sudo sed -i 's/ProtectHome=.*/ProtectHome=false/' /lib/systemd/system/mysql.service
+sudo sed -i 's/ProtectHome-.*/ProtectHome=false/' /lib/systemd/system/mysqld.service
 
 ###修改Mariadb日志文件存储目录脚本
 sudo sed -i "/^#general_log/s/^#//" ${mysql_modify}    ###取消注释
