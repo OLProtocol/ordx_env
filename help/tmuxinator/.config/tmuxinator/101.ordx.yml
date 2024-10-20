@@ -1,0 +1,20 @@
+windows:
+  - bitcoind28.0-mainnet: tail -f -n 30 /data/bitcoin-data/main/debug.log
+  - bitcoind28.0-testnet4: tail -f -n 30 /data/bitcoin-data/testnet4/debug.log
+  - ordx-mainnet-master: tail -f -n 30 /var/log/supervisor/ordx-mainnet-master.out.log
+  - ordx-testnet4-master: tail -f -n 30 /var/log/supervisor/ordx-testnet4-master.out.log
+  - ordx-mainnet-slave: tail -f -n 30 /var/log/supervisor/ordx-mainnet-slave.out.log
+  - ordx-testnet4-slave: tail -f -n 30 /var/log/supervisor/ordx-testnet4-slave.out.log
+  - mole-ordx-mainnet-master: ~/ordx/bin/daemon/prd/mole-ordx-mainnet-master.sh
+  - mole-ordx-testnet4-master: ~/ordx/bin/daemon/prd/mole-ordx-testnet4-master.sh
+  - mole-ordx-mainnet-slave: ~/ordx/bin/daemon/prd/mole-ordx-mainnet-slave.sh
+  - mole-ordx-testnet4-slave: ~/ordx/bin/daemon/prd/mole-ordx-testnet4-slave.sh
+  - autossh-remote-login: ~/ordx/bin/daemon/prd/autossh-remote-login.sh
+  - uptime-kuma: cd /root/github/uptime-kuma && node server/server.js
+  - mole-monitor.ordx.space: ~/ordx/bin/daemon/prd/mole-monitor.ordx.space.sh
+  - mole-mainnet.ordinals.ordx.space: ~/ordx/bin/daemon/prd/mole-mainnet.ordinals.ordx.space.sh
+  - mole-testnet4.ordinals.ordx.space: ~/ordx/bin/daemon/prd/mole-testnet4.ordinals.ordx.space.sh
+  - mole-name-dns-mainnet: ~/ordx/bin/daemon/dev/mole-name-dns-mainnet.sh
+  - name-dns-mainnet : name-dns -config /etc/name-dns/mainnet.dev.yaml
+  - ord-0.19.1-testnet4-mainnet: tail -f -n 30 /var/log/supervisor/ord-0.19.1-testnet4-mainnet.out.log
+  - ord-0.19.1-testnet4-testnet4: tail -f -n 30 /var/log/supervisor/ord-0.19.1-testnet4-testnet4.out.log
