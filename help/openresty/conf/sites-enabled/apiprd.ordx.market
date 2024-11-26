@@ -21,16 +21,16 @@
 server {
 	#listen 80;
 	#listen [::]:80;
-    
-        ssl_certificate        /etc/letsencrypt/live/ordx.market/fullchain.pem;
-        ssl_certificate_key   /etc/letsencrypt/live/ordx.market/privkey.pem;
 
-        ssl_session_cache    shared:SSL:1m;
-        ssl_session_timeout  5m;
+	ssl_certificate /etc/letsencrypt/live/ordx.market/fullchain.pem;
+	ssl_certificate_key /etc/letsencrypt/live/ordx.market/privkey.pem;
 
-        ssl_ciphers  ECDHE-RSA-AES128-GCM-SHA256:ECDHE:ECDH:AES:HIGH:!NULL:!aNULL:!MD5:!ADH:!RC4; #加密算法
-        ssl_protocols TLSv1 TLSv1.1 TLSv1.2 TLSv1.3;     
-        ssl_prefer_server_ciphers  on;
+	ssl_session_cache shared:SSL:1m;
+	ssl_session_timeout 5m;
+
+	ssl_ciphers ECDHE-RSA-AES128-GCM-SHA256:ECDHE:ECDH:AES:HIGH:!NULL:!aNULL:!MD5:!ADH:!RC4; #加密算法
+	ssl_protocols TLSv1 TLSv1.1 TLSv1.2 TLSv1.3;
+	ssl_prefer_server_ciphers on;
 
 
 	# SSL configuration
@@ -57,14 +57,13 @@ server {
 	server_name apiprd.ordx.market;
 
 	#location / {
-		# First attempt to serve request as file, then
-		# as directory, then fall back to displaying a 404.
-		#try_files $uri $uri/ =404;
+	# First attempt to serve request as file, then
+	# as directory, then fall back to displaying a 404.
+	#try_files $uri $uri/ =404;
 	#     root /home/webroot/tinyverse_sdk_web;
-        #     index index.html index.htm;
-        #     try_files $uri $uri/ /index.html;
+	#     index index.html index.htm;
+	#     try_files $uri $uri/ /index.html;
 	#}
-
 
 	# pass PHP scripts to FastCGI server
 	#
@@ -76,37 +75,48 @@ server {
 	#	# With php-cgi (or other tcp sockets):
 	#	fastcgi_pass 127.0.0.1:9000;
 	#}
-
 	# deny access to .htaccess files, if Apache's document root
 	# concurs with nginx's one
 	#
 	#location ~ /\.ht {
 	#	deny all;
 	#}
-	
-        #mainnet
-	location / { 
-            if ($http_referer ~* /testnet/swagger/index.html) {
-                rewrite ^/swagger/doc.json$ /testnet/swagger/doc.json redirect;
-            }
-            proxy_pass http://39.108.96.46:7801;
-            proxy_set_header X-Real-IP $remote_addr;
-            proxy_set_header X-Forwarded-For $proxy_add_x_forwarded_for;
-        }
-      
-        #testnet
-        location /testnet {
-            rewrite ^/testnet/(.*)$ /$1 break;
-            proxy_pass http://39.108.96.46:7802;
-            proxy_set_header X-Real-IP $remote_addr;
-            proxy_set_header X-Forwarded-For $proxy_add_x_forwarded_for;
-        }
-        #for coinbase api
-         location /cc {
-            proxy_ssl_server_name on;
-            rewrite ^/cc/(.*)$ /$1 break;
-            proxy_pass https://api.coinbase.com;
-        }
+	#mainnet
+	location / {
+		if ($http_referer ~* /testnet/swagger/index.html) {
+			rewrite ^/swagger/doc.json$ /testnet/swagger/doc.json redirect;
+		}
+		proxy_pass http://39.108.96.46:7801;
+		proxy_set_header X-Real-IP $remote_addr;
+		proxy_set_header X-Forwarded-For $proxy_add_x_forwarded_for;
+	}
+
+	#testnet
+	location /testnet {
+		rewrite ^/testnet/(.*)$ /$1 break;
+		proxy_pass http://39.108.96.46:7802;
+		proxy_set_header X-Real-IP $remote_addr;
+		proxy_set_header X-Forwarded-For $proxy_add_x_forwarded_for;
+	}
+	# for coinbase api
+	location /cc {
+		proxy_ssl_server_name on;
+		rewrite ^/cc/(.*)$ /$1 break;
+		proxy_pass https://api.coinbase.com;
+	}
+	# for okx api
+	location /okx {
+		proxy_ssl_server_name on;
+		rewrite ^/okx/(.*)$ /$1 break;
+		proxy_pass https://www.okx.com;
+		# proxy_redirect off;
+	}
+	# for twritter api
+	location /twitter {
+		proxy_ssl_server_name on;
+		rewrite ^/twitter/(.*)$ /$1 break;
+		proxy_pass https://api.twitter.com;
+	}
 }
 
 

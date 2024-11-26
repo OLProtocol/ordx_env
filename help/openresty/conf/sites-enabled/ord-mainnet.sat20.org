@@ -1,5 +1,5 @@
 server {
-    server_name ord-testnet4.ordx.space; # managed by Certbot
+    server_name ord-mainnet.sat20.org; # managed by Certbot
     # access_log logs/main.log combined;
 
     # root /var/www/html;
@@ -36,14 +36,14 @@ server {
             ngx.print(st)
         }
     }
-
+    
     location ~ ^/(content/|preview/|r/blockhash/|r/blockinfo/|r/inscription/|r/metadata/)(.*)$ {
         proxy_cache ord_cache;
         proxy_cache_valid 200 1h;
-        proxy_cache_valid 400 401 5s;
-        proxy_cache_valid any 1s;
-        proxy_pass http://prd_testnet4;
-        rewrite ^/(content/|preview/|r/blockhash/|r/blockinfo/|r/inscription/|r/metadata/)(.*)$ /testnet4/ord/$1$2 break;
+        proxy_cache_valid 400 401 10m;
+        proxy_cache_valid any 1m;
+        proxy_pass http://prd_mainnet;
+        rewrite ^/(content/|preview/|r/blockhash/|r/blockinfo/|r/inscription/|r/metadata/)(.*)$ /mainnet/ord/$1$2 break;
         proxy_set_header Host $host;
         proxy_set_header X-Real-IP $remote_addr;
         proxy_set_header X-Forwarded-For $proxy_add_x_forwarded_for;
@@ -55,21 +55,22 @@ server {
         proxy_cache_valid 200 1h;
         proxy_cache_valid 400 401 5s;
         proxy_cache_valid any 1s;
-        proxy_pass http://prd_testnet4;
+        proxy_pass http://prd_mainnet;
         rewrite ^/(static/)(.*)$ /static/$2 break;
         proxy_set_header Host $host;
         proxy_set_header X-Real-IP $remote_addr;
         proxy_set_header X-Forwarded-For $proxy_add_x_forwarded_for;
         proxy_set_header X-Forwarded-Proto $scheme;
     }
+    
     listen [::]:443 ssl; # managed by Certbot
     listen 443 ssl; # managed by Certbot
-    ssl_certificate /etc/letsencrypt/live/ordx.space/fullchain.pem; # managed by Certbot
-    ssl_certificate_key /etc/letsencrypt/live/ordx.space/privkey.pem; # managed by Certbot
-    ssl_session_cache shared:SSL:1m;
-    ssl_session_timeout 5m;
+    ssl_certificate /etc/letsencrypt/live/sat20.org/fullchain.pem; # managed by Certbot
+    ssl_certificate_key /etc/letsencrypt/live/sat20.org/privkey.pem; # managed by Certbot
+    ssl_session_cache    shared:SSL:1m;
+    ssl_session_timeout  5m;
 
-    ssl_ciphers HIGH:!aNULL:!MD5;
+    ssl_ciphers  HIGH:!aNULL:!MD5;
     ssl_protocols TLSv1 TLSv1.1 TLSv1.2 TLSv1.3; # Dropping SSLv3, ref: POODLE
-    ssl_prefer_server_ciphers on;
+    ssl_prefer_server_ciphers  on;
 }

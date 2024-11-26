@@ -1,5 +1,5 @@
 server {
-    server_name ord-testnet4.ordx.space; # managed by Certbot
+    server_name ord-testnet4.sat20.org; # managed by Certbot
     # access_log logs/main.log combined;
 
     # root /var/www/html;
@@ -64,8 +64,8 @@ server {
     }
     listen [::]:443 ssl; # managed by Certbot
     listen 443 ssl; # managed by Certbot
-    ssl_certificate /etc/letsencrypt/live/ordx.space/fullchain.pem; # managed by Certbot
-    ssl_certificate_key /etc/letsencrypt/live/ordx.space/privkey.pem; # managed by Certbot
+    ssl_certificate /etc/letsencrypt/live/sat20.org/fullchain.pem; # managed by Certbot
+    ssl_certificate_key /etc/letsencrypt/live/sat20.org/privkey.pem; # managed by Certbot
     ssl_session_cache shared:SSL:1m;
     ssl_session_timeout 5m;
 
