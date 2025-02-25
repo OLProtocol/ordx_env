@@ -7,6 +7,7 @@
 # sudo apt update
 # sudo apt upgrade
 # sudo apt install snapd
+# sudo apt install net-tools
 
 apt install tmux
 apt install tmuxinator
@@ -20,6 +21,10 @@ chsh -s $(which zsh)
 sh -c "$(curl -fsSL https://raw.githubusercontent.com/ohmyzsh/ohmyzsh/master/tools/install.sh)"
 # scp -r /root/.oh-my-zsh root@103.234.53.68:/root/
 # scp -r /root/* root@103.234.53.68:/root/
+
+# ssh
+# scp /etc/ssh/sshd_config root@103.234.53.68:/etc/ssh/sshd_config
+# systemctl restart sshd
 
 # certbot
 sudo snap install --classic certbot
@@ -52,3 +57,6 @@ sudo ln -sf /usr/local/openresty/nginx/conf /etc/openresty
 
 # mole
 # scp /etc/ssh/sshd_config root@103.234.53.68:/etc/ssh/sshd_config
+# systemctl restart sshd
+# ssh-copy-id root@103.234.53.68 for 101,102,103,104
+# test: mole start remote --verbose --source 103.234.53.68:4332 --destination 127.0.0.1:8332 --server root@103.234.53.68 --key /root/.ssh/id_ed25519 -R 0
