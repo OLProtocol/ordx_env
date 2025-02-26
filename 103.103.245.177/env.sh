@@ -60,3 +60,8 @@ sudo ln -sf /usr/local/openresty/nginx/conf /etc/openresty
 # systemctl restart sshd
 # ssh-copy-id root@103.234.53.68 for 101,102,103,104
 # test: mole start remote --verbose --source 103.234.53.68:4332 --destination 127.0.0.1:8332 --server root@103.234.53.68 --key /root/.ssh/id_ed25519 -R 0
+
+# mole after change ip
+# ssh-keygen -R 103.103.245.177
+# ssh-keyscan -H 103.103.245.177 >> /root/.ssh/known_hosts
+# restart mole cmd in 192.168.10.101/102/103/104
